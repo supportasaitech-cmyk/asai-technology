@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Invoice — ASAI Technology®</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper:#F1EFE9; --ink:#131215; --ink-60:rgba(19,18,21,0.6); --ink-40:rgba(19,18,21,0.4);
+    --line:rgba(19,18,21,0.16); --accent:#FF4D00;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:var(--paper); color:var(--ink); font-family:'Archivo',sans-serif; line-height:1.5; }
+  a { color:inherit; text-decoration:none; }
+  .mono { font-family:'Space Mono',monospace; letter-spacing:0.08em; text-transform:uppercase; }
+
+  .topbar { display:flex; justify-content:space-between; align-items:center; padding:22px 48px; }
+  .topbar .logo { font-weight:800; font-size:16px; }
+  .topbar .actions { display:flex; gap:12px; }
+  .btn { font-family:'Space Mono',monospace; font-size:11px; letter-spacing:0.06em; text-transform:uppercase;
+    padding:13px 24px; border-radius:100px; border:1px solid var(--ink); cursor:pointer; background:transparent; color:var(--ink);
+    transition:background 0.2s, color 0.2s; }
+  .btn:hover { background:var(--ink); color:var(--paper); }
+  .btn.solid { background:var(--ink); color:var(--paper); }
+  .btn.solid:hover { background:var(--accent); border-color:var(--accent); }
+
+  .success-banner {
+    max-width:800px; margin:10px auto 26px; text-align:center;
+    background:#E8F7EC; border:1px solid #25D366; border-radius:14px; padding:16px 24px;
+    font-size:14.5px; color:#0E6E3C;
+  }
+  .success-banner b { color:#0A5C31; }
+
+  .sheet {
+    max-width:800px; margin:0 auto 60px; background:#FFFFFF;
+    border:1px solid var(--line); border-radius:6px;
+    padding:64px 68px;
+    box-shadow:0 30px 80px rgba(19,18,21,0.1);
+  }
+  .inv-head { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:54px; }
+  .inv-head .brand { font-weight:900; font-size:30px; letter-spacing:-0.03em; }
+  .inv-head .brand sup { font-size:11px; }
+  .inv-head .brand-sub { font-family:'Space Mono',monospace; font-size:9.5px; letter-spacing:0.12em; text-transform:uppercase; color:var(--ink-60); margin-top:6px; }
+  .inv-title { text-align:right; }
+  .inv-title .t { font-weight:900; font-size:34px; letter-spacing:-0.02em; color:var(--accent); }
+  .inv-title .no { font-family:'Space Mono',monospace; font-size:12px; color:var(--ink-60); margin-top:6px; }
+
+  .inv-meta { display:grid; grid-template-columns:1fr 1fr 1fr; gap:24px; margin-bottom:44px; padding-bottom:34px; border-bottom:2px solid var(--ink); }
+  .inv-meta .lbl { font-family:'Space Mono',monospace; font-size:9px; letter-spacing:0.14em; text-transform:uppercase; color:var(--ink-40); margin-bottom:8px; }
+  .inv-meta .val { font-size:14.5px; font-weight:600; }
+  .inv-meta .val small { display:block; font-weight:400; color:var(--ink-60); font-size:13px; }
+
+  table { width:100%; border-collapse:collapse; margin-bottom:34px; }
+  th { font-family:'Space Mono',monospace; font-size:9.5px; letter-spacing:0.12em; text-transform:uppercase; color:var(--ink-40);
+    text-align:left; padding:0 0 14px; border-bottom:1px solid var(--line); }
+  th:last-child, td:last-child { text-align:right; }
+  td { padding:18px 0; border-bottom:1px solid var(--line); font-size:14.5px; vertical-align:top; }
+  td .d { color:var(--ink-60); font-size:13px; margin-top:4px; }
+
+  .totals { margin-left:auto; width:280px; }
+  .tot-row { display:flex; justify-content:space-between; padding:10px 0; font-size:14.5px; }
+  .tot-row.grand { border-top:2px solid var(--ink); margin-top:8px; padding-top:16px; font-weight:900; font-size:20px; }
+  .paid-stamp {
+    display:inline-block; margin-top:30px;
+    font-family:'Space Mono',monospace; font-size:13px; letter-spacing:0.2em; text-transform:uppercase;
+    color:#0E6E3C; border:2.5px solid #0E6E3C; border-radius:8px; padding:10px 22px;
+    transform:rotate(-4deg);
+  }
+  .inv-foot { margin-top:54px; padding-top:26px; border-top:1px solid var(--line);
+    display:flex; justify-content:space-between; font-family:'Space Mono',monospace; font-size:9.5px; letter-spacing:0.1em;
+    text-transform:uppercase; color:var(--ink-40); flex-wrap:wrap; gap:8px; }
+
+  /* Manual editor */
+  .editor { max-width:800px; margin:0 auto 40px; border:1.5px dashed var(--line); border-radius:16px; padding:26px 30px; }
+  .editor summary { font-family:'Space Mono',monospace; font-size:11px; letter-spacing:0.08em; text-transform:uppercase; cursor:pointer; color:var(--ink-60); }
+  .ed-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:20px; }
+  .ed-grid label { display:block; font-family:'Space Mono',monospace; font-size:9px; letter-spacing:0.1em; text-transform:uppercase; color:var(--ink-40); margin-bottom:6px; }
+  .ed-grid input { width:100%; border:1px solid var(--line); border-radius:10px; padding:11px 13px; background:transparent; font-family:'Archivo'; font-size:14px; }
+  .ed-grid input:focus { outline:none; border-color:var(--ink); }
+  .ed-apply { margin-top:18px; }
+
+  @media (max-width:720px) {
+    .sheet { padding:40px 26px; margin:0 12px 40px; }
+    .inv-meta { grid-template-columns:1fr; }
+    .topbar { padding:16px 20px; flex-wrap:wrap; gap:10px; }
+  }
+
+  @media print {
+    .topbar, .success-banner, .editor, .no-print { display:none !important; }
+    body { background:#fff; }
+    .sheet { box-shadow:none; border:none; margin:0; max-width:100%; padding:20px 10px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <a class="logo" href="index.html">AS<span style="color:#FF4D00">AI</span><sup>®</sup></a>
+  <div class="actions">
+    <a class="btn" href="index.html">← Home</a>
+    <button class="btn solid" onclick="window.print()">Download / Print PDF ↓</button>
+  </div>
+</div>
+
+<div class="success-banner" id="successBanner" style="display:none;">
+  ✓ <b>Payment successful.</b> Your invoice is ready below — download it for your records. We'll contact you on WhatsApp shortly to begin.
+</div>
+
+<details class="editor no-print" id="editorBox">
+  <summary>✎ Edit invoice details (for manual invoices / corrections)</summary>
+  <div class="ed-grid">
+    <div><label>Client name</label><input id="edName" type="text"></div>
+    <div><label>Client email</label><input id="edEmail" type="text"></div>
+    <div><label>Client phone</label><input id="edPhone" type="text"></div>
+    <div><label>Item / service</label><input id="edItem" type="text"></div>
+    <div><label>Description</label><input id="edDesc" type="text"></div>
+    <div><label>Amount (₹)</label><input id="edAmt" type="number"></div>
+    <div><label>Payment reference</label><input id="edRef" type="text"></div>
+    <div><label>Invoice number</label><input id="edNo" type="text"></div>
+  </div>
+  <button class="btn solid ed-apply" onclick="applyEdits()">Apply to invoice ↓</button>
+</details>
+
+<div class="sheet" id="sheet">
+  <div class="inv-head">
+    <div>
+      <div class="brand">ASAI<sup>®</sup></div>
+      <div class="brand-sub">ASAI Technology® — Digital Engineering Studio<br>Noida, Uttar Pradesh, India<br>support.asaitech@gmail.com · +91 98166 89339</div>
+    </div>
+    <div class="inv-title">
+      <div class="t">INVOICE</div>
+      <div class="no" id="invNo">—</div>
+    </div>
+  </div>
+
+  <div class="inv-meta">
+    <div>
+      <div class="lbl">Billed to</div>
+      <div class="val" id="cName">—<small id="cContact"></small></div>
+    </div>
+    <div>
+      <div class="lbl">Invoice date</div>
+      <div class="val" id="invDate">—</div>
+    </div>
+    <div>
+      <div class="lbl">Payment reference</div>
+      <div class="val" id="payRef">—</div>
+    </div>
+  </div>
+
+  <table>
+    <thead><tr><th>Item</th><th>Amount</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><strong id="itemName">—</strong><div class="d" id="itemDesc"></div></td>
+        <td id="itemAmt">—</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="totals">
+    <div class="tot-row"><span>Subtotal</span><span id="subAmt">—</span></div>
+    <div class="tot-row grand"><span>Total paid</span><span id="grandAmt">—</span></div>
+  </div>
+
+  <div class="paid-stamp" id="paidStamp">✓ PAID</div>
+
+  <div class="inv-foot">
+    <span>Thank you for your business.</span>
+    <span>ASAI Technology® · asai-technology.pages.dev</span>
+  </div>
+</div>
+
+<script>
+const PLAN_LABELS = {
+  professional: { name:"Professional", desc:"Premium 1–2 page website · hosting · 2 refinements" },
+  premium: { name:"Premium", desc:"Up to 6 pages · animations · SEO · 15 days support" },
+  business: { name:"Business", desc:"Up to 10 pages · payments · full SEO · 30 days support" },
+  care: { name:"Care Plan — 1 month", desc:"Updates, monitoring & priority support" },
+  seo: { name:"SEO Growth — 1 month", desc:"Keyword plan, technical SEO & ranking report" },
+  social: { name:"Social Presence — 1 month", desc:"12 branded posts, captions & profile optimisation" }
+};
+const fmt = n => "₹" + Number(n).toLocaleString("en-IN") + ".00";
+
+function genInvoiceNo() {
+  const d = new Date();
+  const ym = d.getFullYear().toString() + String(d.getMonth()+1).padStart(2,'0');
+  const rand = Math.floor(1000 + Math.random()*9000);
+  return `ASAI-${ym}-${rand}`;
+}
+
+function setInvoice({name, email, phone, item, desc, amt, ref, no}) {
+  document.getElementById("invNo").textContent = "No. " + no;
+  document.getElementById("cName").childNodes[0].textContent = name;
+  document.getElementById("cContact").textContent = [email, phone].filter(Boolean).join(" · ");
+  document.getElementById("invDate").textContent = new Date().toLocaleDateString("en-IN", { day:"numeric", month:"long", year:"numeric" });
+  document.getElementById("payRef").textContent = ref || "—";
+  document.getElementById("itemName").textContent = item;
+  document.getElementById("itemDesc").textContent = desc;
+  document.getElementById("itemAmt").textContent = fmt(amt);
+  document.getElementById("subAmt").textContent = fmt(amt);
+  document.getElementById("grandAmt").textContent = fmt(amt);
+  document.getElementById("paidStamp").style.display = ref ? "inline-block" : "none";
+}
+
+// Load from URL (arriving from successful payment)
+const q = new URLSearchParams(location.search);
+const state = {
+  name: q.get("name") || "",
+  email: q.get("email") || "",
+  phone: q.get("phone") || "",
+  amt: q.get("amt") || "",
+  ref: q.get("pid") || "",
+  no: genInvoiceNo()
+};
+const planKey = q.get("plan");
+if (planKey && PLAN_LABELS[planKey]) {
+  state.item = PLAN_LABELS[planKey].name;
+  state.desc = PLAN_LABELS[planKey].desc;
+} else {
+  state.item = q.get("item") || "";
+  state.desc = q.get("desc") || "";
+}
+
+if (state.ref) document.getElementById("successBanner").style.display = "block";
+if (state.name || state.ref) {
+  setInvoice(state);
+} else {
+  // blank manual mode — open the editor
+  document.getElementById("editorBox").open = true;
+  setInvoice({ name:"Client name", email:"", phone:"", item:"Service", desc:"", amt:0, ref:"", no: state.no });
+}
+
+// Prefill editor
+["Name","Email","Phone","Item","Desc","Amt","Ref","No"].forEach(k => {
+  const el = document.getElementById("ed"+k);
+  const map = { Name:"name", Email:"email", Phone:"phone", Item:"item", Desc:"desc", Amt:"amt", Ref:"ref", No:"no" };
+  el.value = state[map[k]] || "";
+});
+document.getElementById("edNo").value = state.no;
+
+function applyEdits() {
+  setInvoice({
+    name: document.getElementById("edName").value || "—",
+    email: document.getElementById("edEmail").value,
+    phone: document.getElementById("edPhone").value,
+    item: document.getElementById("edItem").value || "—",
+    desc: document.getElementById("edDesc").value,
+    amt: document.getElementById("edAmt").value || 0,
+    ref: document.getElementById("edRef").value,
+    no: document.getElementById("edNo").value || genInvoiceNo()
+  });
+}
+</script>
+
+</body>
+</html>

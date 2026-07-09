@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ASAI Technology® — Digital Engineering Studio</title>
+<meta name="description" content="ASAI Technology builds premium websites, Chrome extensions, automation, SEO and social growth — final draft in 24 hours.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Instrument+Serif:ital@0;1&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #F1EFE9;
+    --paper-2: #E9E6DE;
+    --ink: #131215;
+    --ink-60: rgba(19,18,21,0.6);
+    --ink-40: rgba(19,18,21,0.4);
+    --line: rgba(19,18,21,0.14);
+    --accent: #FF4D00;
+    --wa: #25D366;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--paper); color: var(--ink); font-family: 'Archivo', sans-serif; overflow-x: hidden; line-height: 1.55; }
+  ::selection { background: var(--accent); color: var(--paper); }
+  a { color: inherit; text-decoration: none; }
+  .mono { font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; }
+
+  /* ============ SCROLL PROGRESS ============ */
+  #progress { position: fixed; top: 0; left: 0; height: 3px; width: 0%; background: var(--accent); z-index: 500; }
+
+  /* ============ PRELOADER ============ */
+  #preloader {
+    position: fixed; inset: 0; z-index: 1000;
+    background: var(--ink); color: var(--paper);
+    display: flex; align-items: flex-end; justify-content: space-between;
+    padding: 40px 48px;
+    transition: transform 0.9s cubic-bezier(0.76, 0, 0.24, 1);
+  }
+  #preloader.done { transform: translateY(-100%); }
+  #preloader .pl-name { font-weight: 800; font-size: clamp(20px, 3vw, 34px); letter-spacing: -0.02em; }
+  #preloader .pl-name .ai { color: var(--accent); }
+  #preloader .pl-count { font-weight: 900; font-size: clamp(60px, 12vw, 160px); line-height: 0.85; letter-spacing: -0.04em; }
+
+  /* ============ CURSOR with label ============ */
+  .cursor {
+    position: fixed; top: 0; left: 0;
+    width: 12px; height: 12px; border-radius: 50%;
+    background: #fff; mix-blend-mode: exclusion;
+    pointer-events: none; z-index: 999;
+    transform: translate(-50%, -50%);
+    transition: width 0.28s ease, height 0.28s ease, opacity 0.3s ease;
+    opacity: 0;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .cursor.visible { opacity: 1; }
+  .cursor.grow { width: 64px; height: 64px; }
+  .cursor.view { width: 86px; height: 86px; mix-blend-mode: normal; background: var(--accent); }
+  .cursor .clabel {
+    font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: 0.1em;
+    color: var(--ink); opacity: 0; transition: opacity 0.2s ease;
+    white-space: nowrap;
+  }
+  .cursor.view .clabel { opacity: 1; }
+  @media (hover: none) { .cursor { display: none; } }
+
+  /* ============ NAV ============ */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 22px 48px;
+    background: linear-gradient(180deg, var(--paper) 55%, transparent);
+  }
+  .nav-logo { font-weight: 900; font-size: 17px; letter-spacing: -0.02em; }
+  .nav-logo .ai { color: var(--accent); }
+  .nav-logo .tech { font-family: 'Instrument Serif', serif; font-style: italic; font-weight: 400; font-size: 15px; margin-left: 6px; color: var(--ink-60); }
+  .nav-right { display: flex; align-items: center; gap: 32px; }
+  .nav-right a.nl { font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-60); transition: color 0.2s; }
+  .nav-right a.nl:hover { color: var(--ink); }
+  .nav-wa {
+    font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+    background: var(--ink); color: var(--paper);
+    padding: 12px 22px; border-radius: 100px;
+    transition: background 0.25s ease, transform 0.25s ease;
+  }
+  .nav-wa:hover { background: var(--accent); transform: translateY(-1px); }
+  .nav-burger {
+    display: none; position: relative; z-index: 700;
+    width: 46px; height: 46px; border: 1px solid var(--line); border-radius: 50%;
+    background: var(--paper); cursor: pointer; padding: 0;
+    flex-direction: column; align-items: center; justify-content: center; gap: 5px;
+    transition: background 0.3s ease, border-color 0.3s ease;
+  }
+  .nav-burger span { display: block; width: 17px; height: 2px; background: var(--ink); border-radius: 2px; transition: transform 0.35s cubic-bezier(0.22,1,0.36,1), background 0.3s ease; }
+  body.menu-open nav { z-index: 700; background: none; }
+  .nav-logo { transition: opacity 0.3s ease; }
+  .nav-wa { transition: background 0.25s ease, transform 0.25s ease, opacity 0.3s ease; }
+  body.menu-open .nav-logo, body.menu-open .nav-wa { opacity: 0; pointer-events: none; }
+  body.menu-open .nav-burger { background: transparent; border-color: rgba(241,239,233,0.35); }
+  body.menu-open .nav-burger span { background: var(--paper); }
+  body.menu-open .nav-burger span:first-child { transform: translateY(3.5px) rotate(45deg); }
+  body.menu-open .nav-burger span:last-child { transform: translateY(-3.5px) rotate(-45deg); }
+  @media (max-width: 900px) { .nav-right a.nl { display: none; } nav { padding: 18px 22px; } .nav-burger { display: flex; } }
+
+  /* ============ MOBILE MENU ============ */
+  #mmenu {
+    position: fixed; inset: 0; z-index: 600;
+    background: var(--ink); color: var(--paper);
+    display: flex; flex-direction: column;
+    padding: 26px 22px 30px;
+    transform: translateY(-100%); visibility: hidden;
+    transition: transform 0.75s cubic-bezier(0.76, 0, 0.24, 1), visibility 0s 0.75s;
+  }
+  body.menu-open #mmenu { transform: none; visibility: visible; transition: transform 0.75s cubic-bezier(0.76, 0, 0.24, 1), visibility 0s 0s; }
+  .mm-top { display: flex; justify-content: space-between; align-items: center; padding-right: 56px; min-height: 46px; }
+  .mm-top .mono { color: rgba(241,239,233,0.5); }
+  .mm-links { display: flex; flex-direction: column; justify-content: center; flex: 1; gap: 4px; }
+  .mm-item { overflow: hidden; }
+  .mm-item a {
+    display: flex; align-items: baseline; gap: 16px;
+    font-weight: 900; font-size: clamp(40px, 11vw, 68px);
+    letter-spacing: -0.04em; line-height: 1.08;
+    transform: translateY(115%);
+    transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .mm-item a .idx { font-family: 'Space Mono', monospace; font-size: 12px; font-weight: 400; color: var(--accent); }
+  .mm-item a:active { color: var(--accent); }
+  body.menu-open .mm-item a { transform: none; }
+  body.menu-open .mm-item:nth-child(1) a { transition-delay: 0.18s; }
+  body.menu-open .mm-item:nth-child(2) a { transition-delay: 0.26s; }
+  body.menu-open .mm-item:nth-child(3) a { transition-delay: 0.34s; }
+  body.menu-open .mm-item:nth-child(4) a { transition-delay: 0.42s; }
+  .mm-meta {
+    border-top: 1px solid rgba(241,239,233,0.18); padding-top: 22px;
+    display: flex; flex-direction: column; gap: 18px;
+    opacity: 0; transform: translateY(14px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  body.menu-open .mm-meta { opacity: 1; transform: none; transition-delay: 0.5s; }
+  .mm-wa {
+    font-family: 'Space Mono', monospace; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase;
+    background: var(--wa); color: var(--ink); font-weight: 700;
+    padding: 18px 32px; border-radius: 100px; text-align: center;
+  }
+  .mm-contacts { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
+  .mm-contacts a { font-size: 14px; font-weight: 600; color: rgba(241,239,233,0.75); }
+
+  /* ============ HERO ============ */
+  .hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: flex-end; padding: 0 48px 42px; position: relative; }
+  .hero-top {
+    position: absolute; top: 112px; left: 48px; right: 48px;
+    display: flex; justify-content: space-between;
+  }
+  .hero-top .col { max-width: 270px; }
+  .hero-top .col p { font-size: 13.5px; line-height: 1.6; margin-top: 8px; color: var(--ink-60); }
+  .hero-top .col p b { color: var(--ink); }
+  .badge-spin { width: 94px; height: 94px; position: relative; }
+  .badge-spin svg { width: 100%; height: 100%; animation: rot 14s linear infinite; }
+  @keyframes rot { to { transform: rotate(360deg); } }
+  .badge-spin .core { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 22px; color: var(--accent); }
+  @media (max-width: 860px) { .hero-top .col:nth-child(2) { display: none; } .hero-top { top: 92px; left: 22px; right: 22px; } .hero { padding: 0 22px 30px; } }
+
+  .wordmark {
+    font-weight: 900;
+    font-size: clamp(64px, 15.5vw, 268px);
+    line-height: 0.84;
+    letter-spacing: -0.05em;
+    display: flex; align-items: flex-start;
+  }
+  .wordmark .ai { color: var(--accent); }
+  .wordmark sup { font-size: 0.11em; font-weight: 700; margin-top: 0.18em; margin-left: 0.05em; }
+  .wordmark .char { display: inline-block; transform: translateY(115%); }
+  .wordmark-sub {
+    font-family: 'Instrument Serif', serif; font-style: italic; font-weight: 400;
+    font-size: clamp(24px, 4.4vw, 74px);
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    margin: 6px 0 30px 6px;
+    display: flex; align-items: center; gap: 22px;
+  }
+  .wordmark-sub .rule { flex: 1; height: 1px; background: var(--line); }
+  .wordmark-sub .yr { font-family: 'Space Mono', monospace; font-style: normal; font-size: 11px; letter-spacing: 0.14em; color: var(--ink-40); }
+
+  .hero-sub {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    border-top: 1px solid var(--line);
+    padding-top: 24px;
+    gap: 30px; flex-wrap: wrap;
+  }
+  .hero-sub h1 { font-weight: 500; font-size: clamp(18px, 2vw, 26px); letter-spacing: -0.01em; line-height: 1.3; max-width: 640px; }
+  .hero-sub h1 em { font-family: 'Instrument Serif', serif; font-style: italic; font-weight: 400; font-size: 1.1em; }
+  .hero-sub h1 .acc { color: var(--accent); font-weight: 700; }
+  .hero-cta-row { display: flex; gap: 14px; align-items: center; }
+  .btn-solid {
+    font-family: 'Space Mono', monospace; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase;
+    background: var(--ink); color: var(--paper);
+    padding: 18px 32px; border-radius: 100px;
+    display: inline-flex; align-items: center; gap: 10px;
+    transition: background 0.25s ease;
+    border: none; cursor: pointer;
+    will-change: transform;
+  }
+  .btn-solid:hover { background: var(--accent); }
+  .btn-hollow {
+    font-family: 'Space Mono', monospace; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase;
+    border: 1px solid var(--ink); color: var(--ink);
+    padding: 18px 32px; border-radius: 100px;
+    display: inline-flex; align-items: center; gap: 10px;
+    transition: background 0.25s ease, color 0.25s ease;
+    will-change: transform;
+  }
+  .btn-hollow:hover { background: var(--ink); color: var(--paper); }
+
+  /* ============ MARQUEE ============ */
+  .marq { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); overflow: hidden; white-space: nowrap; padding: 16px 0; }
+  .marq-track { display: inline-flex; animation: slide 26s linear infinite; }
+  .marq-track span { font-weight: 800; font-size: 15px; text-transform: uppercase; padding: 0 26px; display: inline-flex; align-items: center; gap: 26px; }
+  .marq-track span::after { content: '✳'; color: var(--accent); font-size: 13px; }
+  @keyframes slide { to { transform: translateX(-50%); } }
+
+  /* ============ SECTION SHELL ============ */
+  section { padding: 130px 48px; }
+  .wrap { max-width: 1500px; margin: 0 auto; }
+  .sec-label { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 56px; border-bottom: 1px solid var(--line); padding-bottom: 18px; }
+  .sec-label .mono { color: var(--ink-60); }
+  .titl { overflow: hidden; margin-bottom: 64px; }
+  .titl h2 { font-weight: 800; font-size: clamp(38px, 5.4vw, 84px); letter-spacing: -0.035em; line-height: 0.98; transform: translateY(110%); transition: transform 1s cubic-bezier(0.22,1,0.36,1); }
+  .titl.in h2 { transform: none; }
+  .titl em { font-family: 'Instrument Serif', serif; font-style: italic; font-weight: 400; }
+  .titl .acc { color: var(--accent); }
+  @media (max-width: 860px) { section { padding: 92px 22px; } }
+
+  .reveal { opacity: 0; transform: translateY(38px); transition: opacity 0.9s cubic-bezier(0.22,1,0.36,1), transform 0.9s cubic-bezier(0.22,1,0.36,1); }
+  .reveal.in { opacity: 1; transform: none; }
+
+  /* ============ SERVICES ============ */
+  .svc { border-top: 1px solid var(--line); counter-reset: svc; }
+  .svc-row { border-bottom: 1px solid var(--line); cursor: pointer; position: relative; overflow: hidden; display: block; }
+  .svc-head {
+    display: grid; grid-template-columns: 72px 1fr auto; align-items: center; gap: 30px;
+    padding: 30px 10px;
+    transition: padding-left 0.35s ease;
+    position: relative; z-index: 2;
+  }
+  .svc-row:hover .svc-head, .svc-row.open .svc-head { padding-left: 26px; }
+  .svc-num { font-family: 'Space Mono', monospace; font-size: 12px; color: var(--ink-40); }
+  .svc-name { font-weight: 800; font-size: clamp(24px, 3.2vw, 50px); letter-spacing: -0.03em; line-height: 1; transition: color 0.3s ease; }
+  .svc-arrow { font-size: 24px; transition: transform 0.35s ease; }
+  .svc-row:hover .svc-arrow, .svc-row.open .svc-arrow { transform: rotate(45deg); }
+  .svc-body { max-height: 0; overflow: hidden; transition: max-height 0.5s cubic-bezier(0.22,1,0.36,1); position: relative; z-index: 2; }
+  .svc-row:hover .svc-body { max-height: 220px; }
+  .svc-row.open .svc-body { max-height: 360px; }
+  .svc-body-in { display: flex; gap: 40px; padding: 0 10px 34px 102px; flex-wrap: wrap; }
+  .svc-body p { max-width: 480px; font-size: 15px; color: var(--ink-60); }
+  .svc-tags { display: flex; gap: 8px; flex-wrap: wrap; align-content: flex-start; }
+  .svc-tags span { font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase; border: 1px solid var(--line); padding: 7px 13px; border-radius: 100px; color: var(--ink-60); }
+  .svc-fill { position: absolute; inset: 0; background: var(--ink); transform: scaleY(0); transform-origin: bottom; transition: transform 0.4s cubic-bezier(0.22,1,0.36,1); z-index: 1; }
+  .svc-row:hover .svc-fill, .svc-row.open .svc-fill { transform: scaleY(1); }
+  .svc-row:hover .svc-name, .svc-row:hover .svc-arrow, .svc-row:hover .svc-num,
+  .svc-row.open .svc-name, .svc-row.open .svc-arrow, .svc-row.open .svc-num { color: var(--paper); }
+  .svc-row:hover .svc-body p, .svc-row.open .svc-body p { color: rgba(241,239,233,0.65); }
+  .svc-row:hover .svc-tags span, .svc-row.open .svc-tags span { border-color: rgba(241,239,233,0.3); color: rgba(241,239,233,0.7); }
+  .h-touch { display: none; }
+  @media (hover: none) { .h-desk { display: none; } .h-touch { display: inline; } }
+  @media (max-width: 700px) { .svc-body-in { padding-left: 10px; } }
+
+  /* ============ WORK ============ */
+  .work-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px 26px; }
+  .wk { display: block; }
+  .wk-visual {
+    border-radius: 18px; overflow: hidden; border: 1px solid var(--line);
+    aspect-ratio: 16/10.5; position: relative; background: var(--paper-2);
+    clip-path: inset(6% 6% 6% 6% round 18px);
+    transition: clip-path 1s cubic-bezier(0.22,1,0.36,1);
+  }
+  .wk.in .wk-visual { clip-path: inset(0% 0% 0% 0% round 18px); }
+  .wk-visual svg { position: absolute; inset: -4% 0; width: 100%; height: 108%; transition: transform 0.7s cubic-bezier(0.22,1,0.36,1); will-change: transform; }
+  .wk:hover .wk-visual svg { transform: scale(1.04); }
+  .wk-tag {
+    position: absolute; top: 16px; left: 16px; z-index: 2;
+    font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase;
+    background: var(--paper); border: 1px solid var(--line);
+    padding: 7px 13px; border-radius: 100px;
+  }
+  .wk-tag.live { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+  .wk-tag.live::before { content: '● '; color: var(--wa); }
+  .wk-info { display: flex; justify-content: space-between; align-items: baseline; padding: 18px 4px 0; }
+  .wk-info h3 { font-weight: 700; font-size: 21px; letter-spacing: -0.02em; }
+  .wk-info .mono { color: var(--ink-40); }
+  .wk-client { font-family: 'Instrument Serif', serif; font-style: italic; color: var(--ink-60); font-size: 15px; padding: 4px 4px 0; }
+  @media (max-width: 860px) { .work-grid { grid-template-columns: 1fr; } }
+
+  /* ============ MANIFESTO ============ */
+  .manifesto { background: var(--ink); color: var(--paper); }
+  .manifesto .sec-label { border-color: rgba(241,239,233,0.2); }
+  .manifesto .sec-label .mono { color: rgba(241,239,233,0.5); }
+  .mani-text { font-weight: 600; font-size: clamp(26px, 3.6vw, 52px); letter-spacing: -0.025em; line-height: 1.18; max-width: 1180px; }
+  .mani-text em { font-family: 'Instrument Serif', serif; font-style: italic; font-weight: 400; }
+  .mani-text .w { opacity: 0.16; transition: opacity 0.5s ease; }
+  .mani-text .w.lit { opacity: 1; }
+  .mani-text .acc { color: var(--accent); }
+  .mani-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin-top: 90px; border-top: 1px solid rgba(241,239,233,0.2); padding-top: 40px; }
+  .mani-stats .n { font-weight: 900; font-size: clamp(34px, 4.4vw, 68px); letter-spacing: -0.03em; }
+  .mani-stats .n span { color: var(--accent); }
+  .mani-stats .l { font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(241,239,233,0.5); margin-top: 8px; }
+  @media (max-width: 860px) { .mani-stats { grid-template-columns: repeat(2, 1fr); } }
+
+  /* ============ PRICING TEASER ============ */
+  .price-strip {
+    border: 1px solid var(--line); border-radius: 22px;
+    display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 30px;
+    padding: 46px 52px;
+    background: var(--paper-2);
+  }
+  .price-strip h3 { font-weight: 800; font-size: clamp(24px, 3vw, 42px); letter-spacing: -0.025em; line-height: 1.05; }
+  .price-strip h3 em { font-family: 'Instrument Serif', serif; font-style: italic; font-weight: 400; }
+  .price-strip p { color: var(--ink-60); margin-top: 10px; max-width: 560px; font-size: 15px; }
+  @media (max-width: 860px) { .price-strip { grid-template-columns: 1fr; padding: 34px 26px; } }
+
+  /* ============ CONTACT ============ */
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 70px; }
+  .contact-left h2 { font-weight: 800; font-size: clamp(38px, 5vw, 76px); letter-spacing: -0.03em; line-height: 0.95; }
+  .contact-left h2 em { font-family: 'Instrument Serif', serif; font-style: italic; font-weight: 400; }
+  .contact-left .acc { color: var(--accent); }
+  .contact-ways { margin-top: 44px; display: flex; flex-direction: column; }
+  .cway {
+    display: flex; justify-content: space-between; align-items: center; gap: 20px;
+    padding: 22px 4px; border-top: 1px solid var(--line);
+    font-weight: 600; font-size: 17px;
+    transition: padding-left 0.3s ease, color 0.3s ease;
+  }
+  .cway:last-child { border-bottom: 1px solid var(--line); }
+  .cway:hover { padding-left: 14px; color: var(--accent); }
+  .cway .val { font-family: 'Archivo', sans-serif; font-weight: 600; font-size: 15.5px; color: var(--ink-60); letter-spacing: 0; text-transform: none; }
+  .cway:hover .val { color: var(--accent); }
+  .lead-form { display: flex; flex-direction: column; }
+  .lead-form .fld { border-bottom: 1px solid var(--line); padding: 8px 0 18px; margin-bottom: 26px; }
+  .lead-form label { display: block; font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-40); margin-bottom: 10px; }
+  .lead-form input, .lead-form textarea {
+    width: 100%; border: none; background: transparent; color: var(--ink);
+    font-family: 'Archivo', sans-serif; font-size: 19px; font-weight: 500; resize: vertical;
+  }
+  .lead-form input:focus, .lead-form textarea:focus { outline: none; }
+  .lead-form input::placeholder, .lead-form textarea::placeholder { color: var(--ink-40); }
+  @media (max-width: 900px) { .contact-grid { grid-template-columns: 1fr; gap: 50px; } }
+
+  /* ============ FOOTER ============ */
+  footer { background: var(--ink); color: var(--paper); padding: 90px 48px 30px; }
+  .foot-cta { display: block; text-align: center; margin-bottom: 70px; }
+  .foot-cta .small { font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(241,239,233,0.5); display: block; margin-bottom: 18px; }
+  .foot-cta .big { font-weight: 900; font-size: clamp(54px, 12vw, 200px); letter-spacing: -0.045em; line-height: 0.85; transition: color 0.3s ease; }
+  .foot-cta:hover .big { color: var(--wa); }
+  .foot-meta { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(241,239,233,0.18); padding-top: 24px; flex-wrap: wrap; gap: 14px; }
+  .foot-meta .mono { color: rgba(241,239,233,0.5); }
+  .foot-meta a { font-family: 'Archivo', sans-serif; font-size: 14px; font-weight: 600; color: rgba(241,239,233,0.75); letter-spacing: 0; text-transform: none; }
+  .foot-meta a:hover { color: var(--paper); }
+  @media (max-width: 860px) { footer { padding: 70px 22px 24px; } }
+
+  /* ============ FLOATING WHATSAPP ============ */
+  .wa-float {
+    position: fixed; bottom: 24px; right: 24px; z-index: 300;
+    width: 60px; height: 60px; border-radius: 50%;
+    background: var(--wa);
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 14px 40px rgba(37,211,102,0.45);
+    transition: transform 0.22s ease;
+  }
+  .wa-float:hover { transform: translateY(-3px) scale(1.06); }
+  .wa-float svg { width: 30px; height: 30px; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .marq-track, .badge-spin svg { animation: none !important; }
+    .reveal, .wordmark .char, .titl h2, .wk-visual { opacity: 1 !important; transform: none !important; transition: none !important; clip-path: none !important; }
+    #preloader { display: none; }
+    #mmenu, .mm-item a, .mm-meta { transition: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<div id="progress"></div>
+
+<div id="preloader">
+  <div class="pl-name">AS<span class="ai">AI</span> Technology<sup>®</sup></div>
+  <div class="pl-count" id="plCount">0</div>
+</div>
+
+<div class="cursor" id="cursor"><span class="clabel">VIEW →</span></div>
+
+<nav>
+  <a class="nav-logo" href="index.html">AS<span class="ai">AI</span><span class="tech">Technology®</span></a>
+  <div class="nav-right">
+    <a class="nl" href="#services">Services</a>
+    <a class="nl" href="#work">Work</a>
+    <a class="nl" href="pricing.html">Pricing</a>
+    <a class="nl" href="#contact">Contact</a>
+    <a class="nav-wa" href="https://wa.me/919816689339?text=Hi%20ASAI%2C%20I%20want%20to%20discuss%20a%20project" target="_blank" rel="noopener">WhatsApp ↗</a>
+    <button class="nav-burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="mmenu"><span></span><span></span></button>
+  </div>
+</nav>
+
+<div id="mmenu">
+  <div class="mm-top"><span class="mono">( Menu )</span><span class="mono">ASAI Technology®</span></div>
+  <div class="mm-links">
+    <div class="mm-item"><a href="#services"><span class="idx">/01</span>Services</a></div>
+    <div class="mm-item"><a href="#work"><span class="idx">/02</span>Work</a></div>
+    <div class="mm-item"><a href="pricing.html"><span class="idx">/03</span>Pricing</a></div>
+    <div class="mm-item"><a href="#contact"><span class="idx">/04</span>Contact</a></div>
+  </div>
+  <div class="mm-meta">
+    <a class="mm-wa" href="https://wa.me/919816689339?text=Hi%20ASAI%2C%20I%20want%20to%20discuss%20a%20project" target="_blank" rel="noopener">Start on WhatsApp ↗</a>
+    <div class="mm-contacts">
+      <a href="tel:+919816689339">+91 98166 89339</a>
+      <a href="mailto:support.asaitech@gmail.com">support.asaitech@gmail.com</a>
+    </div>
+  </div>
+</div>
+
+<header class="hero">
+  <div class="hero-top">
+    <div class="col">
+      <div class="mono">Digital Engineering Studio</div>
+      <p>Premium websites, Chrome extensions, automation & growth — designed and built under one roof in Noida, India.</p>
+    </div>
+    <div class="col">
+      <div class="mono">Speed, guaranteed</div>
+      <p>Work begins <b>the moment you brief us.</b><br>Final draft in <b>24 hours</b> — with precision, not shortcuts.</p>
+    </div>
+    <div class="badge-spin">
+      <svg viewBox="0 0 100 100">
+        <defs><path id="circ" d="M 50,50 m -38,0 a 38,38 0 1,1 76,0 a 38,38 0 1,1 -76,0"/></defs>
+        <text font-family="Space Mono, monospace" font-size="10.5" letter-spacing="2.5" fill="#131215">
+          <textPath href="#circ">24H DRAFT · NOIDA IN · ASAI ·&#160;</textPath>
+        </text>
+      </svg>
+      <div class="core">✳</div>
+    </div>
+  </div>
+
+  <div class="wordmark" id="wordmark"><span class="as">AS</span><span class="ai">AI</span><sup>®</sup></div>
+  <div class="wordmark-sub"><span>Technology</span><span class="rule"></span><span class="yr">EST. 2025</span></div>
+
+  <div class="hero-sub">
+    <h1>We engineer <em>digital machinery</em> — websites, extensions, automation & growth that <span class="acc">work like they look.</span></h1>
+    <div class="hero-cta-row">
+      <a class="btn-solid magnet" href="https://wa.me/919816689339?text=Hi%20ASAI%2C%20I%20want%20to%20discuss%20a%20project" target="_blank" rel="noopener">Start on WhatsApp ↗</a>
+      <a class="btn-hollow magnet" href="#work">See work</a>
+    </div>
+  </div>
+</header>
+
+<div class="marq">
+  <div class="marq-track">
+    <span>Websites</span><span>Chrome Extensions</span><span>Automation</span><span>SEO</span><span>Social Media</span><span>Brand Design</span>
+    <span>Websites</span><span>Chrome Extensions</span><span>Automation</span><span>SEO</span><span>Social Media</span><span>Brand Design</span>
+  </div>
+</div>
+
+<section id="services">
+  <div class="wrap">
+    <div class="sec-label"><span class="mono">( 01 — Services )</span><span class="mono"><span class="h-desk">Hover to expand</span><span class="h-touch">Tap to expand</span></span></div>
+    <div class="titl"><h2>What we <em>build.</em></h2></div>
+
+    <div class="svc">
+      <div class="svc-row">
+        <div class="svc-fill"></div>
+        <div class="svc-head"><span class="svc-num">/01</span><span class="svc-name">Websites</span><span class="svc-arrow">→</span></div>
+        <div class="svc-body"><div class="svc-body-in">
+          <p>Custom-coded, award-grade websites engineered for speed — no page builders, no template bloat. From a professional's one-pager to a full business presence with payments.</p>
+          <div class="svc-tags"><span>Landing pages</span><span>Business sites</span><span>E-commerce</span><span>Portfolio</span></div>
+        </div></div>
+      </div>
+      <div class="svc-row">
+        <div class="svc-fill"></div>
+        <div class="svc-head"><span class="svc-num">/02</span><span class="svc-name">Chrome Extensions</span><span class="svc-arrow">→</span></div>
+        <div class="svc-body"><div class="svc-body-in">
+          <p>Production-grade browser extensions — the kind we ship for ourselves. Tools that add missing features or eliminate repetitive clicks inside the software your team already lives in.</p>
+          <div class="svc-tags"><span>Browser tools</span><span>SaaS add-ons</span><span>Chrome Web Store</span></div>
+        </div></div>
+      </div>
+      <div class="svc-row">
+        <div class="svc-fill"></div>
+        <div class="svc-head"><span class="svc-num">/03</span><span class="svc-name">Automation</span><span class="svc-arrow">→</span></div>
+        <div class="svc-body"><div class="svc-body-in">
+          <p>Scripts and pipelines that take manual, repetitive work off your plate permanently — reporting, data entry, lead sourcing, consolidation. Set once, runs forever.</p>
+          <div class="svc-tags"><span>Data pipelines</span><span>Workflow scripts</span><span>Reporting</span></div>
+        </div></div>
+      </div>
+      <div class="svc-row">
+        <div class="svc-fill"></div>
+        <div class="svc-head"><span class="svc-num">/04</span><span class="svc-name">SEO</span><span class="svc-arrow">→</span></div>
+        <div class="svc-body"><div class="svc-body-in">
+          <p>Technical SEO done properly — site structure, speed, indexing, and content targeting the exact phrases your customers actually search. Built into every site we ship, or as a standalone engagement.</p>
+          <div class="svc-tags"><span>Technical SEO</span><span>Local SEO</span><span>Content strategy</span><span>Google indexing</span></div>
+        </div></div>
+      </div>
+      <div class="svc-row">
+        <div class="svc-fill"></div>
+        <div class="svc-head"><span class="svc-num">/05</span><span class="svc-name">Social Media Marketing</span><span class="svc-arrow">→</span></div>
+        <div class="svc-body"><div class="svc-body-in">
+          <p>Design-led social presence — content calendars, branded creative sets, and profile optimisation that make your business look as sharp on Instagram and LinkedIn as it does on its website.</p>
+          <div class="svc-tags"><span>Content calendars</span><span>Branded creatives</span><span>Profile builds</span></div>
+        </div></div>
+      </div>
+      <div class="svc-row">
+        <div class="svc-fill"></div>
+        <div class="svc-head"><span class="svc-num">/06</span><span class="svc-name">Graphics & Brand</span><span class="svc-arrow">→</span></div>
+        <div class="svc-body"><div class="svc-body-in">
+          <p>Logos, social creatives, and complete brand systems — designed once, documented properly, applied consistently everywhere your business shows up.</p>
+          <div class="svc-tags"><span>Logo design</span><span>Brand systems</span><span>Style guides</span></div>
+        </div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="work" style="padding-top: 0;">
+  <div class="wrap">
+    <div class="sec-label"><span class="mono">( 02 — Selected work )</span><span class="mono">Shipped & in-house</span></div>
+    <div class="titl"><h2>Recent <em>output.</em></h2></div>
+
+    <div class="work-grid">
+      <a class="wk hoverview" href="work-aireply.html">
+        <div class="wk-visual">
+          <span class="wk-tag live">Live on Chrome Web Store</span>
+          <svg viewBox="0 0 640 420" xmlns="http://www.w3.org/2000/svg">
+            <rect width="640" height="420" fill="#E9E6DE"/>
+            <rect x="50" y="50" width="540" height="330" rx="12" fill="#FFFFFF" stroke="#13121522"/>
+            <rect x="50" y="50" width="540" height="44" rx="12" fill="#F1EFE9"/>
+            <circle cx="76" cy="72" r="6" fill="#FF4D00"/><circle cx="96" cy="72" r="6" fill="#13121522"/><circle cx="116" cy="72" r="6" fill="#13121522"/>
+            <text x="270" y="78" font-family="Space Mono, monospace" font-size="12" fill="#13121566">Gmail — Inbox</text>
+            <rect x="76" y="118" width="330" height="12" rx="6" fill="#13121522"/>
+            <rect x="76" y="142" width="270" height="12" rx="6" fill="#13121515"/>
+            <rect x="76" y="166" width="300" height="12" rx="6" fill="#13121515"/>
+            <rect x="76" y="212" width="490" height="120" rx="10" fill="#F1EFE9" stroke="#FF4D00" stroke-width="1.5"/>
+            <circle cx="106" cy="242" r="13" fill="#FF4D00"/>
+            <text x="99" y="247" font-family="Archivo, sans-serif" font-weight="900" font-size="13" fill="#fff">AI</text>
+            <text x="130" y="247" font-family="Archivo, sans-serif" font-weight="800" font-size="15" fill="#131215">AI.Reply — draft ready</text>
+            <rect x="130" y="262" width="380" height="9" rx="4.5" fill="#13121533"/>
+            <rect x="130" y="279" width="320" height="9" rx="4.5" fill="#13121522"/>
+            <rect x="130" y="302" width="96" height="24" rx="12" fill="#131215"/>
+            <text x="147" y="318" font-family="Space Mono, monospace" font-size="10" fill="#F1EFE9">INSERT ↵</text>
+            <rect x="238" y="302" width="86" height="24" rx="12" fill="none" stroke="#13121544"/>
+            <text x="254" y="318" font-family="Space Mono, monospace" font-size="10" fill="#131215">REDO ⟳</text>
+          </svg>
+        </div>
+        <div class="wk-info"><h3>AI.Reply</h3><span class="mono">Our own product</span></div>
+        <div class="wk-client">Gmail Chrome extension — writes your email replies with AI, in your tone</div>
+      </a>
+
+      <a class="wk hoverview" href="work-solstice.html">
+        <div class="wk-visual">
+          <span class="wk-tag">Automation</span>
+          <svg viewBox="0 0 640 420" xmlns="http://www.w3.org/2000/svg">
+            <rect width="640" height="420" fill="#E9E6DE"/>
+            <rect x="60" y="80" width="110" height="80" rx="8" fill="#F1EFE9" stroke="#13121522"/>
+            <rect x="60" y="180" width="110" height="80" rx="8" fill="#F1EFE9" stroke="#13121522"/>
+            <rect x="60" y="280" width="110" height="80" rx="8" fill="#F1EFE9" stroke="#13121522"/>
+            <path d="M170 120 h60 v100 h30 M170 220 h90 M170 320 h60 v-100 h30" stroke="#131215" stroke-width="1.5" fill="none" stroke-dasharray="4 4"/>
+            <rect x="280" y="180" width="140" height="80" rx="10" fill="#131215"/>
+            <text x="302" y="215" font-family="Space Mono, monospace" font-size="10" fill="#FF4D00">ASAI PIPELINE</text>
+            <text x="302" y="235" font-family="Space Mono, monospace" font-size="8.5" fill="#F1EFE966">CLEAN · MERGE · SEND</text>
+            <path d="M420 220 h60" stroke="#FF4D00" stroke-width="2"/><path d="M474 213 l12 7 -12 7z" fill="#FF4D00"/>
+            <rect x="490" y="150" width="110" height="140" rx="10" fill="#F1EFE9" stroke="#FF4D00"/>
+            <rect x="506" y="172" width="78" height="8" rx="4" fill="#FF4D0088"/>
+            <rect x="506" y="215" width="20" height="40" fill="#FF4D0055"/><rect x="532" y="200" width="20" height="55" fill="#FF4D0088"/><rect x="558" y="185" width="20" height="70" fill="#FF4D00"/>
+            <text x="506" y="278" font-family="Space Mono, monospace" font-size="8" fill="#131215">07:00 DAILY</text>
+          </svg>
+        </div>
+        <div class="wk-info"><h3>Daily Report Pipeline</h3><span class="mono">60+ min/day saved</span></div>
+        <div class="wk-client">Three spreadsheets in, one clean report out — untouched by hand</div>
+      </a>
+
+      <div class="wk">
+        <div class="wk-visual">
+          <span class="wk-tag">Website — In-house design</span>
+          <svg viewBox="0 0 640 420" xmlns="http://www.w3.org/2000/svg">
+            <rect width="640" height="420" fill="#131215"/>
+            <text x="60" y="150" font-family="Archivo, sans-serif" font-weight="900" font-size="64" fill="#F1EFE9" letter-spacing="-3">ATELIER</text>
+            <text x="60" y="215" font-family="Archivo, sans-serif" font-weight="900" font-size="64" fill="none" stroke="#F1EFE9" stroke-width="1.5" letter-spacing="-3">NORTH</text>
+            <rect x="60" y="250" width="200" height="1.5" fill="#FF4D00"/>
+            <text x="60" y="285" font-family="Space Mono, monospace" font-size="12" fill="#F1EFE988">ARCHITECTURE · INTERIORS</text>
+            <rect x="420" y="90" width="160" height="240" rx="8" fill="#F1EFE912"/>
+            <rect x="440" y="110" width="120" height="140" rx="6" fill="#FF4D00" opacity="0.85"/>
+            <rect x="440" y="264" width="90" height="10" rx="5" fill="#F1EFE944"/>
+            <rect x="440" y="284" width="60" height="10" rx="5" fill="#F1EFE922"/>
+            <circle cx="560" cy="360" r="26" fill="none" stroke="#F1EFE955"/>
+            <text x="551" y="366" font-family="Space Mono, monospace" font-size="14" fill="#F1EFE9">↓</text>
+          </svg>
+        </div>
+        <div class="wk-info"><h3>Atelier North</h3><span class="mono">Concept · design study</span></div>
+        <div class="wk-client">Architecture studio site — brutalist typography, gallery-first layout</div>
+      </div>
+
+      <div class="wk">
+        <div class="wk-visual">
+          <span class="wk-tag">Website — In-house design</span>
+          <svg viewBox="0 0 640 420" xmlns="http://www.w3.org/2000/svg">
+            <defs><linearGradient id="kg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FF4D00"/><stop offset="1" stop-color="#FF8A00"/></linearGradient></defs>
+            <rect width="640" height="420" fill="#F1EFE9"/>
+            <circle cx="500" cy="120" r="170" fill="url(#kg)" opacity="0.92"/>
+            <text x="60" y="180" font-family="Archivo, sans-serif" font-weight="900" font-size="72" fill="#131215" letter-spacing="-3">MOVE</text>
+            <text x="60" y="250" font-family="Instrument Serif, serif" font-style="italic" font-size="60" fill="#131215">better.</text>
+            <rect x="60" y="290" width="150" height="44" rx="22" fill="#131215"/>
+            <text x="88" y="318" font-family="Space Mono, monospace" font-size="12" fill="#F1EFE9">JOIN KINETIC</text>
+            <rect x="60" y="360" width="520" height="1" fill="#13121522"/>
+            <text x="60" y="392" font-family="Space Mono, monospace" font-size="10" fill="#13121566">STRENGTH · MOBILITY · RECOVERY — NOIDA</text>
+          </svg>
+        </div>
+        <div class="wk-info"><h3>Kinetic Fitness</h3><span class="mono">Concept · design study</span></div>
+        <div class="wk-client">Gym & training brand — bold type, energy-gradient art direction</div>
+      </div>
+
+      <div class="wk">
+        <div class="wk-visual">
+          <span class="wk-tag">Website — In-house design</span>
+          <svg viewBox="0 0 640 420" xmlns="http://www.w3.org/2000/svg">
+            <rect width="640" height="420" fill="#E9E6DE"/>
+            <rect x="70" y="60" width="500" height="300" rx="14" fill="#FFFFFF" stroke="#13121518"/>
+            <text x="110" y="140" font-family="Instrument Serif, serif" font-style="italic" font-size="44" fill="#131215">Verma &amp; Associates</text>
+            <text x="110" y="172" font-family="Space Mono, monospace" font-size="11" fill="#13121566">ADVOCATES · HIGH COURT · EST. 1998</text>
+            <rect x="110" y="200" width="70" height="1.5" fill="#FF4D00"/>
+            <rect x="110" y="228" width="250" height="10" rx="5" fill="#13121522"/>
+            <rect x="110" y="248" width="200" height="10" rx="5" fill="#13121515"/>
+            <rect x="110" y="290" width="150" height="40" rx="20" fill="#131215"/>
+            <text x="134" y="315" font-family="Space Mono, monospace" font-size="11" fill="#F1EFE9">CONSULTATION</text>
+            <rect x="410" y="120" width="120" height="180" rx="8" fill="#F1EFE9"/>
+            <rect x="428" y="140" width="84" height="8" rx="4" fill="#13121533"/>
+            <rect x="428" y="158" width="60" height="8" rx="4" fill="#13121522"/>
+            <rect x="428" y="186" width="84" height="60" rx="6" fill="#FF4D0022" stroke="#FF4D00" stroke-width="1"/>
+            <rect x="428" y="258" width="84" height="8" rx="4" fill="#13121522"/>
+          </svg>
+        </div>
+        <div class="wk-info"><h3>Verma & Associates</h3><span class="mono">Concept · design study</span></div>
+        <div class="wk-client">Professional one-pager for advocates — the ₹4,999 tier, done premium</div>
+      </div>
+
+      <a class="wk hoverview" href="work-meridian.html">
+        <div class="wk-visual">
+          <span class="wk-tag">Graphics & Brand</span>
+          <svg viewBox="0 0 640 420" xmlns="http://www.w3.org/2000/svg">
+            <rect width="640" height="420" fill="#E9E6DE"/>
+            <circle cx="200" cy="180" r="80" fill="none" stroke="#131215" stroke-width="2"/>
+            <circle cx="200" cy="180" r="30" fill="#FF4D00"/>
+            <text x="130" y="310" font-family="Archivo, sans-serif" font-weight="900" font-size="30" fill="#131215" letter-spacing="-1">MERIDIAN</text>
+            <rect x="370" y="90" width="60" height="60" rx="8" fill="#FF4D00"/>
+            <rect x="440" y="90" width="60" height="60" rx="8" fill="#131215"/>
+            <rect x="510" y="90" width="60" height="60" rx="8" fill="#F1EFE9" stroke="#13121533"/>
+            <rect x="370" y="180" width="200" height="150" rx="10" fill="#F1EFE9" stroke="#13121522"/>
+            <circle cx="400" cy="212" r="12" fill="#FF4D00"/>
+            <rect x="386" y="240" width="130" height="10" rx="5" fill="#13121533"/>
+            <rect x="386" y="290" width="76" height="24" rx="12" fill="#131215"/>
+          </svg>
+        </div>
+        <div class="wk-info"><h3>Meridian Café Collective</h3><span class="mono">20 assets delivered</span></div>
+        <div class="wk-client">One identity system, twenty ready-to-post templates</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="manifesto">
+  <div class="wrap">
+    <div class="sec-label"><span class="mono">( 03 — How we work )</span><span class="mono">The short version</span></div>
+    <p class="mani-text" id="maniText">We start <em>the moment you brief us.</em> A final draft lands in <span class="acc">24 hours</span> — built with precision, not shortcuts. Two refinement rounds, then you keep the <em>source.</em> No lock-in, ever.</p>
+    <div class="mani-stats">
+      <div><div class="n">24<span>h</span></div><div class="l">Final draft turnaround</div></div>
+      <div><div class="n">100<span>%</span></div><div class="l">Custom · zero templates</div></div>
+      <div><div class="n">2<span>×</span></div><div class="l">Refinement rounds included</div></div>
+      <div><div class="n">0</div><div class="l">Lock-in · you keep the source</div></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="price-strip reveal">
+      <div>
+        <h3>Transparent <em>pricing.</em> Pay online, invoice included.</h3>
+        <p>Professional sites from ₹4,999, premium builds at ₹9,999, and full business systems at ₹14,999 — paid securely by UPI, card or netbanking, with a professional invoice generated instantly.</p>
+      </div>
+      <a class="btn-solid magnet" href="pricing.html">View pricing →</a>
+    </div>
+  </div>
+</section>
+
+<section id="contact" style="padding-top: 40px;">
+  <div class="wrap">
+    <div class="sec-label"><span class="mono">( 04 — Contact )</span><span class="mono">Replies within hours</span></div>
+    <div class="contact-grid">
+      <div class="contact-left reveal">
+        <h2>Tell us what you're building. We reply with a <em class="acc">draft.</em></h2>
+        <div class="contact-ways">
+          <a class="cway" href="https://wa.me/919816689339?text=Hi%20ASAI%2C%20I%20want%20to%20discuss%20a%20project" target="_blank" rel="noopener"><span>WhatsApp — fastest</span><span class="val">+91 98166 89339 ↗</span></a>
+          <a class="cway" href="tel:+919816689339"><span>Call</span><span class="val">+91 98166 89339</span></a>
+          <a class="cway" href="mailto:support.asaitech@gmail.com"><span>Email</span><span class="val">support.asaitech@gmail.com</span></a>
+        </div>
+      </div>
+      <form class="lead-form reveal" action="https://formsubmit.co/support.asaitech@gmail.com" method="POST">
+        <input type="hidden" name="_subject" value="New lead from ASAI website">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_template" value="table">
+        <div class="fld"><label>Your name</label><input type="text" name="name" placeholder="Full name" required></div>
+        <div class="fld"><label>Phone / WhatsApp / Email</label><input type="text" name="contact" placeholder="How do we reach you?" required></div>
+        <div class="fld"><label>Project</label><textarea name="message" rows="3" placeholder="A website, extension, automation, SEO, social growth..." required></textarea></div>
+        <button class="btn-solid magnet" type="submit" style="align-self: flex-start;">Send message →</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <a class="foot-cta" href="https://wa.me/919816689339?text=Hi%20ASAI%2C%20I%20want%20to%20discuss%20a%20project" target="_blank" rel="noopener">
+    <span class="small">One tap away —</span>
+    <span class="big">LET'S TALK ↗</span>
+  </a>
+  <div class="foot-meta">
+    <span class="mono">© 2026 ASAI Technology® — Noida, IN</span>
+    <a href="mailto:support.asaitech@gmail.com">support.asaitech@gmail.com</a>
+    <a href="tel:+919816689339">+91 98166 89339</a>
+    <a href="pricing.html" class="mono" style="color:rgba(241,239,233,0.5)">Pricing & payments</a>
+  </div>
+</footer>
+
+<a class="wa-float" href="https://wa.me/919816689339?text=Hi%20ASAI%2C%20I%20want%20to%20discuss%20a%20project" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+  <svg viewBox="0 0 32 32" fill="white"><path d="M16 3C9.4 3 4 8.4 4 15c0 2.6.8 5 2.2 7L4.5 28l6.2-1.6c1.9 1 4 1.6 5.3 1.6 6.6 0 12-5.4 12-12S22.6 3 16 3zm0 22c-1.8 0-3.6-.5-5.1-1.4l-.4-.2-3.7 1 1-3.6-.2-.4C6.6 18.9 6 17 6 15 6 9.5 10.5 5 16 5s10 4.5 10 10-4.5 10-10 10zm5.5-7.5c-.3-.2-1.8-.9-2-1-.3-.1-.5-.2-.7.2-.2.3-.8 1-.9 1.1-.2.2-.3.2-.6.1-.3-.2-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.5-.5c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5-.1-.2-.7-1.7-1-2.3-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.2.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.3-.7.3-1.3.2-1.4-.1-.1-.3-.2-.6-.3z"/></svg>
+</a>
+
+<script>
+(function() {
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const hasHover = matchMedia('(hover: hover)').matches;
+
+  /* ---- Scroll progress ---- */
+  const prog = document.getElementById('progress');
+  addEventListener('scroll', () => {
+    const h = document.documentElement;
+    prog.style.width = (h.scrollTop / (h.scrollHeight - h.clientHeight) * 100) + '%';
+  }, { passive: true });
+
+  /* ---- Preloader ---- */
+  const pl = document.getElementById('preloader');
+  const plCount = document.getElementById('plCount');
+  if (!reduce && pl) {
+    let n = 0;
+    const iv = setInterval(() => {
+      n += Math.floor(Math.random() * 12) + 4;
+      if (n >= 100) { n = 100; clearInterval(iv); setTimeout(() => { pl.classList.add('done'); animateWordmark(); }, 250); }
+      plCount.textContent = n;
+    }, 65);
+  } else if (pl) { pl.style.display = 'none'; }
+
+  /* ---- Wordmark: AS ink, AI orange, letters rise ---- */
+  const wm = document.getElementById('wordmark');
+  function splitWordmark() {
+    wm.innerHTML =
+      'AS'.split('').map(c => `<span class="char" style="transition: transform 0.9s cubic-bezier(0.22,1,0.36,1)">${c}</span>`).join('') +
+      'AI'.split('').map(c => `<span class="char ai" style="transition: transform 0.9s cubic-bezier(0.22,1,0.36,1)">${c}</span>`).join('') +
+      '<sup>®</sup>';
+  }
+  function animateWordmark() {
+    document.querySelectorAll('#wordmark .char').forEach((c, i) => {
+      setTimeout(() => { c.style.transform = 'translateY(0)'; }, i * 90);
+    });
+  }
+  splitWordmark();
+  if (reduce) document.querySelectorAll('#wordmark .char').forEach(c => c.style.transform = 'none');
+
+  /* ---- Cursor with VIEW label ---- */
+  if (hasHover && !reduce) {
+    const cur = document.getElementById('cursor');
+    let shown = false;
+    addEventListener('mousemove', e => {
+      cur.style.left = e.clientX + 'px';
+      cur.style.top = e.clientY + 'px';
+      if (!shown) { cur.classList.add('visible'); shown = true; }
+    });
+    document.documentElement.addEventListener('mouseleave', () => { cur.classList.remove('visible'); shown = false; });
+    document.querySelectorAll('a, button, .svc-row').forEach(el => {
+      el.addEventListener('mouseenter', () => cur.classList.add('grow'));
+      el.addEventListener('mouseleave', () => cur.classList.remove('grow'));
+    });
+    document.querySelectorAll('.hoverview').forEach(el => {
+      el.addEventListener('mouseenter', () => { cur.classList.add('view'); cur.classList.remove('grow'); });
+      el.addEventListener('mouseleave', () => cur.classList.remove('view'));
+    });
+  }
+
+  /* ---- Magnetic buttons ---- */
+  if (hasHover && !reduce) {
+    document.querySelectorAll('.magnet').forEach(btn => {
+      btn.addEventListener('mousemove', e => {
+        const r = btn.getBoundingClientRect();
+        const x = e.clientX - r.left - r.width / 2;
+        const y = e.clientY - r.top - r.height / 2;
+        btn.style.transform = `translate(${x * 0.18}px, ${y * 0.28}px)`;
+      });
+      btn.addEventListener('mouseleave', () => btn.style.transform = 'translate(0,0)');
+    });
+  }
+
+  /* ---- Mobile menu ---- */
+  const burger = document.getElementById('burger');
+  const mmenu = document.getElementById('mmenu');
+  if (burger && mmenu) {
+    const setMenu = (open) => {
+      document.body.classList.toggle('menu-open', open);
+      document.body.style.overflow = open ? 'hidden' : '';
+      burger.setAttribute('aria-expanded', open);
+      burger.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    };
+    burger.addEventListener('click', () => setMenu(!document.body.classList.contains('menu-open')));
+    mmenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setMenu(false)));
+    addEventListener('keydown', e => { if (e.key === 'Escape') setMenu(false); });
+  }
+
+  /* ---- Services: tap to expand on touch devices ---- */
+  if (!hasHover) {
+    document.querySelectorAll('.svc-row').forEach(row => {
+      row.addEventListener('click', () => {
+        const wasOpen = row.classList.contains('open');
+        document.querySelectorAll('.svc-row.open').forEach(r => r.classList.remove('open'));
+        if (!wasOpen) row.classList.add('open');
+      });
+    });
+  }
+
+  /* ---- Reveals: generic + title masks + work clip reveals ---- */
+  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); }), { threshold: 0.12 });
+  document.querySelectorAll('.reveal, .titl, .wk').forEach(el => io.observe(el));
+
+  /* ---- Gentle parallax on work visuals ---- */
+  if (!reduce) {
+    const wks = [...document.querySelectorAll('.wk-visual svg')];
+    addEventListener('scroll', () => {
+      wks.forEach(svg => {
+        const r = svg.parentElement.getBoundingClientRect();
+        if (r.bottom < 0 || r.top > innerHeight) return;
+        const p = (r.top + r.height / 2 - innerHeight / 2) / innerHeight;
+        svg.style.transform = `translateY(${p * -18}px)`;
+      });
+    }, { passive: true });
+  }
+
+  /* ---- Manifesto word-by-word ---- */
+  const mani = document.getElementById('maniText');
+  if (mani) {
+    const walk = (node) => {
+      [...node.childNodes].forEach(ch => {
+        if (ch.nodeType === 3) {
+          const frag = document.createDocumentFragment();
+          ch.textContent.split(/(\s+)/).forEach(tok => {
+            if (/^\s+$/.test(tok) || tok === '') frag.appendChild(document.createTextNode(tok));
+            else { const s = document.createElement('span'); s.className = 'w'; s.textContent = tok; frag.appendChild(s); }
+          });
+          node.replaceChild(frag, ch);
+        } else if (ch.nodeType === 1) walk(ch);
+      });
+    };
+    walk(mani);
+    const words = mani.querySelectorAll('.w');
+    const onScroll = () => {
+      const r = mani.getBoundingClientRect();
+      const p = Math.min(1, Math.max(0, (innerHeight * 0.85 - r.top) / (r.height + innerHeight * 0.3)));
+      const lit = Math.floor(p * words.length);
+      words.forEach((w, i) => w.classList.toggle('lit', i <= lit));
+    };
+    addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  }
+})();
+</script>
+
+</body>
+</html>

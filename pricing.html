@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pricing — ASAI Technology®</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Instrument+Serif:ital@0;1&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper:#F1EFE9; --paper-2:#E9E6DE; --ink:#131215;
+    --ink-60:rgba(19,18,21,0.6); --ink-40:rgba(19,18,21,0.4);
+    --line:rgba(19,18,21,0.14); --accent:#FF4D00; --wa:#25D366;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+  body { background:var(--paper); color:var(--ink); font-family:'Archivo',sans-serif; line-height:1.55; overflow-x:hidden; }
+  ::selection { background:var(--accent); color:var(--paper); }
+  a { color:inherit; text-decoration:none; }
+  .mono { font-family:'Space Mono',monospace; font-size:11px; letter-spacing:0.08em; text-transform:uppercase; }
+
+  nav { position:fixed; top:0; left:0; right:0; z-index:100; display:flex; justify-content:space-between; align-items:center;
+    padding:22px 48px; background:linear-gradient(180deg, var(--paper) 60%, transparent); }
+  .nav-logo { font-weight:800; font-size:16px; }
+  .nav-logo sup { font-size:9px; }
+  .nav-right { display:flex; align-items:center; gap:34px; }
+  .nav-right a.nl { font-family:'Space Mono',monospace; font-size:11px; letter-spacing:0.08em; text-transform:uppercase; color:var(--ink-60); }
+  .nav-right a.nl:hover { color:var(--ink); }
+  .nav-wa { font-family:'Space Mono',monospace; font-size:11px; letter-spacing:0.08em; text-transform:uppercase;
+    background:var(--ink); color:var(--paper); padding:12px 22px; border-radius:100px; transition:background 0.25s; }
+  .nav-wa:hover { background:var(--accent); }
+  .nav-burger {
+    display:none; position:relative; z-index:700;
+    width:46px; height:46px; border:1px solid var(--line); border-radius:50%;
+    background:var(--paper); cursor:pointer; padding:0;
+    flex-direction:column; align-items:center; justify-content:center; gap:5px;
+    transition:background 0.3s ease, border-color 0.3s ease;
+  }
+  .nav-burger span { display:block; width:17px; height:2px; background:var(--ink); border-radius:2px; transition:transform 0.35s cubic-bezier(0.22,1,0.36,1), background 0.3s ease; }
+  body.menu-open nav { z-index:700; background:none; }
+  .nav-logo { transition:opacity 0.3s ease; }
+  .nav-wa { transition:background 0.25s ease, opacity 0.3s ease; }
+  body.menu-open .nav-logo, body.menu-open .nav-wa { opacity:0; pointer-events:none; }
+  body.menu-open .nav-burger { background:transparent; border-color:rgba(241,239,233,0.35); }
+  body.menu-open .nav-burger span { background:var(--paper); }
+  body.menu-open .nav-burger span:first-child { transform:translateY(3.5px) rotate(45deg); }
+  body.menu-open .nav-burger span:last-child { transform:translateY(-3.5px) rotate(-45deg); }
+  @media (max-width:820px) { .nav-right a.nl { display:none; } nav { padding:18px 22px; } .nav-burger { display:flex; } }
+
+  #mmenu {
+    position:fixed; inset:0; z-index:600;
+    background:var(--ink); color:var(--paper);
+    display:flex; flex-direction:column;
+    padding:26px 22px 30px;
+    transform:translateY(-100%); visibility:hidden;
+    transition:transform 0.75s cubic-bezier(0.76,0,0.24,1), visibility 0s 0.75s;
+  }
+  body.menu-open #mmenu { transform:none; visibility:visible; transition:transform 0.75s cubic-bezier(0.76,0,0.24,1), visibility 0s 0s; }
+  .mm-top { display:flex; justify-content:space-between; align-items:center; padding-right:56px; min-height:46px; }
+  .mm-top .mono { color:rgba(241,239,233,0.5); }
+  .mm-links { display:flex; flex-direction:column; justify-content:center; flex:1; gap:4px; }
+  .mm-item { overflow:hidden; }
+  .mm-item a {
+    display:flex; align-items:baseline; gap:16px;
+    font-weight:900; font-size:clamp(40px, 11vw, 68px);
+    letter-spacing:-0.04em; line-height:1.08;
+    transform:translateY(115%);
+    transition:transform 0.7s cubic-bezier(0.22,1,0.36,1);
+  }
+  .mm-item a .idx { font-family:'Space Mono',monospace; font-size:12px; font-weight:400; color:var(--accent); }
+  .mm-item a:active { color:var(--accent); }
+  body.menu-open .mm-item a { transform:none; }
+  body.menu-open .mm-item:nth-child(1) a { transition-delay:0.18s; }
+  body.menu-open .mm-item:nth-child(2) a { transition-delay:0.26s; }
+  body.menu-open .mm-item:nth-child(3) a { transition-delay:0.34s; }
+  body.menu-open .mm-item:nth-child(4) a { transition-delay:0.42s; }
+  .mm-meta {
+    border-top:1px solid rgba(241,239,233,0.18); padding-top:22px;
+    display:flex; flex-direction:column; gap:18px;
+    opacity:0; transform:translateY(14px);
+    transition:opacity 0.6s ease, transform 0.6s ease;
+  }
+  body.menu-open .mm-meta { opacity:1; transform:none; transition-delay:0.5s; }
+  .mm-wa {
+    font-family:'Space Mono',monospace; font-size:12px; letter-spacing:0.06em; text-transform:uppercase;
+    background:var(--wa); color:var(--ink); font-weight:700;
+    padding:18px 32px; border-radius:100px; text-align:center;
+  }
+  .mm-contacts { display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; }
+  .mm-contacts a { font-size:14px; font-weight:600; color:rgba(241,239,233,0.75); }
+  @media (prefers-reduced-motion: reduce) { #mmenu, .mm-item a, .mm-meta { transition:none !important; } }
+
+  main { max-width:1500px; margin:0 auto; padding:170px 48px 110px; }
+  @media (max-width:820px) { main { padding:140px 22px 80px; } }
+
+  .page-title { font-weight:900; font-size:clamp(52px, 9vw, 140px); letter-spacing:-0.045em; line-height:0.88; margin-bottom:22px; }
+  .page-title em { font-family:'Instrument Serif',serif; font-style:italic; font-weight:400; }
+  .page-sub { color:var(--ink-60); max-width:560px; font-size:17px; margin-bottom:26px; }
+  .trust-row { display:flex; gap:22px; flex-wrap:wrap; margin-bottom:80px; }
+  .trust-row span { font-family:'Space Mono',monospace; font-size:10.5px; letter-spacing:0.08em; text-transform:uppercase; color:var(--ink-60);
+    display:inline-flex; align-items:center; gap:8px; }
+  .trust-row span::before { content:'✓'; color:var(--accent); font-weight:700; }
+
+  .plans { display:grid; grid-template-columns:repeat(3, 1fr); gap:24px; margin-bottom:80px; }
+  .plan {
+    border:1px solid var(--line); border-radius:22px; padding:42px 36px;
+    display:flex; flex-direction:column;
+    background:var(--paper);
+    transition:transform 0.25s ease, box-shadow 0.25s ease;
+  }
+  .plan:hover { transform:translateY(-6px); box-shadow:0 30px 60px rgba(19,18,21,0.1); }
+  .plan.feature { background:var(--ink); color:var(--paper); position:relative; overflow:hidden; }
+  .plan.feature .mono { color:rgba(241,239,233,0.55); }
+  .plan.feature li { border-color:rgba(241,239,233,0.15); }
+  .plan-tag { font-family:'Space Mono',monospace; font-size:10px; letter-spacing:0.12em; text-transform:uppercase; color:var(--ink-60); margin-bottom:22px; display:flex; justify-content:space-between; }
+  .plan-tag .pop { color:var(--accent); }
+  .plan h2 { font-weight:800; font-size:26px; letter-spacing:-0.02em; margin-bottom:8px; }
+  .plan .for { font-family:'Instrument Serif',serif; font-style:italic; color:inherit; opacity:0.65; font-size:15.5px; margin-bottom:28px; }
+  .price { display:flex; align-items:baseline; gap:8px; margin-bottom:6px; }
+  .price .cur { font-weight:600; font-size:18px; }
+  .price .amt { font-weight:900; font-size:52px; letter-spacing:-0.03em; line-height:1; }
+  .price-note { font-family:'Space Mono',monospace; font-size:10px; letter-spacing:0.08em; text-transform:uppercase; opacity:0.55; margin-bottom:30px; }
+  .plan ul { list-style:none; margin-bottom:36px; flex:1; }
+  .plan li { padding:12px 0; border-top:1px solid var(--line); font-size:14.5px; display:flex; gap:10px; }
+  .plan li::before { content:'→'; color:var(--accent); flex-shrink:0; }
+  .plan-btn {
+    font-family:'Space Mono',monospace; font-size:12px; letter-spacing:0.06em; text-transform:uppercase;
+    text-align:center; padding:18px; border-radius:100px;
+    background:var(--ink); color:var(--paper);
+    transition:background 0.25s ease, transform 0.25s ease;
+    border:none; cursor:pointer; width:100%;
+  }
+  .plan-btn:hover { background:var(--accent); transform:translateY(-2px); }
+  .plan.feature .plan-btn { background:var(--accent); color:var(--ink); font-weight:700; }
+  .plan.feature .plan-btn:hover { background:var(--paper); }
+  @media (max-width:980px) { .plans { grid-template-columns:1fr; } }
+
+  .custom-strip {
+    border:1px solid var(--line); border-radius:22px; background:var(--paper-2);
+    display:grid; grid-template-columns:1fr auto; gap:30px; align-items:center;
+    padding:44px 50px; margin-bottom:80px;
+  }
+  .custom-strip h3 { font-weight:800; font-size:clamp(22px,2.6vw,34px); letter-spacing:-0.02em; }
+  .custom-strip h3 em { font-family:'Instrument Serif',serif; font-style:italic; font-weight:400; }
+  .custom-strip p { color:var(--ink-60); margin-top:8px; max-width:520px; font-size:15px; }
+  .btn-solid { font-family:'Space Mono',monospace; font-size:12px; letter-spacing:0.06em; text-transform:uppercase;
+    background:var(--ink); color:var(--paper); padding:18px 32px; border-radius:100px; display:inline-block;
+    transition:background 0.25s ease; }
+  .btn-solid:hover { background:var(--wa); }
+  @media (max-width:820px) { .custom-strip { grid-template-columns:1fr; padding:32px 26px; } }
+
+  .faq h2 { font-weight:800; font-size:clamp(28px,3.4vw,46px); letter-spacing:-0.025em; margin-bottom:40px; }
+  .faq h2 em { font-family:'Instrument Serif',serif; font-style:italic; font-weight:400; }
+  .faq-item { border-top:1px solid var(--line); padding:26px 4px; }
+  .faq-item:last-child { border-bottom:1px solid var(--line); }
+  .faq-item h4 { font-weight:700; font-size:17px; margin-bottom:8px; }
+  .faq-item p { color:var(--ink-60); font-size:14.5px; max-width:760px; }
+
+  footer { background:var(--ink); color:var(--paper); padding:44px 48px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:14px; margin-top:100px; }
+  footer .mono { color:rgba(241,239,233,0.5); }
+  footer a:hover { color:var(--paper); }
+
+  .wa-float { position:fixed; bottom:24px; right:24px; z-index:300; width:60px; height:60px; border-radius:50%;
+    background:var(--wa); display:flex; align-items:center; justify-content:center;
+    box-shadow:0 14px 40px rgba(37,211,102,0.45); transition:transform 0.22s ease; }
+  .wa-float:hover { transform:translateY(-3px) scale(1.06); }
+  .wa-float svg { width:30px; height:30px; }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="index.html">AS<span style="color:#FF4D00">AI</span> <span style="font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;font-size:0.85em;color:rgba(19,18,21,0.6)">Technology®</span></a>
+  <div class="nav-right">
+    <a class="nl" href="index.html#services">Services</a>
+    <a class="nl" href="index.html#work">Work</a>
+    <a class="nl" href="pricing.html" style="color:var(--ink)">Pricing</a>
+    <a class="nl" href="index.html#contact">Contact</a>
+    <a class="nav-wa" href="https://wa.me/919816689339?text=Hi%20ASAI%2C%20I%20have%20a%20pricing%20question" target="_blank" rel="noopener">WhatsApp ↗</a>
+    <button class="nav-burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="mmenu"><span></span><span></span></button>
+  </div>
+</nav>
+
+<div id="mmenu">
+  <div class="mm-top"><span class="mono">( Menu )</span><span class="mono">ASAI Technology®</span></div>
+  <div class="mm-links">
+    <div class="mm-item"><a href="index.html"><span class="idx">/01</span>Home</a></div>
+    <div class="mm-item"><a href="index.html#services"><span class="idx">/02</span>Services</a></div>
+    <div class="mm-item"><a href="index.html#work"><span class="idx">/03</span>Work</a></div>
+    <div class="mm-item"><a href="index.html#contact"><span class="idx">/04</span>Contact</a></div>
+  </div>
+  <div class="mm-meta">
+    <a class="mm-wa" href="https://wa.me/919816689339?text=Hi%20ASAI%2C%20I%20have%20a%20pricing%20question" target="_blank" rel="noopener">Ask on WhatsApp ↗</a>
+    <div class="mm-contacts">
+      <a href="tel:+919816689339">+91 98166 89339</a>
+      <a href="mailto:support.asaitech@gmail.com">support.asaitech@gmail.com</a>
+    </div>
+  </div>
+</div>
+
+<main>
+  <h1 class="page-title">Simple <em>pricing.</em></h1>
+  <p class="page-sub">Fixed packages, paid securely online. Every payment generates a professional invoice instantly — no chasing, no surprises.</p>
+  <div class="trust-row">
+    <span>UPI · Cards · Netbanking via Razorpay</span>
+    <span>Instant invoice</span>
+    <span>Final draft in 24h</span>
+    <span>Source files included</span>
+  </div>
+
+    <div class="plans">
+    <div class="plan">
+      <div class="plan-tag"><span>/ 01</span><span>One-time</span></div>
+      <h2>Professional</h2>
+      <div class="for">for lawyers, doctors, consultants & independents</div>
+      <div class="price"><span class="cur">₹</span><span class="amt">4,999</span></div>
+      <div class="price-note">One-time · final draft in 24 hours</div>
+      <ul>
+        <li>Premium single-page or 2-page site</li>
+        <li>Elegant, profession-appropriate design</li>
+        <li>WhatsApp enquiry + click-to-call</li>
+        <li>Contact form to your email</li>
+        <li>Free hosting setup — no monthly cost</li>
+        <li>Google indexing so clients find you</li>
+        <li>2 refinement rounds</li>
+      </ul>
+      <button class="plan-btn" onclick="location.href='pay.html?plan=professional'">Pay ₹4,999 →</button>
+    </div>
+
+    <div class="plan feature">
+      <div class="plan-tag"><span>/ 02</span><span class="pop">Most popular</span></div>
+      <h2>Premium</h2>
+      <div class="for">for brands that need to stand out</div>
+      <div class="price"><span class="cur">₹</span><span class="amt">9,999</span></div>
+      <div class="price-note">One-time · final draft in 24 hours</div>
+      <ul>
+        <li>Up to 6 custom pages, award-style design</li>
+        <li>Scroll animations & signature effects</li>
+        <li>WhatsApp + form + lead capture</li>
+        <li>On-page SEO built in</li>
+        <li>Custom domain connection</li>
+        <li>Social profile links & sharing cards</li>
+        <li>3 refinement rounds + 15 days support</li>
+      </ul>
+      <button class="plan-btn" onclick="location.href='pay.html?plan=premium'">Pay ₹9,999 →</button>
+    </div>
+
+    <div class="plan">
+      <div class="plan-tag"><span>/ 03</span><span>One-time</span></div>
+      <h2>Business</h2>
+      <div class="for">for companies running on their website</div>
+      <div class="price"><span class="cur">₹</span><span class="amt">14,999</span></div>
+      <div class="price-note">One-time · final draft in 24 hours</div>
+      <ul>
+        <li>Up to 10 pages + case studies/catalog</li>
+        <li>Online payments (Razorpay) + invoices</li>
+        <li>Chatbot + WhatsApp + form leads</li>
+        <li>Full technical SEO + Search Console</li>
+        <li>Analytics & conversion tracking</li>
+        <li>Priority build queue</li>
+        <li>3 refinement rounds + 30 days support</li>
+      </ul>
+      <button class="plan-btn" onclick="location.href='pay.html?plan=business'">Pay ₹14,999 →</button>
+    </div>
+  </div>
+
+  <div class="plans" style="grid-template-columns:repeat(3,1fr); margin-top:-40px;">
+    <div class="plan">
+      <div class="plan-tag"><span>/ 04</span><span>Monthly</span></div>
+      <h2>Care Plan</h2>
+      <div class="for">updates & priority support</div>
+      <div class="price"><span class="cur">₹</span><span class="amt">1,499</span></div>
+      <div class="price-note">Per month · cancel anytime</div>
+      <ul>
+        <li>Content & image updates on request</li>
+        <li>Uptime & performance monitoring</li>
+        <li>Priority WhatsApp support</li>
+      </ul>
+      <button class="plan-btn" onclick="location.href='pay.html?plan=care'">Start — ₹1,499/mo →</button>
+    </div>
+    <div class="plan">
+      <div class="plan-tag"><span>/ 05</span><span>Monthly</span></div>
+      <h2>SEO Growth</h2>
+      <div class="for">rank for what customers search</div>
+      <div class="price"><span class="cur">₹</span><span class="amt">3,999</span></div>
+      <div class="price-note">Per month · min. 3 months advised</div>
+      <ul>
+        <li>Keyword research & content plan</li>
+        <li>Technical + local SEO work monthly</li>
+        <li>Monthly ranking report</li>
+      </ul>
+      <button class="plan-btn" onclick="location.href='pay.html?plan=seo'">Start — ₹3,999/mo →</button>
+    </div>
+    <div class="plan">
+      <div class="plan-tag"><span>/ 06</span><span>Monthly</span></div>
+      <h2>Social Presence</h2>
+      <div class="for">look sharp on Instagram & LinkedIn</div>
+      <div class="price"><span class="cur">₹</span><span class="amt">5,999</span></div>
+      <div class="price-note">Per month · 12 branded posts</div>
+      <ul>
+        <li>12 designed posts + captions monthly</li>
+        <li>Profile optimisation & highlights</li>
+        <li>Content calendar & hashtag sets</li>
+      </ul>
+      <button class="plan-btn" onclick="location.href='pay.html?plan=social'">Start — ₹5,999/mo →</button>
+    </div>
+  </div>
+
+  <div class="custom-strip">
+    <div>
+      <h3>Chrome extensions & automation are <em>quoted per project.</em></h3>
+      <p>Every extension and automation build is different — tell us what you need on WhatsApp and we'll send a fixed quote the same day, payable through the same secure checkout.</p>
+    </div>
+    <a class="btn-solid" href="https://wa.me/919816689339?text=Hi%20ASAI%2C%20I%20need%20a%20quote%20for%20an%20extension%2Fautomation%20project" target="_blank" rel="noopener">Get a quote on WhatsApp ↗</a>
+  </div>
+
+  <div class="faq">
+    <h2>Payment <em>questions.</em></h2>
+    <div class="faq-item">
+      <h4>How do payments work?</h4>
+      <p>Checkout is powered by Razorpay — India's leading payment gateway. You can pay by UPI, any debit/credit card, or netbanking. We never see or store your card details.</p>
+    </div>
+    <div class="faq-item">
+      <h4>Do I get an invoice?</h4>
+      <p>Yes — a professional invoice is generated immediately after payment with your name, the package, amount, and payment reference. You can download or print it on the spot.</p>
+    </div>
+    <div class="faq-item">
+      <h4>What if I need something between packages?</h4>
+      <p>Message us on WhatsApp — we'll quote a custom amount and send you a secure payment link for exactly that scope.</p>
+    </div>
+    <div class="faq-item">
+      <h4>When does work start?</h4>
+      <p>Same day as payment for briefs received before evening IST. Final drafts land within 24 hours for websites — work starts the moment payment clears.</p>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <span class="mono">© 2026 ASAI Technology® — Noida, IN</span>
+  <a class="mono" href="mailto:support.asaitech@gmail.com">support.asaitech@gmail.com</a>
+  <a class="mono" href="tel:+919816689339">+91 98166 89339</a>
+</footer>
+
+<a class="wa-float" href="https://wa.me/919816689339?text=Hi%20ASAI%2C%20I%20have%20a%20pricing%20question" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+  <svg viewBox="0 0 32 32" fill="white"><path d="M16 3C9.4 3 4 8.4 4 15c0 2.6.8 5 2.2 7L4.5 28l6.2-1.6c1.9 1 4 1.6 5.3 1.6 6.6 0 12-5.4 12-12S22.6 3 16 3zm0 22c-1.8 0-3.6-.5-5.1-1.4l-.4-.2-3.7 1 1-3.6-.2-.4C6.6 18.9 6 17 6 15 6 9.5 10.5 5 16 5s10 4.5 10 10-4.5 10-10 10zm5.5-7.5c-.3-.2-1.8-.9-2-1-.3-.1-.5-.2-.7.2-.2.3-.8 1-.9 1.1-.2.2-.3.2-.6.1-.3-.2-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.5-.5c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5-.1-.2-.7-1.7-1-2.3-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.2.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.3-.7.3-1.3.2-1.4-.1-.1-.3-.2-.6-.3z"/></svg>
+</a>
+
+<script>
+(function() {
+  const burger = document.getElementById('burger');
+  const mmenu = document.getElementById('mmenu');
+  if (burger && mmenu) {
+    const setMenu = (open) => {
+      document.body.classList.toggle('menu-open', open);
+      document.body.style.overflow = open ? 'hidden' : '';
+      burger.setAttribute('aria-expanded', open);
+      burger.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    };
+    burger.addEventListener('click', () => setMenu(!document.body.classList.contains('menu-open')));
+    mmenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setMenu(false)));
+    addEventListener('keydown', e => { if (e.key === 'Escape') setMenu(false); });
+  }
+})();
+</script>
+
+</body>
+</html>
