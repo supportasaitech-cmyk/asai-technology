@@ -161,7 +161,7 @@
 
   .wordmark {
     font-weight: 900;
-    font-size: clamp(64px, 15.5vw, 268px);
+    font-size: clamp(56px, min(15vw, 24vh), 240px);
     line-height: 0.84;
     letter-spacing: -0.05em;
     display: flex; align-items: flex-start;
@@ -228,9 +228,8 @@
   .wrap { max-width: 1500px; margin: 0 auto; }
   .sec-label { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 56px; border-bottom: 1px solid var(--line); padding-bottom: 18px; }
   .sec-label .mono { color: var(--ink-60); }
-  .titl { overflow: hidden; margin-bottom: 64px; }
-  .titl h2 { font-weight: 800; font-size: clamp(38px, 5.4vw, 84px); letter-spacing: -0.035em; line-height: 0.98; transform: translateY(110%); transition: transform 1s cubic-bezier(0.22,1,0.36,1); }
-  .titl.in h2 { transform: none; }
+  .titl { margin-bottom: 64px; }
+  .titl h2 { font-weight: 800; font-size: clamp(38px, 5.4vw, 84px); letter-spacing: -0.035em; line-height: 0.98; }
   .titl em { font-family: 'Instrument Serif', serif; font-style: italic; font-weight: 400; }
   .titl .acc { color: var(--accent); }
   @media (max-width: 860px) { section { padding: 92px 22px; } }
@@ -375,49 +374,6 @@
   .wa-float:hover { transform: translateY(-3px) scale(1.06); }
   .wa-float svg { width: 30px; height: 30px; }
 
-  /* ============ ASAI BOT ============ */
-  #bot {
-    position: fixed; bottom: 12px; left: 0; z-index: 250;
-    width: 66px; height: 78px;
-    transform: translateX(5vw) translateY(150px);
-    will-change: transform;
-  }
-  #bot .bot-tilt { position: absolute; inset: 0; transition: transform 0.4s ease; transform-style: preserve-3d; }
-  #bot.dir-l .bot-tilt { transform: perspective(300px) rotateY(-18deg); }
-  #bot.dir-r .bot-tilt { transform: perspective(300px) rotateY(18deg); }
-  .bot-core {
-    position: absolute; inset: 0 4px 10px 4px;
-    background: radial-gradient(circle at 32% 26%, #FF9E63, #FF4D00 56%, #B93800 100%);
-    border-radius: 50% 50% 46% 46% / 60% 60% 40% 40%;
-    box-shadow: inset -7px -9px 16px rgba(0,0,0,0.22), inset 5px 6px 10px rgba(255,255,255,0.28), 0 12px 26px rgba(255,77,0,0.35);
-  }
-  .bot-core::before { content: ''; position: absolute; top: 25%; left: -2px; right: -2px; height: 9px; background: rgba(19,18,21,0.82); }
-  #bot.walk .bot-core { animation: waddle 0.38s ease-in-out infinite; }
-  @keyframes waddle { 0%, 100% { transform: rotate(-5deg); } 50% { transform: rotate(5deg) translateY(-3px); } }
-  .bot-eye {
-    position: absolute; top: 15%; width: 21px; height: 21px;
-    background: #fff; border: 3.5px solid #55555c; border-radius: 50%;
-    animation: blink 4.6s infinite;
-  }
-  .bot-eye.l { left: 13%; } .bot-eye.r { right: 13%; animation-delay: 0.12s; }
-  .bot-eye::after { content: ''; position: absolute; width: 8px; height: 8px; background: #131215; border-radius: 50%; top: 50%; left: 50%; transform: translate(-50%, -50%); transition: transform 0.3s ease; }
-  #bot.dir-l .bot-eye::after { transform: translate(-85%, -50%); }
-  #bot.dir-r .bot-eye::after { transform: translate(-15%, -50%); }
-  @keyframes blink { 0%, 91%, 100% { transform: scaleY(1); } 95% { transform: scaleY(0.08); } }
-  .bot-mouth { position: absolute; top: 60%; left: 50%; width: 18px; height: 9px; transform: translateX(-50%); border-radius: 0 0 20px 20px; background: rgba(19,18,21,0.85); }
-  .bot-shadow { position: absolute; bottom: 0; left: 12%; width: 76%; height: 9px; background: rgba(19,18,21,0.28); border-radius: 50%; filter: blur(3px); }
-  #bot.walk .bot-shadow { animation: shsq 0.38s ease-in-out infinite; }
-  @keyframes shsq { 0%, 100% { transform: scaleX(1); } 50% { transform: scaleX(0.85); } }
-  .bot-bubble {
-    position: absolute; bottom: 84px; left: 8px;
-    background: var(--ink); color: var(--paper);
-    padding: 9px 13px; border-radius: 12px 12px 12px 3px;
-    white-space: nowrap;
-    transform: scale(0); transform-origin: bottom left;
-    transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
-  }
-  #bot:hover .bot-bubble, #bot.talk .bot-bubble { transform: scale(1); }
-  @media (max-width: 700px) { #bot { scale: 0.78; transform-origin: bottom left; } }
 </style>
 </head>
 <body>
@@ -503,7 +459,7 @@
 <section id="services">
   <div class="wrap">
     <div class="sec-label"><span class="mono">( 01 — Services )</span><span class="mono"><span class="h-desk">Hover to expand</span><span class="h-touch">Tap to expand</span></span></div>
-    <div class="titl"><h2>What we <em>build.</em></h2></div>
+    <div class="titl"><h2 data-wlit="scroll">What we <em>build.</em></h2></div>
 
     <div class="svc">
       <div class="svc-row">
@@ -561,7 +517,7 @@
 <section id="work" style="padding-top: 0;">
   <div class="wrap">
     <div class="sec-label"><span class="mono">( 02 — Selected work )</span><span class="mono">Shipped & in-house</span></div>
-    <div class="titl"><h2>Recent <em>output.</em></h2></div>
+    <div class="titl"><h2 data-wlit="scroll">Recent <em>output.</em></h2></div>
 
     <div class="work-grid">
       <a class="wk hoverview" href="work-aireply.html">
@@ -589,7 +545,7 @@
           </svg>
         </div>
         <div class="wk-info"><h3>AI.Reply</h3><span class="mono">Our own product</span></div>
-        <div class="wk-client">Gmail Chrome extension — product, website & brand, all built in-house</div>
+        <div class="wk-client" data-wlit="scroll">Gmail Chrome extension — product, website & brand, all built in-house</div>
       </a>
 
       <a class="wk hoverview" href="work-solstice.html">
@@ -612,7 +568,7 @@
           </svg>
         </div>
         <div class="wk-info"><h3>Daily Report Pipeline</h3><span class="mono">60+ min/day saved</span></div>
-        <div class="wk-client">Three spreadsheets in, one clean report out — untouched by hand</div>
+        <div class="wk-client" data-wlit="scroll">Three spreadsheets in, one clean report out — untouched by hand</div>
       </a>
 
       <a class="wk hoverview" href="work-balancedbites.html">
@@ -640,7 +596,7 @@
           </svg>
         </div>
         <div class="wk-info"><h3>Balanced Bites</h3><span class="mono">Brand & website</span></div>
-        <div class="wk-client">Healthy-eating brand — logo & website designed and built by ASAI</div>
+        <div class="wk-client" data-wlit="scroll">Healthy-eating brand — logo & website designed and built by ASAI</div>
       </a>
 
       <a class="wk hoverview" href="work-kinetic.html">
@@ -659,7 +615,7 @@
           </svg>
         </div>
         <div class="wk-info"><h3>Kinetic Fitness</h3><span class="mono">Concept · design study</span></div>
-        <div class="wk-client">Gym & training brand — bold type, energy-gradient art direction</div>
+        <div class="wk-client" data-wlit="scroll">Gym & training brand — bold type, energy-gradient art direction</div>
       </a>
 
       <a class="wk hoverview" href="work-verma.html">
@@ -683,7 +639,7 @@
           </svg>
         </div>
         <div class="wk-info"><h3>Verma & Associates</h3><span class="mono">Concept · design study</span></div>
-        <div class="wk-client">Professional one-pager for advocates — the ₹4,999 tier, done premium</div>
+        <div class="wk-client" data-wlit="scroll">Professional one-pager for advocates — the ₹4,999 tier, done premium</div>
       </a>
 
       <a class="wk hoverview" href="work-meridian.html">
@@ -704,7 +660,7 @@
           </svg>
         </div>
         <div class="wk-info"><h3>Meridian Café Collective</h3><span class="mono">20 assets delivered</span></div>
-        <div class="wk-client">One identity system, twenty ready-to-post templates</div>
+        <div class="wk-client" data-wlit="scroll">One identity system, twenty ready-to-post templates</div>
       </a>
     </div>
   </div>
@@ -763,7 +719,7 @@
 <footer>
   <a class="foot-cta" href="https://wa.me/919816689339?text=Hi%20ASAI%2C%20I%20want%20to%20discuss%20a%20project" target="_blank" rel="noopener">
     <span class="small">One tap away —</span>
-    <span class="big">LET'S TALK ↗</span>
+    <span class="big" data-wlit="scroll">LET'S TALK ↗</span>
   </a>
   <div class="foot-meta">
     <span class="mono">© 2026 ASAI Technology® — Noida, IN</span>
@@ -772,17 +728,6 @@
     <a href="pricing.html" class="mono" style="color:rgba(241,239,233,0.5)">Pricing & payments</a>
   </div>
 </footer>
-
-<a id="bot" href="https://wa.me/919816689339?text=Hi%20ASAI%2C%20your%20little%20orange%20bot%20sent%20me" target="_blank" rel="noopener" aria-label="Chat with ASAI on WhatsApp">
-  <span class="bot-bubble mono">Hi! Need a website?</span>
-  <span class="bot-tilt">
-    <span class="bot-core">
-      <span class="bot-eye l"></span><span class="bot-eye r"></span>
-      <span class="bot-mouth"></span>
-    </span>
-    <span class="bot-shadow"></span>
-  </span>
-</a>
 
 <a class="wa-float" href="https://wa.me/919816689339?text=Hi%20ASAI%2C%20I%20want%20to%20discuss%20a%20project" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
   <svg viewBox="0 0 32 32" fill="white"><path d="M16 3C9.4 3 4 8.4 4 15c0 2.6.8 5 2.2 7L4.5 28l6.2-1.6c1.9 1 4 1.6 5.3 1.6 6.6 0 12-5.4 12-12S22.6 3 16 3zm0 22c-1.8 0-3.6-.5-5.1-1.4l-.4-.2-3.7 1 1-3.6-.2-.4C6.6 18.9 6 17 6 15 6 9.5 10.5 5 16 5s10 4.5 10 10-4.5 10-10 10zm5.5-7.5c-.3-.2-1.8-.9-2-1-.3-.1-.5-.2-.7.2-.2.3-.8 1-.9 1.1-.2.2-.3.2-.6.1-.3-.2-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.5-.5c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5-.1-.2-.7-1.7-1-2.3-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.2.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.3-.7.3-1.3.2-1.4-.1-.1-.3-.2-.6-.3z"/></svg>
@@ -824,7 +769,6 @@
     wm.classList.add('together');
     setTimeout(() => wm.classList.add('landed'), 1150);
     setTimeout(litLoad, 700);
-    botEnter();
   }
 
   /* ---- Cursor with VIEW label ---- */
@@ -932,38 +876,6 @@
   };
   addEventListener('scroll', onWlit, { passive: true });
   onWlit();
-
-  /* ---- ASAI bot: wanders the bottom of the screen ---- */
-  const bot = document.getElementById('bot');
-  let botEnter = () => {};
-  if (bot) {
-    let x = Math.max(20, innerWidth * 0.05);
-    const place = (dur, ease) => {
-      bot.style.transition = `transform ${dur}s ${ease}`;
-      bot.style.transform = `translateX(${x}px) translateY(0)`;
-    };
-    const say = () => { bot.classList.add('talk'); setTimeout(() => bot.classList.remove('talk'), 2600); };
-    const roam = () => {
-      const maxX = Math.max(140, Math.min(innerWidth * 0.55, innerWidth - 170));
-      const target = 16 + Math.random() * (maxX - 16);
-      if (Math.abs(target - x) < 50) { setTimeout(roam, 1500); return; }
-      const dur = Math.abs(target - x) / 85;
-      bot.classList.add('walk');
-      bot.classList.toggle('dir-l', target < x);
-      bot.classList.toggle('dir-r', target > x);
-      x = target;
-      place(dur, 'linear');
-      setTimeout(() => {
-        bot.classList.remove('walk', 'dir-l', 'dir-r');
-        if (Math.random() < 0.3) say();
-        setTimeout(roam, 1800 + Math.random() * 4200);
-      }, dur * 1000);
-    };
-    botEnter = () => {
-      place(0.7, 'cubic-bezier(0.34, 1.56, 0.64, 1)');
-      setTimeout(() => { say(); setTimeout(roam, 2800); }, 800);
-    };
-  }
 })();
 </script>
 
