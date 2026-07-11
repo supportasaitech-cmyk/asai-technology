@@ -88,7 +88,8 @@
   }
   .mm-contacts { display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; }
   .mm-contacts a { font-size:14px; font-weight:600; color:rgba(241,239,233,0.75); }
-  @media (prefers-reduced-motion: reduce) { #mmenu, .mm-item a, .mm-meta { transition:none !important; } }
+  [data-wlit] .w { display:inline-block; opacity:0.15; transform:translateY(10px); filter:blur(5px); transition:opacity 0.55s ease, transform 0.55s ease, filter 0.55s ease; }
+  [data-wlit] .w.lit { opacity:1; transform:none; filter:none; }
 
   main { max-width:1500px; margin:0 auto; padding:170px 48px 110px; }
   @media (max-width:820px) { main { padding:140px 22px 80px; } }
@@ -199,8 +200,8 @@
 </div>
 
 <main>
-  <h1 class="page-title">Simple <em>pricing.</em></h1>
-  <p class="page-sub">Fixed packages, paid securely online. Every payment generates a professional invoice instantly — no chasing, no surprises.</p>
+  <h1 class="page-title" data-wlit="load">Simple <em>pricing.</em></h1>
+  <p class="page-sub" data-wlit="load">Fixed packages, paid securely online. Every payment generates a professional invoice instantly — no chasing, no surprises.</p>
   <div class="trust-row">
     <span>UPI · Cards · Netbanking via Razorpay</span>
     <span>Instant invoice</span>
@@ -308,8 +309,8 @@
 
   <div class="custom-strip">
     <div>
-      <h3>Chrome extensions & automation are <em>quoted per project.</em></h3>
-      <p>Every extension and automation build is different — tell us what you need on WhatsApp and we'll send a fixed quote the same day, payable through the same secure checkout.</p>
+      <h3 data-wlit="scroll">Chrome extensions & automation are <em>quoted per project.</em></h3>
+      <p data-wlit="scroll">Every extension and automation build is different — tell us what you need on WhatsApp and we'll send a fixed quote the same day, payable through the same secure checkout.</p>
     </div>
     <a class="btn-solid" href="https://wa.me/919816689339?text=Hi%20ASAI%2C%20I%20need%20a%20quote%20for%20an%20extension%2Fautomation%20project" target="_blank" rel="noopener">Get a quote on WhatsApp ↗</a>
   </div>
@@ -360,6 +361,35 @@
     mmenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setMenu(false)));
     addEventListener('keydown', e => { if (e.key === 'Escape') setMenu(false); });
   }
+
+  const splitWords = (node) => {
+    [...node.childNodes].forEach(ch => {
+      if (ch.nodeType === 3) {
+        const frag = document.createDocumentFragment();
+        ch.textContent.split(/(\s+)/).forEach(tok => {
+          if (/^\s+$/.test(tok) || tok === '') frag.appendChild(document.createTextNode(tok));
+          else { const s = document.createElement('span'); s.className = 'w'; s.textContent = tok; frag.appendChild(s); }
+        });
+        node.replaceChild(frag, ch);
+      } else if (ch.nodeType === 1) splitWords(ch);
+    });
+  };
+  document.querySelectorAll('[data-wlit]').forEach(splitWords);
+  document.querySelectorAll('[data-wlit="load"]').forEach(el => {
+    el.querySelectorAll('.w').forEach((w, i) => setTimeout(() => w.classList.add('lit'), 250 + i * 55));
+  });
+  const scrollLit = [...document.querySelectorAll('[data-wlit="scroll"]')].map(el => ({ el, words: el.querySelectorAll('.w') }));
+  const onWlit = () => {
+    scrollLit.forEach(({ el, words }) => {
+      const r = el.getBoundingClientRect();
+      if (r.bottom < -100 || r.top > innerHeight + 100) return;
+      const p = Math.min(1, Math.max(0, (innerHeight * 0.85 - r.top) / (r.height + innerHeight * 0.3)));
+      const lit = Math.floor(p * words.length);
+      words.forEach((w, i) => w.classList.toggle('lit', i <= lit));
+    });
+  };
+  addEventListener('scroll', onWlit, { passive: true });
+  onWlit();
 })();
 </script>
 

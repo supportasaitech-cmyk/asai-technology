@@ -167,8 +167,14 @@
     display: flex; align-items: flex-start;
   }
   .wordmark .ai { color: var(--accent); }
-  .wordmark sup { font-size: 0.11em; font-weight: 700; margin-top: 0.18em; margin-left: 0.05em; }
-  .wordmark .char { display: inline-block; transform: translateY(115%); }
+  .wordmark sup { font-size: 0.11em; font-weight: 700; margin-top: 0.18em; margin-left: 0.05em; opacity: 0; transition: opacity 0.5s ease 1.15s; }
+  .wordmark.together sup { opacity: 1; }
+  .wordmark .char { display: inline-block; transform-origin: bottom center; transition: transform 1.05s cubic-bezier(0.22, 1, 0.36, 1); }
+  .wordmark .char.from-l { transform: translateX(-120vw) rotate(-6deg); }
+  .wordmark .char.from-r { transform: translateX(120vw) rotate(6deg); }
+  .wordmark.together .char { transform: none; }
+  .wordmark.landed .char { animation: thud 0.45s cubic-bezier(0.34, 1.56, 0.64, 1); }
+  @keyframes thud { 0% { transform: none; } 35% { transform: scaleY(0.93) scaleX(1.03); } 100% { transform: none; } }
   .wordmark-sub {
     font-family: 'Instrument Serif', serif; font-style: italic; font-weight: 400;
     font-size: clamp(24px, 4.4vw, 74px);
@@ -231,6 +237,10 @@
 
   .reveal { opacity: 0; transform: translateY(38px); transition: opacity 0.9s cubic-bezier(0.22,1,0.36,1), transform 0.9s cubic-bezier(0.22,1,0.36,1); }
   .reveal.in { opacity: 1; transform: none; }
+
+  /* ============ WORD-BY-WORD REVEAL ============ */
+  [data-wlit] .w { display: inline-block; opacity: 0.15; transform: translateY(10px); filter: blur(5px); transition: opacity 0.55s ease, transform 0.55s ease, filter 0.55s ease; }
+  [data-wlit] .w.lit { opacity: 1; transform: none; filter: none; }
 
   /* ============ SERVICES ============ */
   .svc { border-top: 1px solid var(--line); counter-reset: svc; }
@@ -295,8 +305,6 @@
   .manifesto .sec-label .mono { color: rgba(241,239,233,0.5); }
   .mani-text { font-weight: 600; font-size: clamp(26px, 3.6vw, 52px); letter-spacing: -0.025em; line-height: 1.18; max-width: 1180px; }
   .mani-text em { font-family: 'Instrument Serif', serif; font-style: italic; font-weight: 400; }
-  .mani-text .w { opacity: 0.16; transition: opacity 0.5s ease; }
-  .mani-text .w.lit { opacity: 1; }
   .mani-text .acc { color: var(--accent); }
   .mani-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin-top: 90px; border-top: 1px solid rgba(241,239,233,0.2); padding-top: 40px; }
   .mani-stats .n { font-weight: 900; font-size: clamp(34px, 4.4vw, 68px); letter-spacing: -0.03em; }
@@ -367,12 +375,49 @@
   .wa-float:hover { transform: translateY(-3px) scale(1.06); }
   .wa-float svg { width: 30px; height: 30px; }
 
-  @media (prefers-reduced-motion: reduce) {
-    .marq-track, .badge-spin svg { animation: none !important; }
-    .reveal, .wordmark .char, .titl h2, .wk-visual { opacity: 1 !important; transform: none !important; transition: none !important; clip-path: none !important; }
-    #preloader { display: none; }
-    #mmenu, .mm-item a, .mm-meta { transition: none !important; }
+  /* ============ ASAI BOT ============ */
+  #bot {
+    position: fixed; bottom: 12px; left: 0; z-index: 250;
+    width: 66px; height: 78px;
+    transform: translateX(5vw) translateY(150px);
+    will-change: transform;
   }
+  #bot .bot-tilt { position: absolute; inset: 0; transition: transform 0.4s ease; transform-style: preserve-3d; }
+  #bot.dir-l .bot-tilt { transform: perspective(300px) rotateY(-18deg); }
+  #bot.dir-r .bot-tilt { transform: perspective(300px) rotateY(18deg); }
+  .bot-core {
+    position: absolute; inset: 0 4px 10px 4px;
+    background: radial-gradient(circle at 32% 26%, #FF9E63, #FF4D00 56%, #B93800 100%);
+    border-radius: 50% 50% 46% 46% / 60% 60% 40% 40%;
+    box-shadow: inset -7px -9px 16px rgba(0,0,0,0.22), inset 5px 6px 10px rgba(255,255,255,0.28), 0 12px 26px rgba(255,77,0,0.35);
+  }
+  .bot-core::before { content: ''; position: absolute; top: 25%; left: -2px; right: -2px; height: 9px; background: rgba(19,18,21,0.82); }
+  #bot.walk .bot-core { animation: waddle 0.38s ease-in-out infinite; }
+  @keyframes waddle { 0%, 100% { transform: rotate(-5deg); } 50% { transform: rotate(5deg) translateY(-3px); } }
+  .bot-eye {
+    position: absolute; top: 15%; width: 21px; height: 21px;
+    background: #fff; border: 3.5px solid #55555c; border-radius: 50%;
+    animation: blink 4.6s infinite;
+  }
+  .bot-eye.l { left: 13%; } .bot-eye.r { right: 13%; animation-delay: 0.12s; }
+  .bot-eye::after { content: ''; position: absolute; width: 8px; height: 8px; background: #131215; border-radius: 50%; top: 50%; left: 50%; transform: translate(-50%, -50%); transition: transform 0.3s ease; }
+  #bot.dir-l .bot-eye::after { transform: translate(-85%, -50%); }
+  #bot.dir-r .bot-eye::after { transform: translate(-15%, -50%); }
+  @keyframes blink { 0%, 91%, 100% { transform: scaleY(1); } 95% { transform: scaleY(0.08); } }
+  .bot-mouth { position: absolute; top: 60%; left: 50%; width: 18px; height: 9px; transform: translateX(-50%); border-radius: 0 0 20px 20px; background: rgba(19,18,21,0.85); }
+  .bot-shadow { position: absolute; bottom: 0; left: 12%; width: 76%; height: 9px; background: rgba(19,18,21,0.28); border-radius: 50%; filter: blur(3px); }
+  #bot.walk .bot-shadow { animation: shsq 0.38s ease-in-out infinite; }
+  @keyframes shsq { 0%, 100% { transform: scaleX(1); } 50% { transform: scaleX(0.85); } }
+  .bot-bubble {
+    position: absolute; bottom: 84px; left: 8px;
+    background: var(--ink); color: var(--paper);
+    padding: 9px 13px; border-radius: 12px 12px 12px 3px;
+    white-space: nowrap;
+    transform: scale(0); transform-origin: bottom left;
+    transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  #bot:hover .bot-bubble, #bot.talk .bot-bubble { transform: scale(1); }
+  @media (max-width: 700px) { #bot { scale: 0.78; transform-origin: bottom left; } }
 </style>
 </head>
 <body>
@@ -419,11 +464,11 @@
   <div class="hero-top">
     <div class="col">
       <div class="mono">Digital Engineering Studio</div>
-      <p>Premium websites, Chrome extensions, automation & growth — designed and built under one roof in Noida, India.</p>
+      <p data-wlit="load">Premium websites, Chrome extensions, automation & growth — designed and built under one roof in Noida, India.</p>
     </div>
     <div class="col">
       <div class="mono">Speed, guaranteed</div>
-      <p>Work begins <b>the moment you brief us.</b><br>Final draft in <b>24 hours</b> — with precision, not shortcuts.</p>
+      <p data-wlit="load">Work begins <b>the moment you brief us.</b><br>Final draft in <b>24 hours</b> — with precision, not shortcuts.</p>
     </div>
     <div class="badge-spin">
       <svg viewBox="0 0 100 100">
@@ -440,7 +485,7 @@
   <div class="wordmark-sub"><span>Technology</span><span class="rule"></span><span class="yr">EST. 2025</span></div>
 
   <div class="hero-sub">
-    <h1>We engineer <em>digital machinery</em> — websites, extensions, automation & growth that <span class="acc">work like they look.</span></h1>
+    <h1 data-wlit="load">We engineer <em>digital machinery</em> — websites, extensions, automation & growth that <span class="acc">work like they look.</span></h1>
     <div class="hero-cta-row">
       <a class="btn-solid magnet" href="https://wa.me/919816689339?text=Hi%20ASAI%2C%20I%20want%20to%20discuss%20a%20project" target="_blank" rel="noopener">Start on WhatsApp ↗</a>
       <a class="btn-hollow magnet" href="#work">See work</a>
@@ -544,7 +589,7 @@
           </svg>
         </div>
         <div class="wk-info"><h3>AI.Reply</h3><span class="mono">Our own product</span></div>
-        <div class="wk-client">Gmail Chrome extension — writes your email replies with AI, in your tone</div>
+        <div class="wk-client">Gmail Chrome extension — product, website & brand, all built in-house</div>
       </a>
 
       <a class="wk hoverview" href="work-solstice.html">
@@ -570,28 +615,35 @@
         <div class="wk-client">Three spreadsheets in, one clean report out — untouched by hand</div>
       </a>
 
-      <div class="wk">
+      <a class="wk hoverview" href="work-balancedbites.html">
         <div class="wk-visual">
-          <span class="wk-tag">Website — In-house design</span>
+          <span class="wk-tag live">Client — Brand & website</span>
           <svg viewBox="0 0 640 420" xmlns="http://www.w3.org/2000/svg">
-            <rect width="640" height="420" fill="#131215"/>
-            <text x="60" y="150" font-family="Archivo, sans-serif" font-weight="900" font-size="64" fill="#F1EFE9" letter-spacing="-3">ATELIER</text>
-            <text x="60" y="215" font-family="Archivo, sans-serif" font-weight="900" font-size="64" fill="none" stroke="#F1EFE9" stroke-width="1.5" letter-spacing="-3">NORTH</text>
-            <rect x="60" y="250" width="200" height="1.5" fill="#FF4D00"/>
-            <text x="60" y="285" font-family="Space Mono, monospace" font-size="12" fill="#F1EFE988">ARCHITECTURE · INTERIORS</text>
-            <rect x="420" y="90" width="160" height="240" rx="8" fill="#F1EFE912"/>
-            <rect x="440" y="110" width="120" height="140" rx="6" fill="#FF4D00" opacity="0.85"/>
-            <rect x="440" y="264" width="90" height="10" rx="5" fill="#F1EFE944"/>
-            <rect x="440" y="284" width="60" height="10" rx="5" fill="#F1EFE922"/>
-            <circle cx="560" cy="360" r="26" fill="none" stroke="#F1EFE955"/>
-            <text x="551" y="366" font-family="Space Mono, monospace" font-size="14" fill="#F1EFE9">↓</text>
+            <rect width="640" height="420" fill="#E9E6DE"/>
+            <rect x="50" y="46" width="540" height="330" rx="12" fill="#FFFFFF" stroke="#13121522"/>
+            <rect x="50" y="46" width="540" height="44" rx="12" fill="#F1EFE9"/>
+            <circle cx="76" cy="68" r="6" fill="#FF4D00"/><circle cx="96" cy="68" r="6" fill="#13121522"/><circle cx="116" cy="68" r="6" fill="#13121522"/>
+            <text x="250" y="73" font-family="Space Mono, monospace" font-size="12" fill="#13121566">balanced bites — home</text>
+            <image href="balanced-bites-logo.png" x="86" y="116" width="220" height="92" preserveAspectRatio="xMidYMid meet"/>
+            <rect x="86" y="236" width="230" height="11" rx="5.5" fill="#13121533"/>
+            <rect x="86" y="257" width="180" height="11" rx="5.5" fill="#13121522"/>
+            <rect x="86" y="296" width="172" height="40" rx="20" fill="#0A6B45"/>
+            <text x="108" y="321" font-family="Space Mono, monospace" font-size="11" fill="#FFFFFF">START TODAY →</text>
+            <circle cx="465" cy="226" r="86" fill="#F1EFE9" stroke="#0A6B4533" stroke-width="2"/>
+            <path d="M465 140 a86 86 0 0 1 74.5 43" stroke="#4EA582" stroke-width="14" fill="none" stroke-linecap="round"/>
+            <path d="M545 196 a86 86 0 0 1 -20 95" stroke="#F15A24" stroke-width="14" fill="none" stroke-linecap="round"/>
+            <path d="M512 301 a86 86 0 0 1 -95 5" stroke="#29ABE2" stroke-width="14" fill="none" stroke-linecap="round"/>
+            <circle cx="465" cy="226" r="40" fill="#4EA58222"/>
+            <text x="450" y="233" font-family="Archivo, sans-serif" font-weight="900" font-size="17" fill="#0A6B45">bb</text>
+            <rect x="402" y="332" width="126" height="26" rx="13" fill="none" stroke="#0A6B4555"/>
+            <text x="417" y="349" font-family="Space Mono, monospace" font-size="10" fill="#0A6B45">MEAL PLANS</text>
           </svg>
         </div>
-        <div class="wk-info"><h3>Atelier North</h3><span class="mono">Concept · design study</span></div>
-        <div class="wk-client">Architecture studio site — brutalist typography, gallery-first layout</div>
-      </div>
+        <div class="wk-info"><h3>Balanced Bites</h3><span class="mono">Brand & website</span></div>
+        <div class="wk-client">Healthy-eating brand — logo & website designed and built by ASAI</div>
+      </a>
 
-      <div class="wk">
+      <a class="wk hoverview" href="work-kinetic.html">
         <div class="wk-visual">
           <span class="wk-tag">Website — In-house design</span>
           <svg viewBox="0 0 640 420" xmlns="http://www.w3.org/2000/svg">
@@ -608,9 +660,9 @@
         </div>
         <div class="wk-info"><h3>Kinetic Fitness</h3><span class="mono">Concept · design study</span></div>
         <div class="wk-client">Gym & training brand — bold type, energy-gradient art direction</div>
-      </div>
+      </a>
 
-      <div class="wk">
+      <a class="wk hoverview" href="work-verma.html">
         <div class="wk-visual">
           <span class="wk-tag">Website — In-house design</span>
           <svg viewBox="0 0 640 420" xmlns="http://www.w3.org/2000/svg">
@@ -632,7 +684,7 @@
         </div>
         <div class="wk-info"><h3>Verma & Associates</h3><span class="mono">Concept · design study</span></div>
         <div class="wk-client">Professional one-pager for advocates — the ₹4,999 tier, done premium</div>
-      </div>
+      </a>
 
       <a class="wk hoverview" href="work-meridian.html">
         <div class="wk-visual">
@@ -661,7 +713,7 @@
 <section class="manifesto">
   <div class="wrap">
     <div class="sec-label"><span class="mono">( 03 — How we work )</span><span class="mono">The short version</span></div>
-    <p class="mani-text" id="maniText">We start <em>the moment you brief us.</em> A final draft lands in <span class="acc">24 hours</span> — built with precision, not shortcuts. Two refinement rounds, then you keep the <em>source.</em> No lock-in, ever.</p>
+    <p class="mani-text" data-wlit="scroll">We start <em>the moment you brief us.</em> A final draft lands in <span class="acc">24 hours</span> — built with precision, not shortcuts. Two refinement rounds, then you keep the <em>source.</em> No lock-in, ever.</p>
     <div class="mani-stats">
       <div><div class="n">24<span>h</span></div><div class="l">Final draft turnaround</div></div>
       <div><div class="n">100<span>%</span></div><div class="l">Custom · zero templates</div></div>
@@ -675,8 +727,8 @@
   <div class="wrap">
     <div class="price-strip reveal">
       <div>
-        <h3>Transparent <em>pricing.</em> Pay online, invoice included.</h3>
-        <p>Professional sites from ₹4,999, premium builds at ₹9,999, and full business systems at ₹14,999 — paid securely by UPI, card or netbanking, with a professional invoice generated instantly.</p>
+        <h3 data-wlit="scroll">Transparent <em>pricing.</em> Pay online, invoice included.</h3>
+        <p data-wlit="scroll">Professional sites from ₹4,999, premium builds at ₹9,999, and full business systems at ₹14,999 — paid securely by UPI, card or netbanking, with a professional invoice generated instantly.</p>
       </div>
       <a class="btn-solid magnet" href="pricing.html">View pricing →</a>
     </div>
@@ -688,7 +740,7 @@
     <div class="sec-label"><span class="mono">( 04 — Contact )</span><span class="mono">Replies within hours</span></div>
     <div class="contact-grid">
       <div class="contact-left reveal">
-        <h2>Tell us what you're building. We reply with a <em class="acc">draft.</em></h2>
+        <h2 data-wlit="scroll">Tell us what you're building. We reply with a <em class="acc">draft.</em></h2>
         <div class="contact-ways">
           <a class="cway" href="https://wa.me/919816689339?text=Hi%20ASAI%2C%20I%20want%20to%20discuss%20a%20project" target="_blank" rel="noopener"><span>WhatsApp — fastest</span><span class="val">+91 98166 89339 ↗</span></a>
           <a class="cway" href="tel:+919816689339"><span>Call</span><span class="val">+91 98166 89339</span></a>
@@ -721,13 +773,23 @@
   </div>
 </footer>
 
+<a id="bot" href="https://wa.me/919816689339?text=Hi%20ASAI%2C%20your%20little%20orange%20bot%20sent%20me" target="_blank" rel="noopener" aria-label="Chat with ASAI on WhatsApp">
+  <span class="bot-bubble mono">Hi! Need a website?</span>
+  <span class="bot-tilt">
+    <span class="bot-core">
+      <span class="bot-eye l"></span><span class="bot-eye r"></span>
+      <span class="bot-mouth"></span>
+    </span>
+    <span class="bot-shadow"></span>
+  </span>
+</a>
+
 <a class="wa-float" href="https://wa.me/919816689339?text=Hi%20ASAI%2C%20I%20want%20to%20discuss%20a%20project" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
   <svg viewBox="0 0 32 32" fill="white"><path d="M16 3C9.4 3 4 8.4 4 15c0 2.6.8 5 2.2 7L4.5 28l6.2-1.6c1.9 1 4 1.6 5.3 1.6 6.6 0 12-5.4 12-12S22.6 3 16 3zm0 22c-1.8 0-3.6-.5-5.1-1.4l-.4-.2-3.7 1 1-3.6-.2-.4C6.6 18.9 6 17 6 15 6 9.5 10.5 5 16 5s10 4.5 10 10-4.5 10-10 10zm5.5-7.5c-.3-.2-1.8-.9-2-1-.3-.1-.5-.2-.7.2-.2.3-.8 1-.9 1.1-.2.2-.3.2-.6.1-.3-.2-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.5-.5c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5-.1-.2-.7-1.7-1-2.3-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.2.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.3-.7.3-1.3.2-1.4-.1-.1-.3-.2-.6-.3z"/></svg>
 </a>
 
 <script>
 (function() {
-  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const hasHover = matchMedia('(hover: hover)').matches;
 
   /* ---- Scroll progress ---- */
@@ -740,33 +802,33 @@
   /* ---- Preloader ---- */
   const pl = document.getElementById('preloader');
   const plCount = document.getElementById('plCount');
-  if (!reduce && pl) {
+  if (pl) {
     let n = 0;
     const iv = setInterval(() => {
       n += Math.floor(Math.random() * 12) + 4;
-      if (n >= 100) { n = 100; clearInterval(iv); setTimeout(() => { pl.classList.add('done'); animateWordmark(); }, 250); }
+      if (n >= 100) { n = 100; clearInterval(iv); setTimeout(() => { pl.classList.add('done'); heroEnter(); }, 250); }
       plCount.textContent = n;
     }, 65);
-  } else if (pl) { pl.style.display = 'none'; }
+  }
 
-  /* ---- Wordmark: AS ink, AI orange, letters rise ---- */
+  /* ---- Wordmark: AS flies in from the left, AI from the right, they meet ---- */
   const wm = document.getElementById('wordmark');
   function splitWordmark() {
     wm.innerHTML =
-      'AS'.split('').map(c => `<span class="char" style="transition: transform 0.9s cubic-bezier(0.22,1,0.36,1)">${c}</span>`).join('') +
-      'AI'.split('').map(c => `<span class="char ai" style="transition: transform 0.9s cubic-bezier(0.22,1,0.36,1)">${c}</span>`).join('') +
+      'AS'.split('').map((c, i) => `<span class="char from-l" style="transition-delay:${i * 0.09}s">${c}</span>`).join('') +
+      'AI'.split('').map((c, i) => `<span class="char ai from-r" style="transition-delay:${(1 - i) * 0.09}s">${c}</span>`).join('') +
       '<sup>®</sup>';
   }
-  function animateWordmark() {
-    document.querySelectorAll('#wordmark .char').forEach((c, i) => {
-      setTimeout(() => { c.style.transform = 'translateY(0)'; }, i * 90);
-    });
-  }
   splitWordmark();
-  if (reduce) document.querySelectorAll('#wordmark .char').forEach(c => c.style.transform = 'none');
+  function heroEnter() {
+    wm.classList.add('together');
+    setTimeout(() => wm.classList.add('landed'), 1150);
+    setTimeout(litLoad, 700);
+    botEnter();
+  }
 
   /* ---- Cursor with VIEW label ---- */
-  if (hasHover && !reduce) {
+  if (hasHover) {
     const cur = document.getElementById('cursor');
     let shown = false;
     addEventListener('mousemove', e => {
@@ -786,7 +848,7 @@
   }
 
   /* ---- Magnetic buttons ---- */
-  if (hasHover && !reduce) {
+  if (hasHover) {
     document.querySelectorAll('.magnet').forEach(btn => {
       btn.addEventListener('mousemove', e => {
         const r = btn.getBoundingClientRect();
@@ -829,43 +891,78 @@
   document.querySelectorAll('.reveal, .titl, .wk').forEach(el => io.observe(el));
 
   /* ---- Gentle parallax on work visuals ---- */
-  if (!reduce) {
-    const wks = [...document.querySelectorAll('.wk-visual svg')];
-    addEventListener('scroll', () => {
-      wks.forEach(svg => {
-        const r = svg.parentElement.getBoundingClientRect();
-        if (r.bottom < 0 || r.top > innerHeight) return;
-        const p = (r.top + r.height / 2 - innerHeight / 2) / innerHeight;
-        svg.style.transform = `translateY(${p * -18}px)`;
-      });
-    }, { passive: true });
-  }
+  const wks = [...document.querySelectorAll('.wk-visual svg')];
+  addEventListener('scroll', () => {
+    wks.forEach(svg => {
+      const r = svg.parentElement.getBoundingClientRect();
+      if (r.bottom < 0 || r.top > innerHeight) return;
+      const p = (r.top + r.height / 2 - innerHeight / 2) / innerHeight;
+      svg.style.transform = `translateY(${p * -18}px)`;
+    });
+  }, { passive: true });
 
-  /* ---- Manifesto word-by-word ---- */
-  const mani = document.getElementById('maniText');
-  if (mani) {
-    const walk = (node) => {
-      [...node.childNodes].forEach(ch => {
-        if (ch.nodeType === 3) {
-          const frag = document.createDocumentFragment();
-          ch.textContent.split(/(\s+)/).forEach(tok => {
-            if (/^\s+$/.test(tok) || tok === '') frag.appendChild(document.createTextNode(tok));
-            else { const s = document.createElement('span'); s.className = 'w'; s.textContent = tok; frag.appendChild(s); }
-          });
-          node.replaceChild(frag, ch);
-        } else if (ch.nodeType === 1) walk(ch);
-      });
-    };
-    walk(mani);
-    const words = mani.querySelectorAll('.w');
-    const onScroll = () => {
-      const r = mani.getBoundingClientRect();
+  /* ---- Word-by-word reveals: [data-wlit="load"] after preloader, [data-wlit="scroll"] as you scroll ---- */
+  const splitWords = (node) => {
+    [...node.childNodes].forEach(ch => {
+      if (ch.nodeType === 3) {
+        const frag = document.createDocumentFragment();
+        ch.textContent.split(/(\s+)/).forEach(tok => {
+          if (/^\s+$/.test(tok) || tok === '') frag.appendChild(document.createTextNode(tok));
+          else { const s = document.createElement('span'); s.className = 'w'; s.textContent = tok; frag.appendChild(s); }
+        });
+        node.replaceChild(frag, ch);
+      } else if (ch.nodeType === 1) splitWords(ch);
+    });
+  };
+  document.querySelectorAll('[data-wlit]').forEach(splitWords);
+  function litLoad() {
+    document.querySelectorAll('[data-wlit="load"]').forEach(el => {
+      el.querySelectorAll('.w').forEach((w, i) => setTimeout(() => w.classList.add('lit'), i * 55));
+    });
+  }
+  const scrollLit = [...document.querySelectorAll('[data-wlit="scroll"]')].map(el => ({ el, words: el.querySelectorAll('.w') }));
+  const onWlit = () => {
+    scrollLit.forEach(({ el, words }) => {
+      const r = el.getBoundingClientRect();
+      if (r.bottom < -100 || r.top > innerHeight + 100) return;
       const p = Math.min(1, Math.max(0, (innerHeight * 0.85 - r.top) / (r.height + innerHeight * 0.3)));
       const lit = Math.floor(p * words.length);
       words.forEach((w, i) => w.classList.toggle('lit', i <= lit));
+    });
+  };
+  addEventListener('scroll', onWlit, { passive: true });
+  onWlit();
+
+  /* ---- ASAI bot: wanders the bottom of the screen ---- */
+  const bot = document.getElementById('bot');
+  let botEnter = () => {};
+  if (bot) {
+    let x = Math.max(20, innerWidth * 0.05);
+    const place = (dur, ease) => {
+      bot.style.transition = `transform ${dur}s ${ease}`;
+      bot.style.transform = `translateX(${x}px) translateY(0)`;
     };
-    addEventListener('scroll', onScroll, { passive: true });
-    onScroll();
+    const say = () => { bot.classList.add('talk'); setTimeout(() => bot.classList.remove('talk'), 2600); };
+    const roam = () => {
+      const maxX = Math.max(140, Math.min(innerWidth * 0.55, innerWidth - 170));
+      const target = 16 + Math.random() * (maxX - 16);
+      if (Math.abs(target - x) < 50) { setTimeout(roam, 1500); return; }
+      const dur = Math.abs(target - x) / 85;
+      bot.classList.add('walk');
+      bot.classList.toggle('dir-l', target < x);
+      bot.classList.toggle('dir-r', target > x);
+      x = target;
+      place(dur, 'linear');
+      setTimeout(() => {
+        bot.classList.remove('walk', 'dir-l', 'dir-r');
+        if (Math.random() < 0.3) say();
+        setTimeout(roam, 1800 + Math.random() * 4200);
+      }, dur * 1000);
+    };
+    botEnter = () => {
+      place(0.7, 'cubic-bezier(0.34, 1.56, 0.64, 1)');
+      setTimeout(() => { say(); setTimeout(roam, 2800); }, 800);
+    };
   }
 })();
 </script>
