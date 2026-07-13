@@ -350,6 +350,18 @@
   .lead-form input::placeholder, .lead-form textarea::placeholder { color: var(--ink-40); }
   @media (max-width: 900px) { .contact-grid { grid-template-columns: 1fr; gap: 50px; } }
 
+  /* ============ INSIGHTS ============ */
+  .ins-row {
+    display: flex; justify-content: space-between; align-items: center; gap: 20px;
+    padding: 24px 4px; border-top: 1px solid var(--line);
+    font-weight: 700; font-size: clamp(17px, 1.6vw, 22px); letter-spacing: -0.01em;
+    transition: padding-left 0.3s ease, color 0.3s ease;
+  }
+  .ins-row:last-child { border-bottom: 1px solid var(--line); }
+  .ins-row:hover { padding-left: 14px; color: var(--accent); }
+  .ins-row .mono { color: var(--ink-40); flex-shrink: 0; }
+  @media (max-width: 700px) { .ins-row { flex-direction: column; align-items: flex-start; gap: 6px; } }
+
   /* ============ FOOTER ============ */
   footer { background: var(--ink); color: var(--paper); padding: 90px 48px 30px; }
   .foot-cta { display: block; text-align: center; margin-bottom: 70px; }
@@ -495,6 +507,38 @@
           <div class="svc-tags"><span>Chrome extensions</span><span>Team dashboards</span><span>SaaS add-ons</span><span>Custom utilities</span></div>
         </div></div>
       </div>
+      <div class="svc-row">
+        <div class="svc-fill"></div>
+        <div class="svc-head"><span class="svc-num">/05</span><span class="svc-name">Web Development</span><span class="svc-arrow">→</span></div>
+        <div class="svc-body"><div class="svc-body-in">
+          <p>Hand-coded websites that load fast, rank well and convert — no page builders, no template bloat. From a professional's one-pager to a full commerce platform with payments and invoicing.</p>
+          <div class="svc-tags"><span>Business sites</span><span>Landing pages</span><span>E-commerce</span><span>Payment systems</span></div>
+        </div></div>
+      </div>
+      <div class="svc-row">
+        <div class="svc-fill"></div>
+        <div class="svc-head"><span class="svc-num">/06</span><span class="svc-name">SEO</span><span class="svc-arrow">→</span></div>
+        <div class="svc-body"><div class="svc-body-in">
+          <p>Structure, speed, indexing and content aimed at the exact phrases your customers search — visibility that compounds month over month instead of resetting when the ad budget stops.</p>
+          <div class="svc-tags"><span>Technical SEO</span><span>Local SEO</span><span>Content strategy</span><span>Search Console</span></div>
+        </div></div>
+      </div>
+      <div class="svc-row">
+        <div class="svc-fill"></div>
+        <div class="svc-head"><span class="svc-num">/07</span><span class="svc-name">Social Media Marketing</span><span class="svc-arrow">→</span></div>
+        <div class="svc-body"><div class="svc-body-in">
+          <p>A presence that runs on a system, not on motivation — content calendars, branded creative sets and profile builds that keep your business sharp on Instagram and LinkedIn every single week.</p>
+          <div class="svc-tags"><span>Content calendars</span><span>Branded creatives</span><span>Profile builds</span><span>Growth tracking</span></div>
+        </div></div>
+      </div>
+      <div class="svc-row">
+        <div class="svc-fill"></div>
+        <div class="svc-head"><span class="svc-num">/08</span><span class="svc-name">Graphic Design & Brand</span><span class="svc-arrow">→</span></div>
+        <div class="svc-body"><div class="svc-body-in">
+          <p>Logos, creatives and complete identity systems — designed once, documented properly, applied consistently everywhere your business shows up, so every touchpoint compounds recognition.</p>
+          <div class="svc-tags"><span>Logo design</span><span>Identity systems</span><span>Social creatives</span><span>Style guides</span></div>
+        </div></div>
+      </div>
     </div>
   </div>
 </section>
@@ -591,6 +635,56 @@
         <div class="wk-info"><h3>Meridian Café Collective</h3><span class="mono">20 assets delivered</span></div>
         <div class="wk-client" data-wlit="scroll">One identity system, twenty ready-to-post templates</div>
       </a>
+
+      <a class="wk hoverview" href="work-apexdental.html">
+        <div class="wk-visual">
+          <span class="wk-tag">Website + Local SEO</span>
+          <svg viewBox="0 0 640 420" xmlns="http://www.w3.org/2000/svg">
+            <rect width="640" height="420" fill="#E9E6DE"/>
+            <rect x="50" y="46" width="540" height="330" rx="12" fill="#FFFFFF" stroke="#13121522"/>
+            <rect x="50" y="46" width="540" height="44" rx="12" fill="#F1EFE9"/>
+            <circle cx="76" cy="68" r="6" fill="#FF4D00"/><circle cx="96" cy="68" r="6" fill="#13121522"/><circle cx="116" cy="68" r="6" fill="#13121522"/>
+            <text x="252" y="73" font-family="Space Mono, monospace" font-size="12" fill="#13121566">apex dental — book</text>
+            <text x="86" y="150" font-family="Archivo, sans-serif" font-weight="900" font-size="34" fill="#131215" letter-spacing="-1">APEX DENTAL</text>
+            <text x="86" y="180" font-family="Space Mono, monospace" font-size="11" fill="#13121566">PAINLESS · MODERN · INSURED</text>
+            <rect x="86" y="206" width="250" height="11" rx="5.5" fill="#13121533"/>
+            <rect x="86" y="227" width="200" height="11" rx="5.5" fill="#13121522"/>
+            <rect x="86" y="268" width="190" height="40" rx="20" fill="#FF4D00"/>
+            <text x="112" y="293" font-family="Space Mono, monospace" font-size="11" fill="#131215" font-weight="700">BOOK A VISIT →</text>
+            <rect x="410" y="120" width="150" height="200" rx="12" fill="#F1EFE9" stroke="#13121522"/>
+            <circle cx="485" cy="170" r="26" fill="#FF4D0022" stroke="#FF4D00" stroke-width="1.5"/>
+            <text x="470" y="177" font-family="Archivo, sans-serif" font-weight="900" font-size="16" fill="#FF4D00">4.9</text>
+            <rect x="432" y="216" width="106" height="9" rx="4.5" fill="#13121533"/>
+            <rect x="432" y="236" width="80" height="9" rx="4.5" fill="#13121522"/>
+            <text x="432" y="292" font-family="Space Mono, monospace" font-size="10" fill="#131215">#1 MAPS RESULT</text>
+          </svg>
+        </div>
+        <div class="wk-info"><h3>Apex Dental Clinic</h3><span class="mono">3× more bookings</span></div>
+        <div class="wk-client" data-wlit="scroll">Clinic site + local SEO — first Maps result for its area within a quarter</div>
+      </a>
+
+      <a class="wk hoverview" href="work-urbanthread.html">
+        <div class="wk-visual">
+          <span class="wk-tag">Social + Brand Creatives</span>
+          <svg viewBox="0 0 640 420" xmlns="http://www.w3.org/2000/svg">
+            <rect width="640" height="420" fill="#131215"/>
+            <text x="60" y="120" font-family="Archivo, sans-serif" font-weight="900" font-size="52" fill="#F1EFE9" letter-spacing="-2">URBAN</text>
+            <text x="60" y="172" font-family="Archivo, sans-serif" font-weight="900" font-size="52" fill="none" stroke="#F1EFE9" stroke-width="1.5" letter-spacing="-2">THREAD</text>
+            <text x="60" y="205" font-family="Space Mono, monospace" font-size="11" fill="#F1EFE988">STREETWEAR · DROPS EVERY FRIDAY</text>
+            <rect x="60" y="240" width="120" height="120" rx="10" fill="#FF4D00"/>
+            <rect x="192" y="240" width="120" height="120" rx="10" fill="#F1EFE915" stroke="#F1EFE933"/>
+            <rect x="324" y="240" width="120" height="120" rx="10" fill="#F1EFE915" stroke="#F1EFE933"/>
+            <text x="88" y="308" font-family="Archivo, sans-serif" font-weight="900" font-size="20" fill="#131215">DROP</text>
+            <rect x="480" y="90" width="110" height="270" rx="12" fill="#F1EFE90D" stroke="#FF4D0044"/>
+            <rect x="496" y="110" width="78" height="78" rx="8" fill="#FF4D00" opacity="0.85"/>
+            <rect x="496" y="202" width="78" height="9" rx="4.5" fill="#F1EFE944"/>
+            <rect x="496" y="222" width="56" height="9" rx="4.5" fill="#F1EFE922"/>
+            <text x="496" y="330" font-family="Space Mono, monospace" font-size="10" fill="#FF4D00">+212% REACH</text>
+          </svg>
+        </div>
+        <div class="wk-info"><h3>UrbanThread Apparel</h3><span class="mono">+212% reach in 90 days</span></div>
+        <div class="wk-client" data-wlit="scroll">Streetwear brand — creative system + posting calendar that runs itself</div>
+      </a>
     </div>
   </div>
 </section>
@@ -620,9 +714,22 @@
   </div>
 </section>
 
+<section id="insights" style="padding-top: 40px;">
+  <div class="wrap">
+    <div class="sec-label"><span class="mono">( 04 — Insights )</span><span class="mono">Guides & thinking</span></div>
+    <div class="titl"><h2 data-wlit="scroll">Know before <em>you build.</em></h2></div>
+    <div class="ins">
+      <a class="ins-row" href="custom-website-development.html"><span>Custom Website Development: Why Hand-Coded Sites Beat Templates</span><span class="mono">Web development →</span></a>
+      <a class="ins-row" href="technical-seo-guide.html"><span>The Technical SEO Checklist Indian Businesses Actually Need</span><span class="mono">SEO →</span></a>
+      <a class="ins-row" href="social-media-marketing-system.html"><span>Stop Posting Randomly: Build a Social Media System Instead</span><span class="mono">Social media →</span></a>
+      <a class="ins-row" href="brand-identity-design.html"><span>A Logo Is Not a Brand: Identity Systems That Scale</span><span class="mono">Graphic design →</span></a>
+    </div>
+  </div>
+</section>
+
 <section id="contact" style="padding-top: 40px;">
   <div class="wrap">
-    <div class="sec-label"><span class="mono">( 04 — Contact )</span><span class="mono">Replies within hours</span></div>
+    <div class="sec-label"><span class="mono">( 05 — Contact )</span><span class="mono">Replies within hours</span></div>
     <div class="contact-grid">
       <div class="contact-left reveal">
         <h2 data-wlit="scroll">Tell us what's slowing your business down. We reply with a <em class="acc">system.</em></h2>

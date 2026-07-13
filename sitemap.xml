@@ -2,8 +2,14 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://asai-technology.pages.dev/</loc><priority>1.0</priority></url>
   <url><loc>https://asai-technology.pages.dev/pricing</loc><priority>0.9</priority></url>
+  <url><loc>https://asai-technology.pages.dev/custom-website-development</loc><priority>0.8</priority></url>
+  <url><loc>https://asai-technology.pages.dev/technical-seo-guide</loc><priority>0.8</priority></url>
+  <url><loc>https://asai-technology.pages.dev/social-media-marketing-system</loc><priority>0.8</priority></url>
+  <url><loc>https://asai-technology.pages.dev/brand-identity-design</loc><priority>0.8</priority></url>
   <url><loc>https://asai-technology.pages.dev/work-solstice</loc><priority>0.6</priority></url>
   <url><loc>https://asai-technology.pages.dev/work-kinetic</loc><priority>0.6</priority></url>
   <url><loc>https://asai-technology.pages.dev/work-verma</loc><priority>0.6</priority></url>
   <url><loc>https://asai-technology.pages.dev/work-meridian</loc><priority>0.6</priority></url>
+  <url><loc>https://asai-technology.pages.dev/work-apexdental</loc><priority>0.6</priority></url>
+  <url><loc>https://asai-technology.pages.dev/work-urbanthread</loc><priority>0.6</priority></url>
 </urlset>
