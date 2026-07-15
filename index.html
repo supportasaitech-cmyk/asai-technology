@@ -3,792 +3,251 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ASAI Technology® — Digital Engineering Studio</title>
-<meta name="description" content="ASAI Technology engineers business automation, process reengineering and growth infrastructure — a working draft in 24 hours.">
-<meta name="theme-color" content="#F1EFE9">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><g stroke='%23FF4D00' stroke-width='13' stroke-linecap='round'><path d='M50 8v84M14 29l72 42M86 29L14 71'/></g></svg>">
-<link rel="canonical" href="https://asai-technology.pages.dev/">
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="ASAI Technology">
-<meta property="og:title" content="ASAI Technology® — Digital Engineering Studio">
-<meta property="og:description" content="Business automation, process reengineering and growth infrastructure — a working draft in 24 hours.">
-<meta property="og:url" content="https://asai-technology.pages.dev/">
-<meta property="og:image" content="https://asai-technology.pages.dev/og-image.png">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta name="twitter:card" content="summary_large_image">
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "ProfessionalService",
-  "name": "ASAI Technology",
-  "description": "Business automation, process reengineering, web development, SEO and growth infrastructure — a working draft in 24 hours.",
-  "url": "https://asai-technology.pages.dev/",
-  "image": "https://asai-technology.pages.dev/og-image.png",
-  "telephone": "+919816689339",
-  "email": "support.asaitech@gmail.com",
-  "priceRange": "₹4,999+",
-  "address": { "@type": "PostalAddress", "addressLocality": "Noida", "addressRegion": "Uttar Pradesh", "addressCountry": "IN" },
-  "areaServed": "IN",
-  "foundingDate": "2025",
-  "knowsAbout": ["Business process automation", "Web development", "Technical SEO", "Social media marketing", "Brand identity design", "Chrome extensions"],
-  "makesOffer": [
-    { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Automation Systems" } },
-    { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Process Reengineering" } },
-    { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Web Development" } },
-    { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "SEO" } },
-    { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Social Media Marketing" } },
-    { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Graphic Design & Brand" } }
-  ]
-}
-</script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Instrument+Serif:ital@0;1&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<title>ASAI Technology — We make websites people remember</title>
+<meta name="description" content="ASAI Technology builds websites, Chrome extensions and automation. Plain words, premium work, final draft in 24 hours.">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;900&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --paper: #F1EFE9;
-    --paper-2: #E9E6DE;
-    --ink: #131215;
-    --ink-60: rgba(19,18,21,0.6);
-    --ink-40: rgba(19,18,21,0.4);
-    --line: rgba(19,18,21,0.14);
-    --accent: #FF4D00;
-    --wa: #25D366;
-  }
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
-  body { background: var(--paper); color: var(--ink); font-family: 'Archivo', sans-serif; overflow-x: hidden; line-height: 1.55; }
-  ::selection { background: var(--accent); color: var(--paper); }
-  a { color: inherit; text-decoration: none; }
-  .mono { font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; }
+  :root { --paper:#F3F1EB; --paper2:#EBE8E0; --ink:#141316; --ink60:rgba(20,19,22,0.6); --ink40:rgba(20,19,22,0.4);
+    --line:rgba(20,19,22,0.13); --orange:#FF4D00; --wa:#25D366; }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+  body { background:var(--paper); color:var(--ink); font-family:'Archivo',sans-serif; line-height:1.6; overflow-x:hidden; }
+  ::selection { background:var(--orange); color:var(--paper); }
+  a { color:inherit; text-decoration:none; }
+  .it { font-family:'Instrument Serif',serif; font-style:italic; font-weight:400; }
+  .or { color:var(--orange); }
 
-  /* ============ SCROLL PROGRESS ============ */
-  #progress { position: fixed; top: 0; left: 0; height: 3px; width: 0%; background: var(--accent); z-index: 500; }
+  /* ---------- NAV ---------- */
+  nav { position:fixed; top:0; left:0; right:0; z-index:100; display:flex; justify-content:space-between; align-items:center;
+    padding:20px 44px; background:linear-gradient(180deg, var(--paper) 55%, transparent); }
+  .logo { font-weight:900; font-size:17px; letter-spacing:-0.02em; }
+  .logo .ai { color:var(--orange); }
+  .logo .t { font-family:'Instrument Serif',serif; font-style:italic; font-weight:400; color:var(--ink60); margin-left:6px; font-size:15px; }
+  .nav-r { display:flex; gap:26px; align-items:center; font-size:13.5px; font-weight:600; }
+  .nav-r a.l { color:var(--ink60); transition:color 0.2s; }
+  .nav-r a.l:hover { color:var(--ink); }
+  .nav-wa { background:var(--ink); color:var(--paper); padding:11px 22px; border-radius:100px; transition:background 0.25s; }
+  .nav-wa:hover { background:var(--orange); }
+  @media (max-width:860px){ .nav-r a.l{display:none;} nav{padding:16px 20px;} }
 
-  /* ============ CURSOR with label ============ */
-  .cursor {
-    position: fixed; top: 0; left: 0;
-    width: 12px; height: 12px; border-radius: 50%;
-    background: #fff; mix-blend-mode: exclusion;
-    pointer-events: none; z-index: 999;
-    transform: translate(-50%, -50%);
-    transition: width 0.28s ease, height 0.28s ease, opacity 0.3s ease;
-    opacity: 0;
-    display: flex; align-items: center; justify-content: center;
-  }
-  .cursor.visible { opacity: 1; }
-  .cursor.grow { width: 64px; height: 64px; }
-  .cursor.view { width: 86px; height: 86px; mix-blend-mode: normal; background: var(--accent); }
-  .cursor .clabel {
-    font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: 0.1em;
-    color: var(--ink); opacity: 0; transition: opacity 0.2s ease;
-    white-space: nowrap;
-  }
-  .cursor.view .clabel { opacity: 1; }
-  @media (hover: none) { .cursor { display: none; } }
+  /* ---------- HERO / PLAYGROUND ---------- */
+  .hero { position:relative; height:100vh; min-height:600px; overflow:hidden; }
+  #cv { position:absolute; inset:0; cursor:grab; }
+  #cv.grabbing { cursor:grabbing; }
+  .hero-content { position:absolute; inset:0; pointer-events:none; display:flex; flex-direction:column; justify-content:space-between; padding:100px 44px 36px; }
+  .hint { font-size:12.5px; color:var(--ink40); display:flex; align-items:center; gap:8px; }
+  .hint .dot { width:7px; height:7px; border-radius:50%; background:var(--orange); animation:pulse 1.8s ease-in-out infinite; }
+  @keyframes pulse { 50%{opacity:0.25;} }
+  .mid { flex:1; display:flex; flex-direction:column; justify-content:center; }
+  .lineWrap { overflow:hidden; }
+  .lineWrap span.txt { display:inline-block; font-weight:900; font-size:clamp(42px,8.4vw,124px); line-height:1.03; letter-spacing:-0.045em;
+    transform:translateY(110%); animation:rise 1.1s cubic-bezier(0.22,1,0.36,1) forwards; }
+  .lineWrap:nth-child(2) span.txt { animation-delay:0.12s; }
+  @keyframes rise { to{transform:translateY(0);} }
+  .hero-bottom { display:flex; justify-content:space-between; align-items:flex-end; gap:20px; }
+  .note { max-width:340px; font-size:15px; color:var(--ink60); }
+  .note b { color:var(--ink); font-weight:600; }
+  .cta { pointer-events:auto; font-size:13.5px; font-weight:700; background:var(--ink); color:var(--paper);
+    padding:16px 30px; border-radius:100px; transition:background 0.25s; }
+  .cta:hover { background:var(--orange); }
+  @media (max-width:700px){ .hero-content{padding:90px 20px 26px;} .note{display:none;} }
 
-  /* ============ NAV ============ */
-  nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    display: flex; justify-content: space-between; align-items: center;
-    padding: 22px 48px;
-    background: linear-gradient(180deg, var(--paper) 55%, transparent);
-  }
-  .nav-logo { font-weight: 900; font-size: 17px; letter-spacing: -0.02em; }
-  .nav-logo .ai { color: var(--accent); }
-  .nav-logo .tech { font-family: 'Instrument Serif', serif; font-style: italic; font-weight: 400; font-size: 15px; margin-left: 6px; color: var(--ink-60); }
-  .nav-right { display: flex; align-items: center; gap: 32px; }
-  .nav-right a.nl { font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-60); transition: color 0.2s; }
-  .nav-right a.nl:hover { color: var(--ink); }
-  .nav-wa {
-    font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
-    background: var(--ink); color: var(--paper);
-    padding: 12px 22px; border-radius: 100px;
-    transition: background 0.25s ease, transform 0.25s ease;
-  }
-  .nav-wa:hover { background: var(--accent); transform: translateY(-1px); }
-  .nav-burger {
-    display: none; position: relative; z-index: 700;
-    width: 46px; height: 46px; border: 1px solid var(--line); border-radius: 50%;
-    background: var(--paper); cursor: pointer; padding: 0;
-    flex-direction: column; align-items: center; justify-content: center; gap: 5px;
-    transition: background 0.3s ease, border-color 0.3s ease;
-  }
-  .nav-burger span { display: block; width: 17px; height: 2px; background: var(--ink); border-radius: 2px; transition: transform 0.35s cubic-bezier(0.22,1,0.36,1), background 0.3s ease; }
-  body.menu-open nav { z-index: 700; background: none; }
-  .nav-logo { transition: opacity 0.3s ease; }
-  .nav-wa { transition: background 0.25s ease, transform 0.25s ease, opacity 0.3s ease; }
-  body.menu-open .nav-logo, body.menu-open .nav-wa { opacity: 0; pointer-events: none; }
-  body.menu-open .nav-burger { background: transparent; border-color: rgba(241,239,233,0.35); }
-  body.menu-open .nav-burger span { background: var(--paper); }
-  body.menu-open .nav-burger span:first-child { transform: translateY(3.5px) rotate(45deg); }
-  body.menu-open .nav-burger span:last-child { transform: translateY(-3.5px) rotate(-45deg); }
-  @media (max-width: 900px) { .nav-right a.nl { display: none; } nav { padding: 18px 22px; } .nav-burger { display: flex; } }
+  /* ---------- SECTIONS ---------- */
+  section { padding:110px 44px; }
+  .wrap { max-width:1200px; margin:0 auto; }
+  .kicker { font-size:13px; font-weight:700; color:var(--orange); text-transform:uppercase; letter-spacing:0.1em; margin-bottom:18px; }
+  h2.big { font-weight:900; font-size:clamp(32px,4.6vw,64px); letter-spacing:-0.035em; line-height:1.02; margin-bottom:56px; }
+  .rev { opacity:0; transform:translateY(30px); transition:opacity 0.8s cubic-bezier(0.22,1,0.36,1), transform 0.8s cubic-bezier(0.22,1,0.36,1); }
+  .rev.in { opacity:1; transform:none; }
+  @media (max-width:860px){ section{padding:80px 20px;} }
 
-  /* ============ MOBILE MENU ============ */
-  #mmenu {
-    position: fixed; inset: 0; z-index: 600;
-    background: var(--ink); color: var(--paper);
-    display: flex; flex-direction: column;
-    padding: 26px 22px 30px;
-    transform: translateY(-100%); visibility: hidden;
-    transition: transform 0.75s cubic-bezier(0.76, 0, 0.24, 1), visibility 0s 0.75s;
-  }
-  body.menu-open #mmenu { transform: none; visibility: visible; transition: transform 0.75s cubic-bezier(0.76, 0, 0.24, 1), visibility 0s 0s; }
-  .mm-top { display: flex; justify-content: space-between; align-items: center; padding-right: 56px; min-height: 46px; }
-  .mm-top .mono { color: rgba(241,239,233,0.5); }
-  .mm-links { display: flex; flex-direction: column; justify-content: center; flex: 1; gap: 4px; }
-  .mm-item { overflow: hidden; }
-  .mm-item a {
-    display: flex; align-items: baseline; gap: 16px;
-    font-weight: 900; font-size: clamp(40px, 11vw, 68px);
-    letter-spacing: -0.04em; line-height: 1.08;
-    transform: translateY(115%);
-    transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
-  }
-  .mm-item a .idx { font-family: 'Space Mono', monospace; font-size: 12px; font-weight: 400; color: var(--accent); }
-  .mm-item a:active { color: var(--accent); }
-  body.menu-open .mm-item a { transform: none; }
-  body.menu-open .mm-item:nth-child(1) a { transition-delay: 0.18s; }
-  body.menu-open .mm-item:nth-child(2) a { transition-delay: 0.26s; }
-  body.menu-open .mm-item:nth-child(3) a { transition-delay: 0.34s; }
-  body.menu-open .mm-item:nth-child(4) a { transition-delay: 0.42s; }
-  body.menu-open .mm-item:nth-child(5) a { transition-delay: 0.5s; }
-  .mm-meta {
-    border-top: 1px solid rgba(241,239,233,0.18); padding-top: 22px;
-    display: flex; flex-direction: column; gap: 18px;
-    opacity: 0; transform: translateY(14px);
-    transition: opacity 0.6s ease, transform 0.6s ease;
-  }
-  body.menu-open .mm-meta { opacity: 1; transform: none; transition-delay: 0.5s; }
-  .mm-wa {
-    font-family: 'Space Mono', monospace; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase;
-    background: var(--wa); color: var(--ink); font-weight: 700;
-    padding: 18px 32px; border-radius: 100px; text-align: center;
-  }
-  .mm-contacts { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
-  .mm-contacts a { font-size: 14px; font-weight: 600; color: rgba(241,239,233,0.75); }
+  /* ---------- NOTES / ARTICLES ---------- */
+  .notes { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
+  .noteCard { border:1px solid var(--line); border-radius:20px; padding:38px 34px; background:#fff;
+    transition:transform 0.25s ease, box-shadow 0.25s ease; }
+  .noteCard:hover { transform:translateY(-5px); box-shadow:0 24px 50px rgba(20,19,22,0.08); }
+  .noteCard .n { font-family:'Instrument Serif',serif; font-style:italic; font-size:15px; color:var(--orange); margin-bottom:20px; display:block; }
+  .noteCard h3 { font-weight:800; font-size:21px; letter-spacing:-0.02em; margin-bottom:14px; line-height:1.25; }
+  .noteCard p { font-size:14.5px; color:var(--ink60); }
+  @media (max-width:900px){ .notes{grid-template-columns:1fr;} }
 
-  /* ============ HERO ============ */
-  .hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: space-between; padding: 108px 48px 42px; position: relative; }
-  .hero-top {
-    display: grid; grid-template-columns: 300px 300px auto;
-    justify-content: space-between; align-items: start; gap: 32px;
+  /* ---------- SERVICES (plain) ---------- */
+  .plain { border-top:1px solid var(--line); }
+  .prow { display:grid; grid-template-columns:1fr 1.4fr; gap:30px; align-items:baseline;
+    padding:30px 6px; border-bottom:1px solid var(--line); transition:padding-left 0.3s ease, background 0.3s ease; }
+  .prow:hover { padding-left:20px; background:#fff; }
+  .prow h3 { font-weight:800; font-size:clamp(20px,2.4vw,30px); letter-spacing:-0.02em; }
+  .prow p { font-size:15px; color:var(--ink60); }
+  @media (max-width:760px){ .prow{grid-template-columns:1fr; gap:8px;} }
+
+  /* ---------- PRICING STRIP ---------- */
+  .strip { border:1px solid var(--line); border-radius:22px; background:#fff;
+    display:grid; grid-template-columns:1fr auto; align-items:center; gap:26px; padding:44px 48px; }
+  .strip h3 { font-weight:900; font-size:clamp(24px,3vw,40px); letter-spacing:-0.03em; line-height:1.05; }
+  .strip p { color:var(--ink60); margin-top:10px; max-width:540px; font-size:15px; }
+  @media (max-width:820px){ .strip{grid-template-columns:1fr; padding:32px 26px;} }
+
+  /* ---------- CONTACT ---------- */
+  .cgrid { display:grid; grid-template-columns:1fr 1fr; gap:60px; }
+  .cways { display:flex; flex-direction:column; margin-top:36px; }
+  .cw { display:flex; justify-content:space-between; align-items:center; gap:16px; padding:20px 4px;
+    border-top:1px solid var(--line); font-weight:700; font-size:16px; transition:padding-left 0.3s, color 0.3s; }
+  .cw:last-child { border-bottom:1px solid var(--line); }
+  .cw:hover { padding-left:12px; color:var(--orange); }
+  .cw .v { font-weight:600; font-size:15px; color:var(--ink60); }
+  .lform { display:flex; flex-direction:column; }
+  .lform .fld { border-bottom:1px solid var(--line); padding:6px 0 16px; margin-bottom:24px; }
+  .lform label { display:block; font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; color:var(--ink40); margin-bottom:8px; }
+  .lform input, .lform textarea { width:100%; border:none; background:transparent; color:var(--ink);
+    font-family:'Archivo',sans-serif; font-size:18px; font-weight:500; resize:vertical; }
+  .lform input:focus, .lform textarea:focus { outline:none; }
+  .lform input::placeholder, .lform textarea::placeholder { color:var(--ink40); }
+  .sbtn { font-size:13.5px; font-weight:700; background:var(--ink); color:var(--paper); border:none; cursor:pointer;
+    padding:16px 30px; border-radius:100px; transition:background 0.25s; align-self:flex-start; }
+  .sbtn:hover { background:var(--orange); }
+  @media (max-width:860px){ .cgrid{grid-template-columns:1fr; gap:44px;} }
+
+  /* ---------- FOOTER ---------- */
+  footer { background:var(--ink); color:var(--paper); padding:80px 44px 28px; }
+  .fcta { display:block; text-align:center; margin-bottom:60px; }
+  .fcta .s { font-size:13px; color:rgba(243,241,235,0.5); display:block; margin-bottom:14px; }
+  .fcta .b { font-weight:900; font-size:clamp(48px,11vw,180px); letter-spacing:-0.045em; line-height:0.85; transition:color 0.3s; }
+  .fcta:hover .b { color:var(--wa); }
+  .fmeta { display:flex; justify-content:space-between; align-items:center; border-top:1px solid rgba(243,241,235,0.18);
+    padding-top:22px; flex-wrap:wrap; gap:12px; font-size:13.5px; }
+  .fmeta span, .fmeta a { color:rgba(243,241,235,0.6); }
+  .fmeta a:hover { color:var(--paper); }
+  @media (max-width:860px){ footer{padding:60px 20px 22px;} }
+
+  /* ---------- FLOATING WHATSAPP ---------- */
+  .wa-float { position:fixed; bottom:22px; right:22px; z-index:300; width:58px; height:58px; border-radius:50%;
+    background:var(--wa); display:flex; align-items:center; justify-content:center;
+    box-shadow:0 12px 36px rgba(37,211,102,0.45); transition:transform 0.22s; }
+  .wa-float:hover { transform:translateY(-3px) scale(1.05); }
+  .wa-float svg { width:29px; height:29px; }
+
+  @media (prefers-reduced-motion:reduce){
+    .lineWrap span.txt { transform:none; animation:none; }
+    .rev { opacity:1; transform:none; transition:none; }
   }
-  .hero-top .col p { font-size: 13.5px; line-height: 1.6; margin-top: 8px; color: var(--ink-60); text-align: justify; }
-  .hero-top .col p b { color: var(--ink); }
-  .badge-spin { width: 94px; height: 94px; position: relative; }
-  .badge-spin svg { width: 100%; height: 100%; animation: rot 14s linear infinite; }
-  @keyframes rot { to { transform: rotate(360deg); } }
-  .badge-spin .core { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 22px; color: var(--accent); }
-  @media (max-width: 860px) { .hero-top .col:nth-child(2) { display: none; } .hero-top { grid-template-columns: 1fr auto; gap: 20px; } .hero { padding: 96px 22px 30px; } }
-
-  .wordmark {
-    font-weight: 900;
-    font-size: clamp(48px, min(11.5vw, 20vh), 190px);
-    line-height: 0.84;
-    letter-spacing: -0.05em;
-    display: flex; align-items: flex-start;
-  }
-  .wordmark .ai { color: var(--accent); }
-  .wordmark sup { font-size: 0.11em; font-weight: 700; margin-top: 0.18em; margin-left: 0.05em; opacity: 0; transition: opacity 0.5s ease 1.15s; }
-  .wordmark.together sup { opacity: 1; }
-  .wordmark .char { display: inline-block; transform-origin: bottom center; transition: transform 1.05s cubic-bezier(0.22, 1, 0.36, 1); }
-  .wordmark .char.from-l { transform: translateX(-120vw) rotate(-6deg); }
-  .wordmark .char.from-r { transform: translateX(120vw) rotate(6deg); }
-  .wordmark.together .char { transform: none; }
-  .wordmark.landed .char { animation: thud 0.45s cubic-bezier(0.34, 1.56, 0.64, 1); }
-  @keyframes thud { 0% { transform: none; } 35% { transform: scaleY(0.93) scaleX(1.03); } 100% { transform: none; } }
-  .wordmark-sub {
-    font-family: 'Instrument Serif', serif; font-style: italic; font-weight: 400;
-    font-size: clamp(24px, 4.4vw, 74px);
-    letter-spacing: -0.01em;
-    color: var(--ink);
-    margin: 6px 0 30px 6px;
-    display: flex; align-items: center; gap: 22px;
-  }
-  .wordmark-sub .rule { flex: 1; height: 1px; background: var(--line); }
-  .wordmark-sub .yr { font-family: 'Space Mono', monospace; font-style: normal; font-size: 11px; letter-spacing: 0.14em; color: var(--ink-40); }
-  .hero-mid { padding: 28px 0; }
-
-  .hero-sub {
-    display: flex; justify-content: space-between; align-items: flex-end;
-    border-top: 1px solid var(--line);
-    padding-top: 24px;
-    gap: 30px; flex-wrap: wrap;
-  }
-  .hero-lead { flex: 1 1 340px; min-width: 0; max-width: 640px; }
-  .hero-sub h1 { font-weight: 500; font-size: clamp(18px, 2vw, 26px); letter-spacing: -0.01em; line-height: 1.3; }
-  .hero-sub h1 em { font-family: 'Instrument Serif', serif; font-style: italic; font-weight: 400; font-size: 1.1em; }
-  .hero-sub h1 .acc { color: var(--accent); font-weight: 700; }
-  .hero-proof { color: var(--ink-60); margin-top: 14px; }
-  .hero-proof b { color: var(--accent); }
-  .hero-cta-row { display: flex; gap: 14px; align-items: center; }
-  .btn-solid {
-    font-family: 'Space Mono', monospace; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase;
-    background: var(--ink); color: var(--paper);
-    padding: 18px 32px; border-radius: 100px;
-    display: inline-flex; align-items: center; gap: 10px;
-    transition: background 0.25s ease;
-    border: none; cursor: pointer;
-    will-change: transform;
-  }
-  .btn-solid:hover { background: var(--accent); }
-  .btn-hollow {
-    font-family: 'Space Mono', monospace; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase;
-    border: 1px solid var(--ink); color: var(--ink);
-    padding: 18px 32px; border-radius: 100px;
-    display: inline-flex; align-items: center; gap: 10px;
-    transition: background 0.25s ease, color 0.25s ease;
-    will-change: transform;
-  }
-  .btn-hollow:hover { background: var(--ink); color: var(--paper); }
-
-  /* ============ MARQUEE ============ */
-  .marq { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); overflow: hidden; white-space: nowrap; padding: 16px 0; }
-  .marq-track { display: inline-flex; animation: slide 26s linear infinite; }
-  .marq-track span { font-weight: 800; font-size: 15px; text-transform: uppercase; padding: 0 26px; display: inline-flex; align-items: center; gap: 26px; }
-  .marq-track span::after { content: '✳'; color: var(--accent); font-size: 13px; }
-  @keyframes slide { to { transform: translateX(-50%); } }
-
-  /* ============ SECTION SHELL ============ */
-  section { padding: 116px 48px; }
-  .wrap { max-width: 1500px; margin: 0 auto; }
-  .sec-label { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 56px; border-bottom: 1px solid var(--line); padding-bottom: 18px; }
-  .sec-label .mono { color: var(--ink-60); }
-  .titl { margin-bottom: 64px; }
-  .titl h2 { font-weight: 800; font-size: clamp(38px, 5.4vw, 84px); letter-spacing: -0.035em; line-height: 0.98; }
-  .titl em { font-family: 'Instrument Serif', serif; font-style: italic; font-weight: 400; }
-  .titl .acc { color: var(--accent); }
-  @media (max-width: 860px) { section { padding: 92px 22px; } }
-
-  .reveal { opacity: 0; transform: translateY(38px); transition: opacity 0.9s cubic-bezier(0.22,1,0.36,1), transform 0.9s cubic-bezier(0.22,1,0.36,1); }
-  .reveal.in { opacity: 1; transform: none; }
-
-  /* ============ WORD-BY-WORD REVEAL ============ */
-  [data-wlit] .w { display: inline-block; opacity: 0.15; transform: translateY(10px); filter: blur(5px); transition: opacity 0.55s ease, transform 0.55s ease, filter 0.55s ease; }
-  [data-wlit] .w.lit { opacity: 1; transform: none; filter: none; }
-
-  /* ============ SERVICES ============ */
-  .svc { border-top: 1px solid var(--line); counter-reset: svc; }
-  .svc-row { border-bottom: 1px solid var(--line); cursor: pointer; position: relative; overflow: hidden; display: block; }
-  .svc-head {
-    display: grid; grid-template-columns: 72px 1fr auto; align-items: center; gap: 30px;
-    padding: 30px 10px;
-    transition: padding-left 0.35s ease;
-    position: relative; z-index: 2;
-  }
-  .svc-row:hover .svc-head, .svc-row.open .svc-head { padding-left: 26px; }
-  .svc-num { font-family: 'Space Mono', monospace; font-size: 12px; color: var(--ink-40); }
-  .svc-name { font-weight: 800; font-size: clamp(24px, 3.2vw, 50px); letter-spacing: -0.03em; line-height: 1; transition: color 0.3s ease; }
-  .svc-arrow { font-size: 24px; transition: transform 0.35s ease; }
-  .svc-row:hover .svc-arrow, .svc-row.open .svc-arrow { transform: rotate(45deg); }
-  .svc-body { max-height: 0; overflow: hidden; transition: max-height 0.5s cubic-bezier(0.22,1,0.36,1); position: relative; z-index: 2; }
-  .svc-row:hover .svc-body { max-height: 220px; }
-  .svc-row.open .svc-body { max-height: 360px; }
-  .svc-body-in { display: flex; gap: 40px; padding: 0 10px 34px 102px; flex-wrap: wrap; }
-  .svc-body p { max-width: 480px; font-size: 15px; color: var(--ink-60); text-align: justify; }
-  .svc-tags { display: flex; gap: 8px; flex-wrap: wrap; align-content: flex-start; }
-  .svc-tags span { font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase; border: 1px solid var(--line); padding: 7px 13px; border-radius: 100px; color: var(--ink-60); }
-  .svc-fill { position: absolute; inset: 0; background: var(--ink); transform: scaleY(0); transform-origin: bottom; transition: transform 0.4s cubic-bezier(0.22,1,0.36,1); z-index: 1; }
-  .svc-row:hover .svc-fill, .svc-row.open .svc-fill { transform: scaleY(1); }
-  .svc-row:hover .svc-name, .svc-row:hover .svc-arrow, .svc-row:hover .svc-num,
-  .svc-row.open .svc-name, .svc-row.open .svc-arrow, .svc-row.open .svc-num { color: var(--paper); }
-  .svc-row:hover .svc-body p, .svc-row.open .svc-body p { color: rgba(241,239,233,0.65); }
-  .svc-row:hover .svc-tags span, .svc-row.open .svc-tags span { border-color: rgba(241,239,233,0.3); color: rgba(241,239,233,0.7); }
-  .h-touch { display: none; }
-  @media (hover: none) { .h-desk { display: none; } .h-touch { display: inline; } }
-  @media (max-width: 700px) { .svc-body-in { padding-left: 10px; } }
-
-  /* ============ WORK ============ */
-  .work-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px 26px; }
-  .wk { display: block; }
-  .wk-visual {
-    border-radius: 18px; overflow: hidden; border: 1px solid var(--line);
-    aspect-ratio: 16/10.5; position: relative; background: var(--paper-2);
-    clip-path: inset(6% 6% 6% 6% round 18px);
-    transition: clip-path 1s cubic-bezier(0.22,1,0.36,1);
-  }
-  .wk.in .wk-visual { clip-path: inset(0% 0% 0% 0% round 18px); }
-  .wk-visual svg { position: absolute; inset: -4% 0; width: 100%; height: 108%; transition: transform 0.7s cubic-bezier(0.22,1,0.36,1); will-change: transform; }
-  .wk:hover .wk-visual svg { transform: scale(1.04); }
-  .wk-tag {
-    position: absolute; top: 16px; left: 16px; z-index: 2;
-    font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase;
-    background: var(--paper); border: 1px solid var(--line);
-    padding: 7px 13px; border-radius: 100px;
-  }
-  .wk-info { display: flex; justify-content: space-between; align-items: baseline; padding: 18px 4px 0; }
-  .wk-info h3 { font-weight: 700; font-size: 21px; letter-spacing: -0.02em; }
-  .wk-info .mono { color: var(--ink-40); }
-  .wk-client { font-family: 'Instrument Serif', serif; font-style: italic; color: var(--ink-60); font-size: 15px; padding: 4px 4px 0; }
-  @media (max-width: 860px) { .work-grid { grid-template-columns: 1fr; } }
-
-  /* ============ MANIFESTO ============ */
-  .manifesto { background: var(--ink); color: var(--paper); }
-  .manifesto .sec-label { border-color: rgba(241,239,233,0.2); }
-  .manifesto .sec-label .mono { color: rgba(241,239,233,0.5); }
-  .mani-text { font-weight: 600; font-size: clamp(26px, 3.6vw, 52px); letter-spacing: -0.025em; line-height: 1.18; max-width: 1180px; }
-  .mani-text em { font-family: 'Instrument Serif', serif; font-style: italic; font-weight: 400; }
-  .mani-text .acc { color: var(--accent); }
-  .mani-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin-top: 90px; border-top: 1px solid rgba(241,239,233,0.2); padding-top: 40px; }
-  .mani-stats .n { font-weight: 900; font-size: clamp(34px, 4.4vw, 68px); letter-spacing: -0.03em; }
-  .mani-stats .n span { color: var(--accent); }
-  .mani-stats .l { font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(241,239,233,0.5); margin-top: 8px; }
-  @media (max-width: 860px) { .mani-stats { grid-template-columns: repeat(2, 1fr); } }
-
-  /* ============ PRICING TEASER ============ */
-  .price-strip {
-    border: 1px solid var(--line); border-radius: 22px;
-    display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 30px;
-    padding: 46px 52px;
-    background: var(--paper-2);
-  }
-  .price-strip h3 { font-weight: 800; font-size: clamp(24px, 3vw, 42px); letter-spacing: -0.025em; line-height: 1.05; }
-  .price-strip h3 em { font-family: 'Instrument Serif', serif; font-style: italic; font-weight: 400; }
-  .price-strip p { color: var(--ink-60); margin-top: 10px; max-width: 560px; font-size: 15px; text-align: justify; }
-  @media (max-width: 860px) { .price-strip { grid-template-columns: 1fr; padding: 34px 26px; } }
-
-  /* ============ CONTACT ============ */
-  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 70px; }
-  .contact-left h2 { font-weight: 800; font-size: clamp(38px, 5vw, 76px); letter-spacing: -0.03em; line-height: 0.95; }
-  .contact-left h2 em { font-family: 'Instrument Serif', serif; font-style: italic; font-weight: 400; }
-  .contact-left .acc { color: var(--accent); }
-  .contact-ways { margin-top: 44px; display: flex; flex-direction: column; }
-  .cway {
-    display: flex; justify-content: space-between; align-items: center; gap: 20px;
-    padding: 22px 4px; border-top: 1px solid var(--line);
-    font-weight: 600; font-size: 17px;
-    transition: padding-left 0.3s ease, color 0.3s ease;
-  }
-  .cway:last-child { border-bottom: 1px solid var(--line); }
-  .cway:hover { padding-left: 14px; color: var(--accent); }
-  .cway .val { font-family: 'Archivo', sans-serif; font-weight: 600; font-size: 15.5px; color: var(--ink-60); letter-spacing: 0; text-transform: none; }
-  .cway:hover .val { color: var(--accent); }
-  .lead-form { display: flex; flex-direction: column; }
-  .lead-form .fld { border-bottom: 1px solid var(--line); padding: 8px 0 18px; margin-bottom: 26px; }
-  .lead-form label { display: block; font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-40); margin-bottom: 10px; }
-  .lead-form input, .lead-form textarea {
-    width: 100%; border: none; background: transparent; color: var(--ink);
-    font-family: 'Archivo', sans-serif; font-size: 19px; font-weight: 500; resize: vertical;
-  }
-  .lead-form input:focus, .lead-form textarea:focus { outline: none; }
-  .lead-form input::placeholder, .lead-form textarea::placeholder { color: var(--ink-40); }
-  @media (max-width: 900px) { .contact-grid { grid-template-columns: 1fr; gap: 50px; } }
-
-  /* ============ INSIGHTS ============ */
-  .ins-row {
-    display: flex; justify-content: space-between; align-items: center; gap: 20px;
-    padding: 24px 4px; border-top: 1px solid var(--line);
-    font-weight: 700; font-size: clamp(17px, 1.6vw, 22px); letter-spacing: -0.01em;
-    transition: padding-left 0.3s ease, color 0.3s ease;
-  }
-  .ins-row:last-child { border-bottom: 1px solid var(--line); }
-  .ins-row:hover { padding-left: 14px; color: var(--accent); }
-  .ins-row .mono { color: var(--ink-40); flex-shrink: 0; }
-  @media (max-width: 700px) { .ins-row { flex-direction: column; align-items: flex-start; gap: 6px; } }
-
-  /* ============ FOOTER ============ */
-  footer { background: var(--ink); color: var(--paper); padding: 90px 48px 30px; }
-  .foot-cta { display: block; text-align: center; margin-bottom: 70px; }
-  .foot-cta .small { font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(241,239,233,0.5); display: block; margin-bottom: 18px; }
-  .foot-cta .big { font-weight: 900; font-size: clamp(54px, 12vw, 200px); letter-spacing: -0.045em; line-height: 0.85; transition: color 0.3s ease; }
-  .foot-cta:hover .big { color: var(--wa); }
-  .foot-meta { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(241,239,233,0.18); padding-top: 24px; flex-wrap: wrap; gap: 14px; }
-  .foot-meta .mono { color: rgba(241,239,233,0.5); }
-  .foot-meta a { font-family: 'Archivo', sans-serif; font-size: 14px; font-weight: 600; color: rgba(241,239,233,0.75); letter-spacing: 0; text-transform: none; }
-  .foot-meta a:hover { color: var(--paper); }
-  @media (max-width: 860px) { footer { padding: 70px 22px 24px; } }
-
-  /* ============ FLOATING WHATSAPP ============ */
-  .wa-float {
-    position: fixed; bottom: 24px; right: 24px; z-index: 300;
-    width: 60px; height: 60px; border-radius: 50%;
-    background: var(--wa);
-    display: flex; align-items: center; justify-content: center;
-    box-shadow: 0 14px 40px rgba(37,211,102,0.45);
-    transition: transform 0.22s ease;
-  }
-  .wa-float:hover { transform: translateY(-3px) scale(1.06); }
-  .wa-float svg { width: 30px; height: 30px; }
-
-
 </style>
 </head>
 <body>
 
-<div id="progress"></div>
-
-<div class="cursor" id="cursor"><span class="clabel">VIEW →</span></div>
-
 <nav>
-  <a class="nav-logo" href="index.html">AS<span class="ai">AI</span><span class="tech">Technology®</span></a>
-  <div class="nav-right">
-    <a class="nl" href="#services">Systems</a>
-    <a class="nl" href="#work">Work</a>
-    <a class="nl" href="pricing.html">Pricing</a>
-    <a class="nl" href="#insights">Insights</a>
-    <a class="nl" href="#contact">Contact</a>
+  <a class="logo" href="index.html">AS<span class="ai">AI</span><span class="t">Technology</span></a>
+  <div class="nav-r">
+    <a class="l" href="#notes">Notes</a>
+    <a class="l" href="#services">What we do</a>
+    <a class="l" href="pricing.html">Pricing</a>
+    <a class="l" href="#contact">Contact</a>
     <a class="nav-wa" href="https://wa.me/919816689339?text=Hi%20ASAI%2C%20I%20want%20to%20discuss%20a%20project" target="_blank" rel="noopener">WhatsApp ↗</a>
-    <button class="nav-burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="mmenu"><span></span><span></span></button>
   </div>
 </nav>
 
-<div id="mmenu">
-  <div class="mm-top"><span class="mono">( Menu )</span><span class="mono">ASAI Technology®</span></div>
-  <div class="mm-links">
-    <div class="mm-item"><a href="#services"><span class="idx">/01</span>Systems</a></div>
-    <div class="mm-item"><a href="#work"><span class="idx">/02</span>Work</a></div>
-    <div class="mm-item"><a href="pricing.html"><span class="idx">/03</span>Pricing</a></div>
-    <div class="mm-item"><a href="#insights"><span class="idx">/04</span>Insights</a></div>
-    <div class="mm-item"><a href="#contact"><span class="idx">/05</span>Contact</a></div>
-  </div>
-  <div class="mm-meta">
-    <a class="mm-wa" href="https://wa.me/919816689339?text=Hi%20ASAI%2C%20I%20want%20to%20discuss%20a%20project" target="_blank" rel="noopener">Start on WhatsApp ↗</a>
-    <div class="mm-contacts">
-      <a href="tel:+919816689339">+91 98166 89339</a>
-      <a href="mailto:support.asaitech@gmail.com">support.asaitech@gmail.com</a>
+<header class="hero" id="hero">
+  <canvas id="cv"></canvas>
+  <div class="hero-content">
+    <div style="display:flex; justify-content:flex-end;">
+      <div class="hint"><span class="dot"></span>grab the ball — throw it at the words</div>
     </div>
-  </div>
-</div>
-
-<header class="hero">
-  <div class="hero-top">
-    <div class="col">
-      <div class="mono">Business Systems Studio</div>
-      <p data-wlit="load">We engineer the systems your business runs on — automation, workflows and revenue infrastructure, built under one roof in Noida, India.</p>
+    <div class="mid" id="textBlock">
+      <div class="lineWrap"><span class="txt" data-solid>We make websites</span></div>
+      <div class="lineWrap"><span class="txt" data-solid>people <span class="it or">remember.</span></span></div>
     </div>
-    <div class="col">
-      <div class="mono">Deployed in days</div>
-      <p data-wlit="load">Scoped <b>the moment you brief us.</b><br>A working draft in <b>24 hours</b> — measured in hours saved, not hours billed.</p>
-    </div>
-    <div class="badge-spin">
-      <svg viewBox="0 0 100 100">
-        <defs><path id="circ" d="M 50,50 m -38,0 a 38,38 0 1,1 76,0 a 38,38 0 1,1 -76,0"/></defs>
-        <text font-family="Space Mono, monospace" font-size="10.5" letter-spacing="2.5" fill="#131215">
-          <textPath href="#circ">24H DRAFT · NOIDA IN · ASAI ·&#160;</textPath>
-        </text>
-      </svg>
-      <div class="core">✳</div>
-    </div>
-  </div>
-
-  <div class="hero-mid">
-    <div class="wordmark" id="wordmark"><span class="as">AS</span><span class="ai">AI</span><sup>®</sup></div>
-    <div class="wordmark-sub"><span>Technology</span><span class="rule"></span><span class="yr">EST. 2025</span></div>
-  </div>
-
-  <div class="hero-sub">
-    <div class="hero-lead">
-      <h1 data-wlit="load">We remove the <em>manual work</em> between your business and its revenue — systems that <span class="acc">pay for themselves.</span></h1>
-      <div class="hero-proof mono">Trusted by <b>120+</b> businesses ✳ <b>4.9/5</b> average rating ✳ Drafts in <b>24h</b></div>
-    </div>
-    <div class="hero-cta-row">
-      <a class="btn-solid magnet" href="https://wa.me/919816689339?text=Hi%20ASAI%2C%20I%20want%20to%20discuss%20a%20project" target="_blank" rel="noopener">Start on WhatsApp ↗</a>
-      <a class="btn-hollow magnet" href="#work">See work</a>
+    <div class="hero-bottom">
+      <div class="note"><b>This page is the portfolio.</b> If a ball bouncing off a headline made you smile, imagine what we'd build for you.</div>
+      <a class="cta" href="https://wa.me/919816689339?text=Hi%20ASAI%2C%20I%20want%20to%20discuss%20a%20project" target="_blank" rel="noopener">Talk to us →</a>
     </div>
   </div>
 </header>
 
-<div class="marq">
-  <div class="marq-track">
-    <span>Automation Systems</span><span>Process Reengineering</span><span>Growth Infrastructure</span><span>Internal Tools</span><span>Decision Systems</span><span>Operational Efficiency</span>
-    <span>Automation Systems</span><span>Process Reengineering</span><span>Growth Infrastructure</span><span>Internal Tools</span><span>Decision Systems</span><span>Operational Efficiency</span>
-  </div>
-</div>
-
-<section id="services">
+<section id="notes">
   <div class="wrap">
-    <div class="sec-label"><span class="mono">( 01 — Systems we build )</span><span class="mono"><span class="h-desk">Hover to expand</span><span class="h-touch">Tap to expand</span></span></div>
-    <div class="titl"><h2 data-wlit="scroll">Built to <em>run your business.</em></h2></div>
-
-    <div class="svc">
-      <div class="svc-row">
-        <div class="svc-fill"></div>
-        <div class="svc-head"><span class="svc-num">/01</span><span class="svc-name">Automation Systems</span><span class="svc-arrow">→</span></div>
-        <div class="svc-body"><div class="svc-body-in">
-          <p>Reporting, data entry and follow-ups eliminated. Pipelines that run on schedule, validate themselves and land in the right inbox before your team logs in — hours reclaimed every single day.</p>
-          <div class="svc-tags"><span>Data pipelines</span><span>Scheduled reporting</span><span>Lead routing</span><span>Zero-touch ops</span></div>
-        </div></div>
+    <div class="kicker rev">Notes from the studio</div>
+    <h2 class="big rev">A few things we <span class="it or">believe.</span></h2>
+    <div class="notes">
+      <div class="noteCard rev">
+        <span class="n">No. 01 — On simplicity</span>
+        <h3>Most websites say too much and show too little.</h3>
+        <p>Visitors decide in seconds. A page that loads fast, says one clear thing, and gives one obvious next step will always beat a page stuffed with everything. We cut until only the useful part remains — and that's what makes it feel expensive.</p>
       </div>
-      <div class="svc-row">
-        <div class="svc-fill"></div>
-        <div class="svc-head"><span class="svc-num">/02</span><span class="svc-name">Process Reengineering</span><span class="svc-arrow">→</span></div>
-        <div class="svc-body"><div class="svc-body-in">
-          <p>We map how work actually flows through your business, cut the steps that don't earn their place, and rebuild the rest as software. Fewer handoffs, fewer errors, faster decision cycles.</p>
-          <div class="svc-tags"><span>Workflow audits</span><span>Bottleneck removal</span><span>SOP to software</span><span>Error-proofing</span></div>
-        </div></div>
+      <div class="noteCard rev">
+        <span class="n">No. 02 — On AI</span>
+        <h3>AI won't replace good taste. It rewards it.</h3>
+        <p>Everyone can generate a website now — which means most websites will soon look the same. The advantage shifts to teams who know what to keep and what to throw away. We use AI heavily in our work, and judgment even more heavily.</p>
       </div>
-      <div class="svc-row">
-        <div class="svc-fill"></div>
-        <div class="svc-head"><span class="svc-num">/03</span><span class="svc-name">Growth Infrastructure</span><span class="svc-arrow">→</span></div>
-        <div class="svc-body"><div class="svc-body-in">
-          <p>Revenue, systematized: sites engineered to convert, search visibility that compounds month over month, and a content engine that runs on a calendar — every asset wired to a measurable pipeline.</p>
-          <div class="svc-tags"><span>Conversion-built sites</span><span>Technical SEO</span><span>Content systems</span><span>Analytics</span></div>
-        </div></div>
-      </div>
-      <div class="svc-row">
-        <div class="svc-fill"></div>
-        <div class="svc-head"><span class="svc-num">/04</span><span class="svc-name">Internal Tools</span><span class="svc-arrow">→</span></div>
-        <div class="svc-body"><div class="svc-body-in">
-          <p>Purpose-built tools and browser extensions that live inside the software your team already uses — the missing feature added, the repetitive clicks gone, shipped to production and maintained.</p>
-          <div class="svc-tags"><span>Chrome extensions</span><span>Team dashboards</span><span>SaaS add-ons</span><span>Custom utilities</span></div>
-        </div></div>
-      </div>
-      <div class="svc-row">
-        <div class="svc-fill"></div>
-        <div class="svc-head"><span class="svc-num">/05</span><span class="svc-name">Web Development</span><span class="svc-arrow">→</span></div>
-        <div class="svc-body"><div class="svc-body-in">
-          <p>Hand-coded websites that load fast, rank well and convert — no page builders, no template bloat. From a professional's one-pager to a full commerce platform with payments and invoicing.</p>
-          <div class="svc-tags"><span>Business sites</span><span>Landing pages</span><span>E-commerce</span><span>Payment systems</span></div>
-        </div></div>
-      </div>
-      <div class="svc-row">
-        <div class="svc-fill"></div>
-        <div class="svc-head"><span class="svc-num">/06</span><span class="svc-name">SEO</span><span class="svc-arrow">→</span></div>
-        <div class="svc-body"><div class="svc-body-in">
-          <p>Structure, speed, indexing and content aimed at the exact phrases your customers search — visibility that compounds month over month instead of resetting when the ad budget stops.</p>
-          <div class="svc-tags"><span>Technical SEO</span><span>Local SEO</span><span>Content strategy</span><span>Search Console</span></div>
-        </div></div>
-      </div>
-      <div class="svc-row">
-        <div class="svc-fill"></div>
-        <div class="svc-head"><span class="svc-num">/07</span><span class="svc-name">Social Media Marketing</span><span class="svc-arrow">→</span></div>
-        <div class="svc-body"><div class="svc-body-in">
-          <p>A presence that runs on a system, not on motivation — content calendars, branded creative sets and profile builds that keep your business sharp on Instagram and LinkedIn every single week.</p>
-          <div class="svc-tags"><span>Content calendars</span><span>Branded creatives</span><span>Profile builds</span><span>Growth tracking</span></div>
-        </div></div>
-      </div>
-      <div class="svc-row">
-        <div class="svc-fill"></div>
-        <div class="svc-head"><span class="svc-num">/08</span><span class="svc-name">Graphic Design & Brand</span><span class="svc-arrow">→</span></div>
-        <div class="svc-body"><div class="svc-body-in">
-          <p>Logos, creatives and complete identity systems — designed once, documented properly, applied consistently everywhere your business shows up, so every touchpoint compounds recognition.</p>
-          <div class="svc-tags"><span>Logo design</span><span>Identity systems</span><span>Social creatives</span><span>Style guides</span></div>
-        </div></div>
+      <div class="noteCard rev">
+        <span class="n">No. 03 — On speed</span>
+        <h3>Slow delivery is a choice, not a necessity.</h3>
+        <p>Agencies stretch projects across months because their process demands it. Ours doesn't. We start the moment you brief us and put a finished draft in your hands within 24 hours — then refine it together until it's right.</p>
       </div>
     </div>
   </div>
 </section>
 
-<section id="work" style="padding-top: 0;">
+<section id="services" style="padding-top:40px;">
   <div class="wrap">
-    <div class="sec-label"><span class="mono">( 02 — Selected work )</span><span class="mono">Case studies</span></div>
-    <div class="titl"><h2 data-wlit="scroll">Recent <em>output.</em></h2></div>
-
-    <div class="work-grid">
-      <a class="wk hoverview" href="work-solstice.html">
-        <div class="wk-visual">
-          <span class="wk-tag">Automation</span>
-          <svg viewBox="0 0 640 420" xmlns="http://www.w3.org/2000/svg">
-            <rect width="640" height="420" fill="#E9E6DE"/>
-            <rect x="60" y="80" width="110" height="80" rx="8" fill="#F1EFE9" stroke="#13121522"/>
-            <rect x="60" y="180" width="110" height="80" rx="8" fill="#F1EFE9" stroke="#13121522"/>
-            <rect x="60" y="280" width="110" height="80" rx="8" fill="#F1EFE9" stroke="#13121522"/>
-            <path d="M170 120 h60 v100 h30 M170 220 h90 M170 320 h60 v-100 h30" stroke="#131215" stroke-width="1.5" fill="none" stroke-dasharray="4 4"/>
-            <rect x="280" y="180" width="140" height="80" rx="10" fill="#131215"/>
-            <text x="302" y="215" font-family="Space Mono, monospace" font-size="10" fill="#FF4D00">ASAI PIPELINE</text>
-            <text x="302" y="235" font-family="Space Mono, monospace" font-size="8.5" fill="#F1EFE966">CLEAN · MERGE · SEND</text>
-            <path d="M420 220 h60" stroke="#FF4D00" stroke-width="2"/><path d="M474 213 l12 7 -12 7z" fill="#FF4D00"/>
-            <rect x="490" y="150" width="110" height="140" rx="10" fill="#F1EFE9" stroke="#FF4D00"/>
-            <rect x="506" y="172" width="78" height="8" rx="4" fill="#FF4D0088"/>
-            <rect x="506" y="215" width="20" height="40" fill="#FF4D0055"/><rect x="532" y="200" width="20" height="55" fill="#FF4D0088"/><rect x="558" y="185" width="20" height="70" fill="#FF4D00"/>
-            <text x="506" y="278" font-family="Space Mono, monospace" font-size="8" fill="#131215">07:00 DAILY</text>
-          </svg>
-        </div>
-        <div class="wk-info"><h3>Daily Report Pipeline</h3><span class="mono">60+ min/day saved</span></div>
-        <div class="wk-client" data-wlit="scroll">Three spreadsheets in, one clean report out — untouched by hand</div>
-      </a>
-
-      <a class="wk hoverview" href="work-kinetic.html">
-        <div class="wk-visual">
-          <span class="wk-tag">Website — In-house design</span>
-          <svg viewBox="0 0 640 420" xmlns="http://www.w3.org/2000/svg">
-            <defs><linearGradient id="kg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FF4D00"/><stop offset="1" stop-color="#FF8A00"/></linearGradient></defs>
-            <rect width="640" height="420" fill="#F1EFE9"/>
-            <circle cx="500" cy="120" r="170" fill="url(#kg)" opacity="0.92"/>
-            <text x="60" y="180" font-family="Archivo, sans-serif" font-weight="900" font-size="72" fill="#131215" letter-spacing="-3">MOVE</text>
-            <text x="60" y="250" font-family="Instrument Serif, serif" font-style="italic" font-size="60" fill="#131215">better.</text>
-            <rect x="60" y="290" width="150" height="44" rx="22" fill="#131215"/>
-            <text x="88" y="318" font-family="Space Mono, monospace" font-size="12" fill="#F1EFE9">JOIN KINETIC</text>
-            <rect x="60" y="360" width="520" height="1" fill="#13121522"/>
-            <text x="60" y="392" font-family="Space Mono, monospace" font-size="10" fill="#13121566">STRENGTH · MOBILITY · RECOVERY — NOIDA</text>
-          </svg>
-        </div>
-        <div class="wk-info"><h3>Kinetic Fitness</h3><span class="mono">Concept · design study</span></div>
-        <div class="wk-client" data-wlit="scroll">Gym & training brand — bold type, energy-gradient art direction</div>
-      </a>
-
-      <a class="wk hoverview" href="work-verma.html">
-        <div class="wk-visual">
-          <span class="wk-tag">Website — In-house design</span>
-          <svg viewBox="0 0 640 420" xmlns="http://www.w3.org/2000/svg">
-            <rect width="640" height="420" fill="#E9E6DE"/>
-            <rect x="70" y="60" width="500" height="300" rx="14" fill="#FFFFFF" stroke="#13121518"/>
-            <text x="110" y="140" font-family="Instrument Serif, serif" font-style="italic" font-size="44" fill="#131215">Verma &amp; Associates</text>
-            <text x="110" y="172" font-family="Space Mono, monospace" font-size="11" fill="#13121566">ADVOCATES · HIGH COURT · EST. 1998</text>
-            <rect x="110" y="200" width="70" height="1.5" fill="#FF4D00"/>
-            <rect x="110" y="228" width="250" height="10" rx="5" fill="#13121522"/>
-            <rect x="110" y="248" width="200" height="10" rx="5" fill="#13121515"/>
-            <rect x="110" y="290" width="150" height="40" rx="20" fill="#131215"/>
-            <text x="134" y="315" font-family="Space Mono, monospace" font-size="11" fill="#F1EFE9">CONSULTATION</text>
-            <rect x="410" y="120" width="120" height="180" rx="8" fill="#F1EFE9"/>
-            <rect x="428" y="140" width="84" height="8" rx="4" fill="#13121533"/>
-            <rect x="428" y="158" width="60" height="8" rx="4" fill="#13121522"/>
-            <rect x="428" y="186" width="84" height="60" rx="6" fill="#FF4D0022" stroke="#FF4D00" stroke-width="1"/>
-            <rect x="428" y="258" width="84" height="8" rx="4" fill="#13121522"/>
-          </svg>
-        </div>
-        <div class="wk-info"><h3>Verma & Associates</h3><span class="mono">Concept · design study</span></div>
-        <div class="wk-client" data-wlit="scroll">Professional one-pager for advocates — the ₹4,999 tier, done premium</div>
-      </a>
-
-      <a class="wk hoverview" href="work-meridian.html">
-        <div class="wk-visual">
-          <span class="wk-tag">Graphics & Brand</span>
-          <svg viewBox="0 0 640 420" xmlns="http://www.w3.org/2000/svg">
-            <rect width="640" height="420" fill="#E9E6DE"/>
-            <circle cx="200" cy="180" r="80" fill="none" stroke="#131215" stroke-width="2"/>
-            <circle cx="200" cy="180" r="30" fill="#FF4D00"/>
-            <text x="130" y="310" font-family="Archivo, sans-serif" font-weight="900" font-size="30" fill="#131215" letter-spacing="-1">MERIDIAN</text>
-            <rect x="370" y="90" width="60" height="60" rx="8" fill="#FF4D00"/>
-            <rect x="440" y="90" width="60" height="60" rx="8" fill="#131215"/>
-            <rect x="510" y="90" width="60" height="60" rx="8" fill="#F1EFE9" stroke="#13121533"/>
-            <rect x="370" y="180" width="200" height="150" rx="10" fill="#F1EFE9" stroke="#13121522"/>
-            <circle cx="400" cy="212" r="12" fill="#FF4D00"/>
-            <rect x="386" y="240" width="130" height="10" rx="5" fill="#13121533"/>
-            <rect x="386" y="290" width="76" height="24" rx="12" fill="#131215"/>
-          </svg>
-        </div>
-        <div class="wk-info"><h3>Meridian Café Collective</h3><span class="mono">20 assets delivered</span></div>
-        <div class="wk-client" data-wlit="scroll">One identity system, twenty ready-to-post templates</div>
-      </a>
-
-      <a class="wk hoverview" href="work-apexdental.html">
-        <div class="wk-visual">
-          <span class="wk-tag">Website + Local SEO</span>
-          <svg viewBox="0 0 640 420" xmlns="http://www.w3.org/2000/svg">
-            <rect width="640" height="420" fill="#E9E6DE"/>
-            <rect x="50" y="46" width="540" height="330" rx="12" fill="#FFFFFF" stroke="#13121522"/>
-            <rect x="50" y="46" width="540" height="44" rx="12" fill="#F1EFE9"/>
-            <circle cx="76" cy="68" r="6" fill="#FF4D00"/><circle cx="96" cy="68" r="6" fill="#13121522"/><circle cx="116" cy="68" r="6" fill="#13121522"/>
-            <text x="252" y="73" font-family="Space Mono, monospace" font-size="12" fill="#13121566">apex dental — book</text>
-            <text x="86" y="150" font-family="Archivo, sans-serif" font-weight="900" font-size="34" fill="#131215" letter-spacing="-1">APEX DENTAL</text>
-            <text x="86" y="180" font-family="Space Mono, monospace" font-size="11" fill="#13121566">PAINLESS · MODERN · INSURED</text>
-            <rect x="86" y="206" width="250" height="11" rx="5.5" fill="#13121533"/>
-            <rect x="86" y="227" width="200" height="11" rx="5.5" fill="#13121522"/>
-            <rect x="86" y="268" width="190" height="40" rx="20" fill="#FF4D00"/>
-            <text x="112" y="293" font-family="Space Mono, monospace" font-size="11" fill="#131215" font-weight="700">BOOK A VISIT →</text>
-            <rect x="410" y="120" width="150" height="200" rx="12" fill="#F1EFE9" stroke="#13121522"/>
-            <circle cx="485" cy="170" r="26" fill="#FF4D0022" stroke="#FF4D00" stroke-width="1.5"/>
-            <text x="470" y="177" font-family="Archivo, sans-serif" font-weight="900" font-size="16" fill="#FF4D00">4.9</text>
-            <rect x="432" y="216" width="106" height="9" rx="4.5" fill="#13121533"/>
-            <rect x="432" y="236" width="80" height="9" rx="4.5" fill="#13121522"/>
-            <text x="432" y="292" font-family="Space Mono, monospace" font-size="10" fill="#131215">#1 MAPS RESULT</text>
-          </svg>
-        </div>
-        <div class="wk-info"><h3>Apex Dental Clinic</h3><span class="mono">3× more bookings</span></div>
-        <div class="wk-client" data-wlit="scroll">Clinic site + local SEO — first Maps result for its area within a quarter</div>
-      </a>
-
-      <a class="wk hoverview" href="work-urbanthread.html">
-        <div class="wk-visual">
-          <span class="wk-tag">Social + Brand Creatives</span>
-          <svg viewBox="0 0 640 420" xmlns="http://www.w3.org/2000/svg">
-            <rect width="640" height="420" fill="#131215"/>
-            <text x="60" y="120" font-family="Archivo, sans-serif" font-weight="900" font-size="52" fill="#F1EFE9" letter-spacing="-2">URBAN</text>
-            <text x="60" y="172" font-family="Archivo, sans-serif" font-weight="900" font-size="52" fill="none" stroke="#F1EFE9" stroke-width="1.5" letter-spacing="-2">THREAD</text>
-            <text x="60" y="205" font-family="Space Mono, monospace" font-size="11" fill="#F1EFE988">STREETWEAR · DROPS EVERY FRIDAY</text>
-            <rect x="60" y="240" width="120" height="120" rx="10" fill="#FF4D00"/>
-            <rect x="192" y="240" width="120" height="120" rx="10" fill="#F1EFE915" stroke="#F1EFE933"/>
-            <rect x="324" y="240" width="120" height="120" rx="10" fill="#F1EFE915" stroke="#F1EFE933"/>
-            <text x="88" y="308" font-family="Archivo, sans-serif" font-weight="900" font-size="20" fill="#131215">DROP</text>
-            <rect x="480" y="90" width="110" height="270" rx="12" fill="#F1EFE90D" stroke="#FF4D0044"/>
-            <rect x="496" y="110" width="78" height="78" rx="8" fill="#FF4D00" opacity="0.85"/>
-            <rect x="496" y="202" width="78" height="9" rx="4.5" fill="#F1EFE944"/>
-            <rect x="496" y="222" width="56" height="9" rx="4.5" fill="#F1EFE922"/>
-            <text x="496" y="330" font-family="Space Mono, monospace" font-size="10" fill="#FF4D00">+212% REACH</text>
-          </svg>
-        </div>
-        <div class="wk-info"><h3>UrbanThread Apparel</h3><span class="mono">+212% reach in 90 days</span></div>
-        <div class="wk-client" data-wlit="scroll">Streetwear brand — creative system + posting calendar that runs itself</div>
-      </a>
+    <div class="kicker rev">What we do</div>
+    <h2 class="big rev">Simple to say. Hard to do <span class="it or">well.</span></h2>
+    <div class="plain">
+      <div class="prow rev"><h3>Websites</h3><p>A site that looks premium, loads fast, and brings you enquiries — whether you're one professional or a full business.</p></div>
+      <div class="prow rev"><h3>Chrome extensions</h3><p>Small tools that live in your browser and remove the boring, repeated clicks from your day. We build and ship our own, too.</p></div>
+      <div class="prow rev"><h3>Automation</h3><p>The report you make every morning, the data you copy every week — we make it happen by itself.</p></div>
+      <div class="prow rev"><h3>SEO</h3><p>So that when someone searches for what you do, they find you — not your competitor.</p></div>
+      <div class="prow rev"><h3>Social media</h3><p>Twelve sharp, on-brand posts a month, so your Instagram and LinkedIn look as good as your website.</p></div>
+      <div class="prow rev"><h3>Design & branding</h3><p>A logo and look that's clearly yours, used the same way everywhere.</p></div>
     </div>
   </div>
 </section>
 
-<section class="manifesto">
+<section style="padding-top:30px;">
   <div class="wrap">
-    <div class="sec-label"><span class="mono">( 03 — How we work )</span><span class="mono">The short version</span></div>
-    <p class="mani-text" data-wlit="scroll">We start <em>the moment you brief us.</em> A final draft lands in <span class="acc">24 hours</span> — built with precision, not shortcuts. Two refinement rounds, then you keep the <em>source.</em> No lock-in, ever.</p>
-    <div class="mani-stats">
-      <div><div class="n">120<span>+</span></div><div class="l">Projects shipped</div></div>
-      <div><div class="n">4.9<span>/5</span></div><div class="l">Average client rating</div></div>
-      <div><div class="n">24<span>h</span></div><div class="l">Final draft turnaround</div></div>
-      <div><div class="n">100<span>%</span></div><div class="l">Custom · zero templates</div></div>
-    </div>
-  </div>
-</section>
-
-<section>
-  <div class="wrap">
-    <div class="price-strip reveal">
+    <div class="strip rev">
       <div>
-        <h3 data-wlit="scroll">Fixed scope. <em>Fixed price.</em> No retainer games.</h3>
-        <p data-wlit="scroll">Entry systems from ₹4,999, full business platforms at ₹14,999, automation and tooling quoted per project — paid securely by UPI, card or netbanking, with an invoice generated the moment payment clears.</p>
+        <h3>Clear prices. Pay online. <span class="it or">Invoice instantly.</span></h3>
+        <p>Websites from ₹4,999. Every payment is secure (UPI, cards, netbanking) and generates a professional invoice on the spot.</p>
       </div>
-      <a class="btn-solid magnet" href="pricing.html">View pricing →</a>
+      <a class="cta" href="pricing.html" style="pointer-events:auto;">See pricing →</a>
     </div>
   </div>
 </section>
 
-<section id="insights" style="padding-top: 40px;">
+<section id="contact" style="padding-top:30px;">
   <div class="wrap">
-    <div class="sec-label"><span class="mono">( 04 — Insights )</span><span class="mono">Guides & thinking</span></div>
-    <div class="titl"><h2 data-wlit="scroll">Know before <em>you build.</em></h2></div>
-    <div class="ins">
-      <a class="ins-row" href="custom-website-development.html"><span>Custom Website Development: Why Hand-Coded Sites Beat Templates</span><span class="mono">Web development →</span></a>
-      <a class="ins-row" href="technical-seo-guide.html"><span>The Technical SEO Checklist Indian Businesses Actually Need</span><span class="mono">SEO →</span></a>
-      <a class="ins-row" href="social-media-marketing-system.html"><span>Stop Posting Randomly: Build a Social Media System Instead</span><span class="mono">Social media →</span></a>
-      <a class="ins-row" href="brand-identity-design.html"><span>A Logo Is Not a Brand: Identity Systems That Scale</span><span class="mono">Graphic design →</span></a>
-    </div>
-  </div>
-</section>
-
-<section id="contact" style="padding-top: 40px;">
-  <div class="wrap">
-    <div class="sec-label"><span class="mono">( 05 — Contact )</span><span class="mono">Replies within hours</span></div>
-    <div class="contact-grid">
-      <div class="contact-left reveal">
-        <h2 data-wlit="scroll">Tell us what's slowing your business down. We reply with a <em class="acc">system.</em></h2>
-        <div class="contact-ways">
-          <a class="cway" href="https://wa.me/919816689339?text=Hi%20ASAI%2C%20I%20want%20to%20discuss%20a%20project" target="_blank" rel="noopener"><span>WhatsApp — fastest</span><span class="val">+91 98166 89339 ↗</span></a>
-          <a class="cway" href="tel:+919816689339"><span>Call</span><span class="val">+91 98166 89339</span></a>
-          <a class="cway" href="mailto:support.asaitech@gmail.com"><span>Email</span><span class="val">support.asaitech@gmail.com</span></a>
+    <div class="kicker rev">Contact</div>
+    <h2 class="big rev">Tell us the idea. We'll reply with a <span class="it or">draft.</span></h2>
+    <div class="cgrid">
+      <div class="rev">
+        <div class="cways">
+          <a class="cw" href="https://wa.me/919816689339?text=Hi%20ASAI%2C%20I%20want%20to%20discuss%20a%20project" target="_blank" rel="noopener"><span>WhatsApp — fastest</span><span class="v">+91 98166 89339 ↗</span></a>
+          <a class="cw" href="tel:+919816689339"><span>Call</span><span class="v">+91 98166 89339</span></a>
+          <a class="cw" href="mailto:support.asaitech@gmail.com"><span>Email</span><span class="v">support.asaitech@gmail.com</span></a>
         </div>
       </div>
-      <form class="lead-form reveal" action="https://formsubmit.co/support.asaitech@gmail.com" method="POST">
+      <form class="lform rev" action="https://formsubmit.co/support.asaitech@gmail.com" method="POST">
         <input type="hidden" name="_subject" value="New lead from ASAI website">
         <input type="hidden" name="_captcha" value="false">
         <input type="hidden" name="_template" value="table">
         <div class="fld"><label>Your name</label><input type="text" name="name" placeholder="Full name" required></div>
         <div class="fld"><label>Phone / WhatsApp / Email</label><input type="text" name="contact" placeholder="How do we reach you?" required></div>
-        <div class="fld"><label>What needs fixing</label><textarea name="message" rows="3" placeholder="A process to automate, a workflow to rebuild, a growth system to install..." required></textarea></div>
-        <button class="btn-solid magnet" type="submit" style="align-self: flex-start;">Send message →</button>
+        <div class="fld"><label>What do you need?</label><textarea name="message" rows="3" placeholder="A website, an extension, automation, design..." required></textarea></div>
+        <button class="sbtn" type="submit">Send →</button>
       </form>
     </div>
   </div>
 </section>
 
 <footer>
-  <a class="foot-cta" href="https://wa.me/919816689339?text=Hi%20ASAI%2C%20I%20want%20to%20discuss%20a%20project" target="_blank" rel="noopener">
-    <span class="small">One tap away —</span>
-    <span class="big" data-wlit="scroll">LET'S TALK ↗</span>
+  <a class="fcta" href="https://wa.me/919816689339?text=Hi%20ASAI%2C%20I%20want%20to%20discuss%20a%20project" target="_blank" rel="noopener">
+    <span class="s">One tap away —</span>
+    <span class="b">LET'S TALK ↗</span>
   </a>
-  <div class="foot-meta">
-    <span class="mono">© 2026 ASAI Technology® — Noida, IN</span>
+  <div class="fmeta">
+    <span>© 2026 ASAI Technology — Noida, IN</span>
     <a href="mailto:support.asaitech@gmail.com">support.asaitech@gmail.com</a>
-    <a href="pricing.html" class="mono" style="color:rgba(241,239,233,0.5)">Pricing & payments</a>
+    <a href="tel:+919816689339">+91 98166 89339</a>
+    <a href="pricing.html">Pricing</a>
   </div>
 </footer>
 
@@ -797,137 +256,153 @@
 </a>
 
 <script>
-(function() {
-  const hasHover = matchMedia('(hover: hover)').matches;
+(function(){
+  /* ---------- Ball physics (round, no stretch) ---------- */
+  const hero = document.getElementById('hero');
+  const cv = document.getElementById('cv');
+  const ctx = cv.getContext('2d');
+  let W, H, DPR = Math.min(devicePixelRatio||1, 2);
 
-  /* ---- Scroll progress ---- */
-  const prog = document.getElementById('progress');
-  addEventListener('scroll', () => {
-    const h = document.documentElement;
-    prog.style.width = (h.scrollTop / (h.scrollHeight - h.clientHeight) * 100) + '%';
-  }, { passive: true });
-
-  /* ---- Wordmark: AS flies in from the left, AI from the right, they meet ---- */
-  const wm = document.getElementById('wordmark');
-  function splitWordmark() {
-    wm.innerHTML =
-      'AS'.split('').map((c, i) => `<span class="char from-l" style="transition-delay:${i * 0.09}s">${c}</span>`).join('') +
-      'AI'.split('').map((c, i) => `<span class="char ai from-r" style="transition-delay:${(1 - i) * 0.09}s">${c}</span>`).join('') +
-      '<sup>®</sup>';
-  }
-  splitWordmark();
-  function heroEnter() {
-    wm.classList.add('together');
-    setTimeout(() => wm.classList.add('landed'), 1150);
-    setTimeout(litLoad, 700);
-  }
-  requestAnimationFrame(() => setTimeout(heroEnter, 300));
-
-  /* ---- Cursor with VIEW label ---- */
-  if (hasHover) {
-    const cur = document.getElementById('cursor');
-    let shown = false;
-    addEventListener('mousemove', e => {
-      cur.style.left = e.clientX + 'px';
-      cur.style.top = e.clientY + 'px';
-      if (!shown) { cur.classList.add('visible'); shown = true; }
-    });
-    document.documentElement.addEventListener('mouseleave', () => { cur.classList.remove('visible'); shown = false; });
-    document.querySelectorAll('a, button, .svc-row').forEach(el => {
-      el.addEventListener('mouseenter', () => cur.classList.add('grow'));
-      el.addEventListener('mouseleave', () => cur.classList.remove('grow'));
-    });
-    document.querySelectorAll('.hoverview').forEach(el => {
-      el.addEventListener('mouseenter', () => { cur.classList.add('view'); cur.classList.remove('grow'); });
-      el.addEventListener('mouseleave', () => cur.classList.remove('view'));
-    });
-  }
-
-  /* ---- Magnetic buttons ---- */
-  if (hasHover) {
-    document.querySelectorAll('.magnet').forEach(btn => {
-      btn.addEventListener('mousemove', e => {
-        const r = btn.getBoundingClientRect();
-        const x = e.clientX - r.left - r.width / 2;
-        const y = e.clientY - r.top - r.height / 2;
-        btn.style.transform = `translate(${x * 0.18}px, ${y * 0.28}px)`;
-      });
-      btn.addEventListener('mouseleave', () => btn.style.transform = 'translate(0,0)');
-    });
-  }
-
-  /* ---- Mobile menu ---- */
-  const burger = document.getElementById('burger');
-  const mmenu = document.getElementById('mmenu');
-  if (burger && mmenu) {
-    const setMenu = (open) => {
-      document.body.classList.toggle('menu-open', open);
-      document.body.style.overflow = open ? 'hidden' : '';
-      burger.setAttribute('aria-expanded', open);
-      burger.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
-    };
-    burger.addEventListener('click', () => setMenu(!document.body.classList.contains('menu-open')));
-    mmenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setMenu(false)));
-    addEventListener('keydown', e => { if (e.key === 'Escape') setMenu(false); });
-  }
-
-  /* ---- Services: tap to expand on touch devices ---- */
-  if (!hasHover) {
-    document.querySelectorAll('.svc-row').forEach(row => {
-      row.addEventListener('click', () => {
-        const wasOpen = row.classList.contains('open');
-        document.querySelectorAll('.svc-row.open').forEach(r => r.classList.remove('open'));
-        if (!wasOpen) row.classList.add('open');
-      });
-    });
-  }
-
-  /* ---- Reveals: generic + title masks + work clip reveals ---- */
-  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); }), { threshold: 0.12 });
-  document.querySelectorAll('.reveal, .titl, .wk').forEach(el => io.observe(el));
-
-  /* ---- Gentle parallax on work visuals ---- */
-  const wks = [...document.querySelectorAll('.wk-visual svg')];
-  addEventListener('scroll', () => {
-    wks.forEach(svg => {
-      const r = svg.parentElement.getBoundingClientRect();
-      if (r.bottom < 0 || r.top > innerHeight) return;
-      const p = (r.top + r.height / 2 - innerHeight / 2) / innerHeight;
-      svg.style.transform = `translateY(${p * -18}px)`;
-    });
-  }, { passive: true });
-
-  /* ---- Word-by-word reveals: [data-wlit="load"] after preloader, [data-wlit="scroll"] as you scroll ---- */
-  const splitWords = (node) => {
-    [...node.childNodes].forEach(ch => {
-      if (ch.nodeType === 3) {
-        const frag = document.createDocumentFragment();
-        ch.textContent.split(/(\s+)/).forEach(tok => {
-          if (/^\s+$/.test(tok) || tok === '') frag.appendChild(document.createTextNode(tok));
-          else { const s = document.createElement('span'); s.className = 'w'; s.textContent = tok; frag.appendChild(s); }
-        });
-        node.replaceChild(frag, ch);
-      } else if (ch.nodeType === 1) splitWords(ch);
-    });
-  };
-  document.querySelectorAll('[data-wlit]').forEach(splitWords);
-  function litLoad() {
-    document.querySelectorAll('[data-wlit="load"]').forEach(el => {
-      el.querySelectorAll('.w').forEach((w, i) => setTimeout(() => w.classList.add('lit'), i * 55));
-    });
-  }
-  const scrollLit = [...document.querySelectorAll('[data-wlit="scroll"]')].map(el => ({ el, words: el.querySelectorAll('.w') }));
-  const onWlit = () => {
-    scrollLit.forEach(({ el, words }) => {
+  let obstacles = [];
+  function collectObstacles(){
+    obstacles = [];
+    const hr = hero.getBoundingClientRect();
+    document.querySelectorAll('[data-solid]').forEach(el=>{
       const r = el.getBoundingClientRect();
-      if (r.bottom < -100 || r.top > innerHeight + 100) return;
-      const p = Math.min(1, Math.max(0, (innerHeight * 0.85 - r.top) / (r.height + innerHeight * 0.3)));
-      const lit = Math.floor(p * words.length);
-      words.forEach((w, i) => w.classList.toggle('lit', i <= lit));
+      obstacles.push({x:r.left-hr.left, y:r.top-hr.top+6, w:r.width, h:r.height-12, hit:0});
     });
-  };
-  addEventListener('scroll', onWlit, { passive: true });
-  onWlit();
+  }
+  function resize(){
+    W = hero.offsetWidth; H = hero.offsetHeight;
+    cv.width = W*DPR; cv.height = H*DPR;
+    cv.style.width = W+'px'; cv.style.height = H+'px';
+    ctx.setTransform(DPR,0,0,DPR,0,0);
+    collectObstacles();
+  }
+  setTimeout(collectObstacles, 1400);
+
+  const R = innerWidth > 700 ? 34 : 26;
+  const ball = { x: innerWidth*0.72, y: innerHeight*0.18, vx: 2.4, vy: 0, r: R };
+  const GRAV = 0.42, BOUNCE = 0.78, FRICTION = 0.995;
+  const trail = [];
+
+  let dragging=false, dragOff={x:0,y:0}, lastPos=[];
+  function pointerPos(e){
+    const t = e.touches ? e.touches[0] : e;
+    const hr = hero.getBoundingClientRect();
+    return {x:t.clientX-hr.left, y:t.clientY-hr.top};
+  }
+  function down(e){
+    const p = pointerPos(e);
+    const dx=p.x-ball.x, dy=p.y-ball.y;
+    if (dx*dx+dy*dy < (ball.r+26)*(ball.r+26)){
+      dragging=true;
+      cv.classList.add('grabbing');
+      dragOff.x=dx; dragOff.y=dy;
+      lastPos=[{...p, t:performance.now()}];
+      e.preventDefault();
+    }
+  }
+  function move(e){
+    if(!dragging) return;
+    const p = pointerPos(e);
+    ball.x = p.x-dragOff.x; ball.y = p.y-dragOff.y;
+    ball.vx = 0; ball.vy = 0;
+    lastPos.push({...p, t:performance.now()});
+    if(lastPos.length>6) lastPos.shift();
+    e.preventDefault();
+  }
+  function up(){
+    if(!dragging) return;
+    dragging=false;
+    cv.classList.remove('grabbing');
+    if(lastPos.length>1){
+      const a=lastPos[0], b=lastPos[lastPos.length-1];
+      const dt=Math.max((b.t-a.t)/16.7, 1);
+      ball.vx=(b.x-a.x)/dt*1.15; ball.vy=(b.y-a.y)/dt*1.15;
+    }
+  }
+  cv.addEventListener('mousedown',down); addEventListener('mousemove',move); addEventListener('mouseup',up);
+  cv.addEventListener('touchstart',down,{passive:false}); addEventListener('touchmove',move,{passive:false}); addEventListener('touchend',up);
+
+  function circleRect(b, o){
+    const cx = Math.max(o.x, Math.min(b.x, o.x+o.w));
+    const cy = Math.max(o.y, Math.min(b.y, o.y+o.h));
+    const dx = b.x-cx, dy = b.y-cy;
+    return {hit: dx*dx+dy*dy < b.r*b.r, cx, cy, dx, dy};
+  }
+
+  function tick(){
+    ctx.clearRect(0,0,W,H);
+
+    if(!dragging){
+      ball.vy += GRAV;
+      ball.vx *= FRICTION;
+      ball.x += ball.vx; ball.y += ball.vy;
+
+      if(ball.x-ball.r<0){ ball.x=ball.r; ball.vx=Math.abs(ball.vx)*BOUNCE; }
+      if(ball.x+ball.r>W){ ball.x=W-ball.r; ball.vx=-Math.abs(ball.vx)*BOUNCE; }
+      if(ball.y-ball.r<0){ ball.y=ball.r; ball.vy=Math.abs(ball.vy)*BOUNCE; }
+      if(ball.y+ball.r>H){ ball.y=H-ball.r; ball.vy=-Math.abs(ball.vy)*BOUNCE; ball.vx*=0.98; }
+
+      for(const o of obstacles){
+        const c = circleRect(ball,o);
+        if(c.hit){
+          const d = Math.sqrt(c.dx*c.dx+c.dy*c.dy)||1;
+          const nx=c.dx/d, ny=c.dy/d;
+          ball.x = c.cx+nx*ball.r; ball.y = c.cy+ny*ball.r;
+          const dot = ball.vx*nx+ball.vy*ny;
+          ball.vx=(ball.vx-2*dot*nx)*BOUNCE;
+          ball.vy=(ball.vy-2*dot*ny)*BOUNCE;
+          o.hit=1;
+        }
+      }
+    }
+
+    trail.push({x:ball.x,y:ball.y});
+    if(trail.length>22) trail.shift();
+    for(let i=0;i<trail.length;i++){
+      const t=i/trail.length;
+      ctx.beginPath();
+      ctx.arc(trail[i].x, trail[i].y, ball.r*t*0.85, 0, Math.PI*2);
+      ctx.fillStyle=`rgba(255,77,0,${t*0.10})`;
+      ctx.fill();
+    }
+
+    for(const o of obstacles){
+      if(o.hit>0){
+        ctx.fillStyle=`rgba(255,77,0,${o.hit*0.5})`;
+        ctx.fillRect(o.x, o.y+o.h+4, o.w, 3);
+        o.hit-=0.03;
+      }
+    }
+
+    /* round ball — no squash, no stretch */
+    const g = ctx.createRadialGradient(ball.x-ball.r*0.3, ball.y-ball.r*0.35, ball.r*0.1, ball.x, ball.y, ball.r);
+    g.addColorStop(0,'#FF7A3D'); g.addColorStop(1,'#FF4D00');
+    ctx.beginPath(); ctx.arc(ball.x, ball.y, ball.r, 0, Math.PI*2);
+    ctx.fillStyle=g; ctx.fill();
+
+    const shScale = Math.max(0.25, 1-(H-ball.y)/H);
+    ctx.beginPath();
+    ctx.ellipse(ball.x, H-8, ball.r*1.15*shScale+6, 6*shScale+2, 0, 0, Math.PI*2);
+    ctx.fillStyle=`rgba(20,19,22,${0.10*shScale})`;
+    ctx.fill();
+
+    requestAnimationFrame(tick);
+  }
+
+  addEventListener('resize', resize);
+  resize();
+  if (!matchMedia('(prefers-reduced-motion: reduce)').matches) tick();
+  else { // draw one static ball
+    resize();
+    ctx.beginPath(); ctx.arc(ball.x, ball.y, ball.r, 0, Math.PI*2); ctx.fillStyle='#FF4D00'; ctx.fill();
+  }
+
+  /* ---------- Soft reveals ---------- */
+  const io = new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('in'); }), {threshold:0.12});
+  document.querySelectorAll('.rev').forEach(el=>io.observe(el));
 })();
 </script>
 
