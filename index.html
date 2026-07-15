@@ -394,11 +394,10 @@
 
   addEventListener('resize', resize);
   resize();
-  if (!matchMedia('(prefers-reduced-motion: reduce)').matches) tick();
-  else { // draw one static ball
-    resize();
-    ctx.beginPath(); ctx.arc(ball.x, ball.y, ball.r, 0, Math.PI*2); ctx.fillStyle='#FF4D00'; ctx.fill();
-  }
+  // spawn the ball safely inside the hero canvas, near the top-right
+  ball.x = Math.min(W * 0.72, W - ball.r - 20);
+  ball.y = ball.r + 40;
+  tick();  // always animate — the ball is the whole point
 
   /* ---------- Soft reveals ---------- */
   const io = new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('in'); }), {threshold:0.12});
