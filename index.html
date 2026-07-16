@@ -18,7 +18,7 @@
   .or { color:var(--orange); }
 
   nav { position:fixed; top:0; left:0; right:0; z-index:100; display:flex; justify-content:space-between; align-items:center;
-    padding:20px 44px; background:linear-gradient(180deg, var(--paper) 55%, transparent); }
+    padding:20px 44px; background:linear-gradient(180deg, var(--paper) 60%, rgba(243,241,235,0)); }
   .logo { font-weight:900; font-size:17px; letter-spacing:-0.02em; }
   .logo .ai { color:var(--orange); }
   .logo .t { font-family:'Instrument Serif',serif; font-style:italic; font-weight:400; color:var(--ink60); margin-left:6px; font-size:15px; }
@@ -29,21 +29,16 @@
   .nav-wa:hover { background:var(--orange); }
   @media (max-width:860px){ .nav-r a.l{display:none;} nav{padding:16px 20px;} }
 
-  /* HERO — canvas only captures pointer over the ball; page scrolls normally */
   .hero { position:relative; height:100vh; min-height:600px; overflow:hidden; }
   #cv { position:absolute; inset:0; touch-action:pan-y; pointer-events:none; }
   .hero-content { position:absolute; inset:0; pointer-events:none; display:flex; flex-direction:column; justify-content:space-between; padding:100px 44px 36px; z-index:2; }
-  .scorepill { pointer-events:none; display:inline-flex; align-items:center; gap:10px; font-size:13px; font-weight:700;
-    background:#fff; border:1px solid var(--line); padding:9px 16px; border-radius:100px; color:var(--ink); }
-  .scorepill .lbl { color:var(--ink40); font-weight:600; }
-  .scorepill .sc { color:var(--orange); font-variant-numeric:tabular-nums; min-width:14px; text-align:center; }
   .hint { font-size:12.5px; color:var(--ink40); display:flex; align-items:center; gap:8px; }
   .hint .dot { width:7px; height:7px; border-radius:50%; background:var(--orange); animation:pulse 1.8s ease-in-out infinite; }
   @keyframes pulse { 50%{opacity:0.25;} }
   .mid { flex:1; display:flex; flex-direction:column; justify-content:center; }
-  .lineWrap { overflow:hidden; padding-bottom:0.08em; }
-  .lineWrap .txt { display:inline-block; font-weight:900; font-size:clamp(38px,7.4vw,110px); line-height:1.05; letter-spacing:-0.045em; }
-  .lineWrap .word { display:inline-block; transform:translateY(112%); }
+  .lineWrap { overflow:hidden; padding-bottom:0.09em; }
+  .lineWrap .txt { display:inline-block; font-weight:900; font-size:clamp(38px,7.2vw,104px); line-height:1.06; letter-spacing:-0.045em; }
+  .lineWrap .word { display:inline-block; transform:translateY(115%); }
   .hero-bottom { display:flex; justify-content:space-between; align-items:flex-end; gap:24px; }
   .note { max-width:380px; font-size:15px; color:var(--ink60); }
   .note b { color:var(--ink); font-weight:600; }
@@ -56,6 +51,13 @@
     .note{max-width:100%; font-size:14px;}
     .cta{text-align:center;}
   }
+
+  /* score popup — small, floats up and fades each basket */
+  .score-pop { position:absolute; z-index:5; pointer-events:none; font-weight:900; font-size:34px; color:var(--orange);
+    letter-spacing:-0.02em; opacity:0; transform:translate(-50%,0); }
+  .score-pop.go { animation:pop 1s cubic-bezier(0.22,1,0.36,1) forwards; }
+  @keyframes pop { 0%{opacity:0; transform:translate(-50%,10px) scale(0.6);} 25%{opacity:1; transform:translate(-50%,-6px) scale(1.1);}
+    100%{opacity:0; transform:translate(-50%,-52px) scale(1);} }
 
   section { padding:110px 44px; }
   .wrap { max-width:1200px; margin:0 auto; }
@@ -147,14 +149,14 @@
 
 <header class="hero" id="hero">
   <canvas id="cv"></canvas>
+  <div class="score-pop" id="scorePop">1</div>
   <div class="hero-content">
-    <div style="display:flex; justify-content:space-between; align-items:flex-start;">
-      <div class="scorepill" id="scorePill"><span class="lbl">Baskets</span> <span class="sc" id="scoreVal">0</span></div>
-      <div class="hint"><span class="dot"></span>flick the ball into the hoop</div>
+    <div style="display:flex; justify-content:flex-end;">
+      <div class="hint"><span class="dot"></span>flick the ball up into the hoop</div>
     </div>
-    <div class="mid" id="textBlock">
-      <div class="lineWrap"><span class="txt" data-reveal>Websites that transform</span></div>
-      <div class="lineWrap"><span class="txt" data-reveal>traffic into <span class="it or">momentum.</span></span></div>
+    <div class="mid">
+      <div class="lineWrap"><span class="txt"><span class="word">Websites</span> <span class="word">that</span> <span class="word">transform</span></span></div>
+      <div class="lineWrap"><span class="txt"><span class="word">traffic</span> <span class="word">into</span> <span class="word it or">momentum.</span></span></div>
     </div>
     <div class="hero-bottom">
       <div class="note"><b>Yes — we built this to be played with.</b> The basketball, the physics, the depth: all coded by hand. A small taste of how we sweat the details.</div>
@@ -176,7 +178,7 @@
       <div class="noteCard">
         <span class="n">No. 02 — On speed</span>
         <h3>Slow delivery is a choice, not a necessity.</h3>
-        <p>Agencies stretch projects across months because their process demands it. Ours doesn't. We start the moment you brief us and put a finished draft in your hands within 24 hours — then refine it together until it is exactly right.</p>
+        <p>Agencies stretch projects across months because their process demands it. Ours does not. We start the moment you brief us and put a finished draft in your hands within 24 hours — then refine it together until it is exactly right.</p>
       </div>
       <div class="noteCard">
         <span class="n">No. 03 — On craft</span>
@@ -265,270 +267,225 @@
 (function(){
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  /* ===================== TEXT REVEAL (word-by-word mask rise) ===================== */
-  document.querySelectorAll('[data-reveal]').forEach((el, li)=>{
-    // wrap each word in a masked span
-    const html = el.innerHTML;
-    // split on spaces but keep inner tags (like the italic span) intact-ish:
-    const parts = html.split(/(\s+)/);
-    el.innerHTML = parts.map(p=>{
-      if(/^\s+$/.test(p)) return p;
-      if(p.startsWith('<')) return '<span class="word" style="transition:transform 0.9s cubic-bezier(0.22,1,0.36,1)">'+p+'</span>';
-      return '<span class="word" style="transition:transform 0.9s cubic-bezier(0.22,1,0.36,1)">'+p+'</span>';
-    }).join('');
-  });
+  /* ============ TEXT REVEAL (word masks rise) ============ */
   function playReveal(){
-    const words = document.querySelectorAll('.lineWrap .word');
-    words.forEach((w,i)=> setTimeout(()=> w.style.transform='translateY(0)', 250 + i*80));
+    document.querySelectorAll('.lineWrap .word').forEach((w,i)=>{
+      w.style.transition='transform 0.9s cubic-bezier(0.22,1,0.36,1)';
+      setTimeout(()=> w.style.transform='translateY(0)', 250 + i*85);
+    });
   }
-  if(reduce){ document.querySelectorAll('.lineWrap .word').forEach(w=>w.style.transform='none'); }
+  if(reduce) document.querySelectorAll('.lineWrap .word').forEach(w=>w.style.transform='none');
 
-  /* ===================== BASKETBALL GAME (3D, realistic, scoring) ===================== */
-  const hero = document.getElementById('hero');
-  const cv = document.getElementById('cv');
-  const ctx = cv.getContext('2d');
-  const scoreEl = document.getElementById('scoreVal');
-  let W, H, DPR = Math.min(devicePixelRatio||1, 2), cx, cy;
+  /* ============ BASKETBALL — true 3D sphere with rotating seams ============ */
+  const hero=document.getElementById('hero'), cv=document.getElementById('cv'), ctx=cv.getContext('2d');
+  const scorePop=document.getElementById('scorePop');
+  let W,H,DPR=Math.min(devicePixelRatio||1,2),cx,cy;
 
-  const FOCAL = 700, ROOM = 560;
-  const BASE_R = () => (W>700 ? 46 : 34);
+  const FOCAL=700, ROOM=560;
+  const ball={x:0,y:0,z:150,vx:0,vy:0,vz:0,r:46,
+    // rotation state (radians) — the sphere's orientation
+    rotX:0.3, rotY:0.2, avX:0, avY:0 };
+  const GRAV=0.55, REST=0.72, FRIC=0.992, SPINDAMP=0.99;
 
-  // ball state in 3D
-  const ball = { x:0, y:0, z:150, vx:0, vy:0, vz:0, r:46, spin:0, spinV:0.02 };
-  const GRAV=0.55, REST=0.72, FRIC=0.992, AIRSPIN=0.98;
-
-  // hoop position (in world space): upper-left-ish, mounted on the back wall
-  const hoop = { x:0, y:0, z:430, rx:78, ry:26, scored:0, flash:0 };
-  function layoutHoop(){
-    const b=bounds();
-    hoop.x = -b.hw*0.42;
-    hoop.y = -b.hh*0.42;
-    hoop.rx = (W>700?82:56);
-    hoop.ry = hoop.rx*0.34;
-  }
-
+  const hoop={x:0,y:0,z:430,rx:82,ry:28,scored:0,flash:0};
   let score=0;
-  function addScore(){ score++; scoreEl.textContent=score; hoop.flash=1; burst(); }
 
-  function bounds(){ return { hw:W*0.5-24, hh:H*0.5-24 }; }
+  function bounds(){ return {hw:W*0.5-24, hh:H*0.5-24}; }
   function project(x,y,z){ const s=FOCAL/(FOCAL+z); return {sx:cx+x*s, sy:cy+y*s, s}; }
 
   function resize(){
     W=hero.offsetWidth; H=hero.offsetHeight;
     cv.width=W*DPR; cv.height=H*DPR; cv.style.width=W+'px'; cv.style.height=H+'px';
     ctx.setTransform(DPR,0,0,DPR,0,0); cx=W/2; cy=H/2;
-    ball.r=BASE_R(); layoutHoop();
+    ball.r = W>700?46:34;
+    hoop.rx = W>700?82:58; hoop.ry=hoop.rx*0.34;
+    const b=bounds(); hoop.x=-b.hw*0.30; hoop.y=-b.hh*0.46; hoop.z=430;
   }
+  function resetBall(){ const b=bounds(); ball.x=b.hw*0.42; ball.y=b.hh-ball.r-4; ball.z=150;
+    ball.vx=ball.vy=ball.vz=0; ball.avX=0; ball.avY=0.01; }
 
-  // reset ball to a rest spot bottom-right, ready to flick
-  function resetBall(){
-    const b=bounds();
-    ball.x=b.hw*0.4; ball.y=b.hh-ball.r-4; ball.z=150;
-    ball.vx=ball.vy=ball.vz=0; ball.spinV=0;
-  }
-
-  /* pointer: only capture when starting on the ball, else let the page scroll */
-  let dragging=false, lastPts=[], armed=false;
+  /* ---- pointer: capture only if it starts on the ball ---- */
+  let dragging=false, lastPts=[];
   function ptr(e){ const t=e.touches?e.touches[0]:e; const hr=hero.getBoundingClientRect(); return {px:t.clientX-hr.left, py:t.clientY-hr.top}; }
   function worldAt(px,py,z){ const s=FOCAL/(FOCAL+z); return {x:(px-cx)/s, y:(py-cy)/s}; }
-  function onBall(px,py){ const p=project(ball.x,ball.y,ball.z); const dx=px-p.sx, dy=py-p.sy, rr=ball.r*p.s+22; return dx*dx+dy*dy<rr*rr; }
-
-  function down(e){
-    const {px,py}=ptr(e);
-    if(!onBall(px,py)) return;          // not on ball → do nothing, page scrolls
-    dragging=true; armed=true;
-    const w=worldAt(px,py,ball.z); lastPts=[{x:w.x,y:w.y,t:performance.now()}];
-    e.preventDefault();                  // only prevent scroll while actually dragging the ball
-  }
-  function move(e){
-    if(!dragging) return;
-    const {px,py}=ptr(e); const w=worldAt(px,py,ball.z);
+  function onBall(px,py){ const p=project(ball.x,ball.y,ball.z); const dx=px-p.sx,dy=py-p.sy,rr=ball.r*p.s+22; return dx*dx+dy*dy<rr*rr; }
+  function down(e){ const {px,py}=ptr(e); if(!onBall(px,py)) return; dragging=true;
+    const w=worldAt(px,py,ball.z); lastPts=[{x:w.x,y:w.y,t:performance.now()}]; e.preventDefault(); }
+  function move(e){ if(!dragging) return; const {px,py}=ptr(e); const w=worldAt(px,py,ball.z);
     ball.x=w.x; ball.y=w.y; ball.vx=ball.vy=ball.vz=0;
-    lastPts.push({x:w.x,y:w.y,t:performance.now()}); if(lastPts.length>6) lastPts.shift();
-    e.preventDefault();
-  }
-  function up(){
-    if(!dragging) return; dragging=false;
-    if(lastPts.length>1){
-      const a=lastPts[0], b=lastPts[lastPts.length-1], dt=Math.max((b.t-a.t)/16.7,1);
+    lastPts.push({x:w.x,y:w.y,t:performance.now()}); if(lastPts.length>6) lastPts.shift(); e.preventDefault(); }
+  function up(){ if(!dragging) return; dragging=false;
+    if(lastPts.length>1){ const a=lastPts[0], b=lastPts[lastPts.length-1], dt=Math.max((b.t-a.t)/16.7,1);
       ball.vx=(b.x-a.x)/dt*1.05; ball.vy=(b.y-a.y)/dt*1.05;
-      // upward flick sends it toward the hoop (into depth)
-      const up = Math.max(0, -(b.y-a.y));
-      ball.vz = up/dt*2.4 + 6;
-      ball.spinV = ball.vx*0.002 + 0.03;
-    }
-  }
-  // listeners on canvas parent so we can read pointer, but pointer-events is on hero not canvas
+      const up=Math.max(0,-(b.y-a.y)); ball.vz=up/dt*2.6+7;
+      // throwing imparts tumble
+      ball.avX = -ball.vy*0.004 - 0.05; ball.avY = ball.vx*0.004; } }
   hero.addEventListener('mousedown',down); addEventListener('mousemove',move); addEventListener('mouseup',up);
   hero.addEventListener('touchstart',down,{passive:false}); hero.addEventListener('touchmove',move,{passive:false}); addEventListener('touchend',up);
 
-  /* confetti burst on score */
-  const bits=[];
-  function burst(){
+  /* ---- score popup: small number floats up each basket ---- */
+  function showScore(){
+    score++;
     const p=project(hoop.x,hoop.y,hoop.z);
-    for(let i=0;i<22;i++){ bits.push({x:p.sx,y:p.sy,vx:(Math.random()-0.5)*6,vy:-Math.random()*6-1,life:1,
-      c: i%2? '#FF4D00':'#141316'}); }
+    scorePop.textContent=score;
+    scorePop.style.left=p.sx+'px'; scorePop.style.top=(p.sy-10)+'px';
+    scorePop.classList.remove('go'); void scorePop.offsetWidth; scorePop.classList.add('go');
+    hoop.flash=1;
   }
 
-  /* ---- drawing helpers ---- */
-  function drawFloor(){
-    // soft radial-gradient ground + horizon, no grid lines
-    const g=ctx.createLinearGradient(0,cy*0.7,0,H);
-    g.addColorStop(0,'#EFECE4'); g.addColorStop(0.5,'#E7E3DA'); g.addColorStop(1,'#DED9CE');
-    ctx.fillStyle=g; ctx.fillRect(0,cy*0.72,W,H-cy*0.72);
-    // gentle vignette pooling toward centre for depth
-    const rg=ctx.createRadialGradient(cx,cy*0.95,W*0.05,cx,cy,W*0.75);
-    rg.addColorStop(0,'rgba(20,19,22,0.05)'); rg.addColorStop(1,'rgba(20,19,22,0)');
-    ctx.fillStyle=rg; ctx.fillRect(0,0,W,H);
-  }
+  /* ---- plain background ---- */
+  function drawBG(){ /* intentionally blank — CSS paper color shows through */ }
 
   function drawHoop(){
-    const p=project(hoop.x,hoop.y,hoop.z);
-    const rx=hoop.rx*p.s, ry=hoop.ry*p.s;
+    const p=project(hoop.x,hoop.y,hoop.z), rx=hoop.rx*p.s, ry=hoop.ry*p.s;
     // backboard
-    ctx.save();
-    ctx.globalAlpha=0.95;
-    const bw=rx*2.5, bh=rx*1.7;
-    ctx.fillStyle='rgba(255,255,255,0.9)';
-    ctx.strokeStyle='rgba(20,19,22,0.18)'; ctx.lineWidth=2;
-    roundRect(p.sx-bw/2, p.sy-bh*0.78, bw, bh, 8*p.s); ctx.fill(); ctx.stroke();
-    // inner square
-    ctx.strokeStyle='rgba(255,77,0,0.7)'; ctx.lineWidth=3*p.s;
-    roundRect(p.sx-rx*0.7, p.sy-bh*0.5, rx*1.4, bh*0.5, 4*p.s); ctx.stroke();
-    ctx.restore();
-    // net (behind rim front)
-    ctx.strokeStyle='rgba(20,19,22,0.28)'; ctx.lineWidth=1;
-    const netH=ry*3.2, seg=9;
+    const bw=rx*2.4, bh=rx*1.6;
+    ctx.fillStyle='rgba(255,255,255,0.92)'; ctx.strokeStyle='rgba(20,19,22,0.16)'; ctx.lineWidth=2;
+    rr(p.sx-bw/2, p.sy-bh*0.82, bw, bh, 7*p.s); ctx.fill(); ctx.stroke();
+    ctx.strokeStyle='rgba(255,77,0,0.65)'; ctx.lineWidth=3*p.s;
+    rr(p.sx-rx*0.62, p.sy-bh*0.52, rx*1.24, bh*0.5, 3*p.s); ctx.stroke();
+    // net
+    ctx.strokeStyle='rgba(20,19,22,0.26)'; ctx.lineWidth=1;
+    const netH=ry*3.4, seg=10;
     for(let i=0;i<seg;i++){ const a=(i/seg)*Math.PI*2;
-      const x1=p.sx+Math.cos(a)*rx, y1=p.sy+Math.sin(a)*ry;
-      const x2=p.sx+Math.cos(a)*rx*0.4, y2=p.sy+netH;
-      ctx.beginPath(); ctx.moveTo(x1,y1); ctx.quadraticCurveTo((x1+x2)/2+ (Math.sin(a)*3), (y1+y2)/2, x2,y2); ctx.stroke();
-    }
-    // cross weave
+      const x1=p.sx+Math.cos(a)*rx, y1=p.sy+Math.sin(a)*ry, x2=p.sx+Math.cos(a)*rx*0.34, y2=p.sy+netH;
+      ctx.beginPath(); ctx.moveTo(x1,y1); ctx.quadraticCurveTo((x1+x2)/2,(y1+y2)/2,x2,y2); ctx.stroke(); }
     for(let r=1;r<=3;r++){ ctx.beginPath();
-      for(let i=0;i<=seg;i++){ const a=(i/seg)*Math.PI*2; const t=r/4;
-        const rr=rx*(1-t*0.6), yy=p.sy+netH*t + Math.sin(a*2)*2;
-        const xx=p.sx+Math.cos(a)*rr; i?ctx.lineTo(xx,yy):ctx.moveTo(xx,yy); }
-      ctx.stroke();
-    }
-    // rim (orange ellipse) — draw front arc thicker
-    ctx.lineWidth=4.5*p.s;
-    ctx.strokeStyle= hoop.flash>0 ? '#FFB000' : '#FF4D00';
+      for(let i=0;i<=seg;i++){ const a=(i/seg)*Math.PI*2, t=r/4, rad=rx*(1-t*0.62), yy=p.sy+netH*t, xx=p.sx+Math.cos(a)*rad;
+        i?ctx.lineTo(xx,yy):ctx.moveTo(xx,yy);} ctx.stroke(); }
+    // rim
+    ctx.lineWidth=5*p.s; ctx.strokeStyle= hoop.flash>0?'#FFB000':'#FF4D00';
     ctx.beginPath(); ctx.ellipse(p.sx,p.sy,rx,ry,0,0,Math.PI*2); ctx.stroke();
-    // rim highlight
-    ctx.strokeStyle='rgba(255,255,255,0.4)'; ctx.lineWidth=1.5*p.s;
+    ctx.strokeStyle='rgba(255,255,255,0.45)'; ctx.lineWidth=1.5*p.s;
     ctx.beginPath(); ctx.ellipse(p.sx,p.sy-1,rx,ry,0,Math.PI,Math.PI*2); ctx.stroke();
     if(hoop.flash>0) hoop.flash-=0.04;
   }
-
-  function roundRect(x,y,w,h,r){ ctx.beginPath(); ctx.moveTo(x+r,y); ctx.arcTo(x+w,y,x+w,y+h,r);
+  function rr(x,y,w,h,r){ ctx.beginPath(); ctx.moveTo(x+r,y); ctx.arcTo(x+w,y,x+w,y+h,r);
     ctx.arcTo(x+w,y+h,x,y+h,r); ctx.arcTo(x,y+h,x,y,r); ctx.arcTo(x,y,x+w,y,r); ctx.closePath(); }
 
-  function drawBasketball(p, rr){
-    ctx.save();
-    ctx.translate(p.sx,p.sy);
-    // base sphere with matte leather shading (light from top-left)
-    const grad=ctx.createRadialGradient(-rr*0.35,-rr*0.4,rr*0.15,0,0,rr);
-    grad.addColorStop(0,'#E8752E');
-    grad.addColorStop(0.55,'#D45E1E');
-    grad.addColorStop(1,'#9E3D0E');
-    ctx.beginPath(); ctx.arc(0,0,rr,0,Math.PI*2); ctx.fillStyle=grad; ctx.fill();
-    // pebbled texture: faint speckles
-    ctx.save(); ctx.clip();
-    for(let i=0;i<70;i++){ const a=Math.random()*Math.PI*2, d=Math.random()*rr*0.95;
-      const x=Math.cos(a)*d, y=Math.sin(a)*d;
-      ctx.fillStyle=`rgba(0,0,0,${0.05+Math.random()*0.06})`;
-      ctx.beginPath(); ctx.arc(x,y,0.8+Math.random()*0.8,0,Math.PI*2); ctx.fill(); }
+  /* ===== TRUE 3D BASKETBALL =====
+     Build seam curves as point sets on a unit sphere, rotate by (rotX,rotY),
+     project to 2D, draw only front-facing points. This makes seams curve and
+     the ball genuinely tumble, showing different faces. */
+  function rotate(pt, ax, ay){
+    // rotate around X then Y
+    let {x,y,z}=pt;
+    let cosx=Math.cos(ax), sinx=Math.sin(ax);
+    let y1=y*cosx - z*sinx, z1=y*sinx + z*cosx;
+    let cosy=Math.cos(ay), siny=Math.sin(ay);
+    let x1=x*cosy + z1*siny, z2=-x*siny + z1*cosy;
+    return {x:x1, y:y1, z:z2};
+  }
+  // precompute seam point sets on unit sphere
+  const seams=[];
+  (function buildSeams(){
+    const N=60;
+    // 1 full great circle around Y (the "vertical" seam)
+    let a=[]; for(let i=0;i<=N;i++){ const t=i/N*Math.PI*2; a.push({x:Math.cos(t),y:Math.sin(t),z:0}); } seams.push(a);
+    // 1 great circle around X
+    let b=[]; for(let i=0;i<=N;i++){ const t=i/N*Math.PI*2; b.push({x:0,y:Math.sin(t),z:Math.cos(t)}); } seams.push(b);
+    // 2 offset curved seams (the classic basketball has 2 side arcs)
+    for(const off of [Math.PI/4, -Math.PI/4]){
+      let c=[]; for(let i=0;i<=N;i++){ const t=i/N*Math.PI*2;
+        // circle tilted: parametrize in a plane rotated by off around Y
+        const px=Math.cos(t), py=Math.sin(t), pz=0;
+        const cz=Math.cos(off), sz=Math.sin(off);
+        c.push({x:px*cz, y:py, z:px*sz});
+      } seams.push(c);
+    }
+  })();
+
+  function drawBasketball(p, rr_){
+    ctx.save(); ctx.translate(p.sx,p.sy);
+    // sphere body — matte leather, light from top-left
+    const g=ctx.createRadialGradient(-rr_*0.36,-rr_*0.42,rr_*0.12,0,0,rr_);
+    g.addColorStop(0,'#E07A33'); g.addColorStop(0.5,'#CB5C1D'); g.addColorStop(1,'#8F340B');
+    ctx.beginPath(); ctx.arc(0,0,rr_,0,Math.PI*2); ctx.fillStyle=g; ctx.fill();
+    // pebble speckle (clipped)
+    ctx.save(); ctx.beginPath(); ctx.arc(0,0,rr_,0,Math.PI*2); ctx.clip();
+    for(let i=0;i<80;i++){ const a=Math.random()*Math.PI*2, d=Math.sqrt(Math.random())*rr_;
+      ctx.fillStyle=`rgba(60,20,0,${0.05+Math.random()*0.05})`;
+      ctx.beginPath(); ctx.arc(Math.cos(a)*d,Math.sin(a)*d,0.7+Math.random()*0.8,0,Math.PI*2); ctx.fill(); }
     ctx.restore();
-    // seams (black lines), rotate with spin
-    ctx.rotate(ball.spin);
-    ctx.strokeStyle='rgba(20,10,5,0.85)'; ctx.lineWidth=Math.max(1.4,rr*0.045); ctx.lineCap='round';
-    // vertical seam
-    ctx.beginPath(); ctx.ellipse(0,0,rr*0.99,rr*0.99,0,Math.PI*0.5,Math.PI*1.5); ctx.stroke();
-    // curved vertical (perspective ellipse)
-    ctx.beginPath(); ctx.ellipse(0,0,rr*0.45,rr*0.99,0,0,Math.PI*2); ctx.stroke();
-    // horizontal seam
-    ctx.beginPath(); ctx.moveTo(-rr,0); ctx.lineTo(rr,0); ctx.stroke();
-    // two side curves
-    ctx.beginPath(); ctx.ellipse(rr*0.55,0,rr*0.42,rr*0.95,0,Math.PI*0.5,Math.PI*1.5); ctx.stroke();
-    ctx.beginPath(); ctx.ellipse(-rr*0.55,0,rr*0.42,rr*0.95,0,-Math.PI*0.5,Math.PI*0.5); ctx.stroke();
-    ctx.rotate(-ball.spin);
-    // soft matte sheen (broad, low-opacity — not a fake glossy dot)
-    const sheen=ctx.createRadialGradient(-rr*0.4,-rr*0.5,rr*0.05,-rr*0.4,-rr*0.5,rr*0.9);
-    sheen.addColorStop(0,'rgba(255,255,255,0.18)'); sheen.addColorStop(1,'rgba(255,255,255,0)');
-    ctx.beginPath(); ctx.arc(0,0,rr,0,Math.PI*2); ctx.fillStyle=sheen; ctx.fill();
+    // seams — rotate each point, draw front hemisphere (z>0) with depth-based width/alpha
+    ctx.lineCap='round';
+    for(const seam of seams){
+      let started=false;
+      for(let i=0;i<seam.length;i++){
+        const rp=rotate(seam[i], ball.rotX, ball.rotY);
+        if(rp.z < 0){ started=false; continue; }        // back of sphere, skip → seam disappears around edge
+        const sx=rp.x*rr_, sy=rp.y*rr_;
+        const depth=(rp.z+1)/2;                           // 0..1
+        if(!started){ ctx.beginPath(); ctx.moveTo(sx,sy); started=true; }
+        else ctx.lineTo(sx,sy);
+        // stroke in small segments so width can vary — simpler: set once per seam
+      }
+      ctx.strokeStyle='rgba(25,12,4,0.9)';
+      ctx.lineWidth=Math.max(1.3, rr_*0.05);
+      ctx.stroke();
+    }
+    // soft broad matte sheen (not a glossy dot)
+    const sh=ctx.createRadialGradient(-rr_*0.4,-rr_*0.5,rr_*0.05,-rr_*0.4,-rr_*0.5,rr_);
+    sh.addColorStop(0,'rgba(255,240,220,0.22)'); sh.addColorStop(1,'rgba(255,240,220,0)');
+    ctx.beginPath(); ctx.arc(0,0,rr_,0,Math.PI*2); ctx.fillStyle=sh; ctx.fill();
+    // subtle rim-dark for roundness
+    const edge=ctx.createRadialGradient(0,0,rr_*0.7,0,0,rr_);
+    edge.addColorStop(0,'rgba(0,0,0,0)'); edge.addColorStop(1,'rgba(0,0,0,0.28)');
+    ctx.beginPath(); ctx.arc(0,0,rr_,0,Math.PI*2); ctx.fillStyle=edge; ctx.fill();
     ctx.restore();
   }
 
   function tick(){
     ctx.clearRect(0,0,W,H);
-    drawFloor();
     drawHoop();
 
     const b=bounds();
     if(!dragging){
-      ball.vy+=GRAV; ball.vx*=FRIC; ball.vz*=FRIC; ball.spinV*=AIRSPIN;
-      ball.x+=ball.vx; ball.y+=ball.vy; ball.z+=ball.vz; ball.spin+=ball.spinV;
+      ball.vy+=GRAV; ball.vx*=FRIC; ball.vz*=FRIC;
+      ball.x+=ball.vx; ball.y+=ball.vy; ball.z+=ball.vz;
+      ball.rotX+=ball.avX; ball.rotY+=ball.avY; ball.avX*=SPINDAMP; ball.avY*=SPINDAMP;
 
-      if(ball.x-ball.r<-b.hw){ ball.x=-b.hw+ball.r; ball.vx=Math.abs(ball.vx)*REST; ball.spinV=-ball.spinV*0.5; }
-      if(ball.x+ball.r> b.hw){ ball.x= b.hw-ball.r; ball.vx=-Math.abs(ball.vx)*REST; ball.spinV=-ball.spinV*0.5; }
+      if(ball.x-ball.r<-b.hw){ ball.x=-b.hw+ball.r; ball.vx=Math.abs(ball.vx)*REST; ball.avY=-ball.avY; }
+      if(ball.x+ball.r> b.hw){ ball.x= b.hw-ball.r; ball.vx=-Math.abs(ball.vx)*REST; ball.avY=-ball.avY; }
       if(ball.y-ball.r<-b.hh){ ball.y=-b.hh+ball.r; ball.vy=Math.abs(ball.vy)*REST; }
-      if(ball.y+ball.r> b.hh){ ball.y= b.hh-ball.r; ball.vy=-Math.abs(ball.vy)*REST; ball.vx*=0.98; ball.spinV=ball.vx*0.003;
-        if(Math.abs(ball.vy)<1.2 && armed && ball.z<200){ /* settled */ } }
+      if(ball.y+ball.r> b.hh){ ball.y= b.hh-ball.r; ball.vy=-Math.abs(ball.vy)*REST; ball.vx*=0.98; ball.avX=ball.vx*0.004; }
       if(ball.z<80){ ball.z=80; ball.vz=Math.abs(ball.vz)*REST; }
       if(ball.z>ROOM){ ball.z=ROOM; ball.vz=-Math.abs(ball.vz)*REST; }
 
-      // scoring: ball passing through hoop plane near the rim, moving downward-ish in z-depth
+      // idle gentle spin when nearly still
+      if(Math.abs(ball.avX)<0.005 && Math.abs(ball.avY)<0.005){ ball.avY=0.006; }
+
+      // scoring — ball reaches hoop depth within rim radius, moving into depth
       const dz=Math.abs(ball.z-hoop.z);
-      if(dz<26 && hoop.scored<=0){
+      if(dz<28 && hoop.scored<=0){
         const dx=ball.x-hoop.x, dy=ball.y-hoop.y;
-        if(Math.abs(dx)<hoop.rx*0.8 && Math.abs(dy)<hoop.ry*2.2 && ball.vz>0){
-          addScore(); hoop.scored=30;
-          // drop through
-          ball.vz*=0.4; ball.vy+=2;
+        if(Math.abs(dx)<hoop.rx*0.85 && Math.abs(dy)<hoop.ry*2.4 && ball.vz>0){
+          showScore(); hoop.scored=30; ball.vz*=0.35; ball.vy+=2.5;
         }
       }
       if(hoop.scored>0) hoop.scored--;
-
-      // auto-reset when it comes to rest low & near front
-      const speed=Math.abs(ball.vx)+Math.abs(ball.vy)+Math.abs(ball.vz);
-      if(speed<0.6 && ball.y+ball.r>=b.hh-2 && ball.z<200){ /* resting; leave it */ }
     }
 
-    const p=project(ball.x,ball.y,ball.z), rr=ball.r*p.s;
+    const p=project(ball.x,ball.y,ball.z), rr_=ball.r*p.s;
+    // floor contact shadow
+    const fl=project(ball.x,b.hh,ball.z);
+    ctx.beginPath(); ctx.ellipse(fl.sx,fl.sy,rr_*1.05,rr_*0.26,0,0,Math.PI*2);
+    ctx.fillStyle=`rgba(20,19,22,${0.16*p.s})`; ctx.fill();
 
-    // contact shadow on floor (projected under the ball)
-    const fl=project(ball.x, b.hh, ball.z);
-    const near=1-(ball.z-80)/(ROOM-80);
-    ctx.beginPath();
-    ctx.ellipse(fl.sx, fl.sy, rr*1.05, rr*0.28, 0, 0, Math.PI*2);
-    ctx.fillStyle=`rgba(20,19,22,${0.18*p.s})`; ctx.fill();
-
-    // draw ball behind or in front of hoop based on z (simple painter order already: hoop drawn first, so ball on top when nearer)
-    drawBasketball(p, rr);
-
-    // confetti
-    for(let i=bits.length-1;i>=0;i--){ const bt=bits[i]; bt.x+=bt.vx; bt.y+=bt.vy; bt.vy+=0.25; bt.life-=0.02;
-      ctx.globalAlpha=Math.max(0,bt.life); ctx.fillStyle=bt.c;
-      ctx.fillRect(bt.x,bt.y,4,4); ctx.globalAlpha=1;
-      if(bt.life<=0) bits.splice(i,1); }
-
+    drawBasketball(p, rr_);
     requestAnimationFrame(tick);
   }
 
   addEventListener('resize', ()=>{ resize(); resetBall(); });
   resize(); resetBall();
   if(!reduce){ tick(); playReveal(); }
-  else { // static frame
-    drawFloor(); drawHoop(); const p=project(ball.x,ball.y,ball.z); drawBasketball(p, ball.r*p.s);
-  }
+  else { drawHoop(); const p=project(ball.x,ball.y,ball.z); drawBasketball(p, ball.r*p.s); }
 
-  /* ===================== CARD DEAL + REVEALS ===================== */
+  /* ============ CARD DEAL + REVEALS ============ */
   const deck=document.querySelectorAll('#noteDeck .noteCard');
   const dio=new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting){ const i=[...deck].indexOf(e.target);
     setTimeout(()=>e.target.classList.add('dealt'), i*120); dio.unobserve(e.target);} }),{threshold:0.2});
   deck.forEach(c=>dio.observe(c));
-
   const io=new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('in'); }),{threshold:0.12});
   document.querySelectorAll('.rev').forEach(el=>io.observe(el));
 })();
