@@ -36,13 +36,11 @@
   .nav-r { display:flex; gap:26px; align-items:center; font-size:13.5px; font-weight:600; }
   .nav-r a.l { color:var(--ink60); transition:color 0.2s; }
   .nav-r a.l:hover { color:var(--ink); }
-  .nav-wa { background:var(--ink); color:var(--paper); padding:11px 22px; border-radius:100px; transition:background 0.25s; }
-  .nav-wa:hover { background:var(--orange); }
   @media (max-width:860px){ .nav-r a.l{display:none;} nav{padding:16px 20px;} }
 
   /* ---------- HERO ---------- */
   .hero { position:relative; height:100vh; height:100svh; min-height:560px; overflow:hidden; }
-  #cv { position:absolute; inset:0; touch-action:none; }
+  #cv { position:absolute; inset:0; touch-action:none; z-index: 3; }
   .hero-ui { position:absolute; inset:0; pointer-events:none; z-index:2; }
   .hint { position:absolute; top:94px; left:44px; font-size:12.5px; color:var(--ink40); display:flex; align-items:center; gap:8px; }
   .hint .dot { width:7px; height:7px; border-radius:50%; background:var(--orange); animation:pulse 1.8s ease-in-out infinite; }
@@ -58,9 +56,6 @@
   .hero-bottom { position:absolute; left:44px; right:44px; bottom:30px; display:flex; justify-content:space-between; align-items:flex-end; gap:24px; }
   .note { max-width:380px; font-size:14.5px; color:var(--ink60); }
   .note b { color:var(--ink); font-weight:600; }
-  .cta { pointer-events:auto; font-size:13px; font-weight:700; background:var(--ink); color:var(--paper);
-    padding:12px 22px; border-radius:100px; transition:background 0.25s; white-space:nowrap; }
-  .cta:hover { background:var(--orange); }
   @media (max-width:700px){
     .hint{left:20px; top:84px;}
     .hl-wrap{left:20px; right:20px; top:44%;}
@@ -173,12 +168,11 @@
 <nav>
   <a class="logo" href="index.html">AS<span class="ai">AI</span><span class="t">Technology</span></a>
   <div class="nav-r">
-    <a class="l" href="#notes">Notes</a>
     <a class="l" href="#services">What we do</a>
+    <a class="l" href="#notes">Notes</a>
     <a class="l" href="pricing.html">Pricing</a>
     <a class="l" href="about.html">About</a>
     <a class="l" href="#contact">Contact</a>
-    <a class="nav-wa" href="https://wa.me/919816689339?text=Hi%20ASAI%2C%20I%20want%20to%20discuss%20a%20project" target="_blank" rel="noopener">WhatsApp ↗</a>
   </div>
 </nav>
 
@@ -200,7 +194,6 @@
     </div>
     <div class="hero-bottom">
       <div class="note"><b>Yes — we built this to be played with.</b> The ball, the physics, the swish: all coded by hand. A small taste of how we sweat the details.</div>
-      <a class="cta" href="https://wa.me/919816689339?text=Hi%20ASAI%2C%20I%20want%20to%20discuss%20a%20project" target="_blank" rel="noopener">Talk to us →</a>
     </div>
   </div>
 </header>
@@ -212,7 +205,25 @@
   </div>
 </div>
 
-<section id="notes">
+<section id="services" style="padding-top:96px;">
+  <div class="wrap">
+    <div class="kicker rev">What we do</div>
+    <h2 class="rl">
+      <span class="msk"><span class="w">Simple</span> <span class="w">to</span> <span class="w">say.</span> <span class="w">Hard</span> <span class="w">to</span> <span class="w">do</span></span>
+      <span class="msk"><span class="w it or">well.</span></span>
+    </h2>
+    <div class="plain">
+      <a class="prow rev" href="pricing.html"><h3>Websites</h3><p>A site that looks premium, loads fast, and brings you enquiries — whether you are one professional or a full business.</p><span class="go">See pricing →</span></a>
+      <a class="prow rev" href="extensions.html"><h3>Extensions</h3><p>Small tools that live in your browser and remove the boring, repeated clicks from your day. We build and ship our own, too.</p><span class="go">How we build them →</span></a>
+      <a class="prow rev" href="automation.html"><h3>Automation</h3><p>The report you make every morning, the data you copy every week — we make it happen by itself.</p><span class="go">How we build it →</span></a>
+      <a class="prow rev" href="seo.html"><h3>SEO</h3><p>So that when someone searches for what you do, they find you — not your competitor.</p><span class="go">How we do it →</span></a>
+      <a class="prow rev" href="smm.html"><h3>Social media marketing</h3><p>Twelve sharp, on-brand posts a month, so your Instagram and LinkedIn look as good as your website.</p><span class="go">How we run it →</span></a>
+      <a class="prow rev" href="#contact"><h3>Design &amp; branding</h3><p>A logo and a look that is clearly yours, used the same way everywhere.</p><span class="go">Start a brief →</span></a>
+    </div>
+  </div>
+</section>
+
+<section id="notes" style="padding-top:30px;">
   <div class="wrap">
     <div class="kicker rev">Notes from the studio</div>
     <h2 class="rl">
@@ -240,24 +251,6 @@
         <h3>You should own everything we build for you.</h3>
         <p>No lock-in, no hostage hosting, no monthly fee just to keep your own site online. We hand over the source and set you up to run it yourself — and we are here whenever you want us back.</p>
       </div>
-    </div>
-  </div>
-</section>
-
-<section id="services" style="padding-top:30px;">
-  <div class="wrap">
-    <div class="kicker rev">What we do</div>
-    <h2 class="rl">
-      <span class="msk"><span class="w">Simple</span> <span class="w">to</span> <span class="w">say.</span> <span class="w">Hard</span> <span class="w">to</span> <span class="w">do</span></span>
-      <span class="msk"><span class="w it or">well.</span></span>
-    </h2>
-    <div class="plain">
-      <a class="prow rev" href="pricing.html"><h3>Websites</h3><p>A site that looks premium, loads fast, and brings you enquiries — whether you are one professional or a full business.</p><span class="go">See pricing →</span></a>
-      <a class="prow rev" href="extensions.html"><h3>Extensions</h3><p>Small tools that live in your browser and remove the boring, repeated clicks from your day. We build and ship our own, too.</p><span class="go">How we build them →</span></a>
-      <a class="prow rev" href="automation.html"><h3>Automation</h3><p>The report you make every morning, the data you copy every week — we make it happen by itself.</p><span class="go">How we build it →</span></a>
-      <a class="prow rev" href="seo.html"><h3>SEO</h3><p>So that when someone searches for what you do, they find you — not your competitor.</p><span class="go">How we do it →</span></a>
-      <a class="prow rev" href="smm.html"><h3>Social media marketing</h3><p>Twelve sharp, on-brand posts a month, so your Instagram and LinkedIn look as good as your website.</p><span class="go">How we run it →</span></a>
-      <a class="prow rev" href="#contact"><h3>Design &amp; branding</h3><p>A logo and a look that is clearly yours, used the same way everywhere.</p><span class="go">Start a brief →</span></a>
     </div>
   </div>
 </section>
@@ -406,12 +399,12 @@
     const mobile = W<=700;
     ball.r = mobile?34:45; 
     floorY = mobile ? H-120 : H-22;            
-    hoop.cx = W/2;
+    hoop.rx = mobile?42:58; // Smaller scale for deeper 3D look
+    hoop.cx = mobile?W/2:W - hoop.rx - (W*0.15); // Shifted to right empty space on desktop
     hoop.rimY = mobile ? Math.max(132, H*0.26) : Math.max(168, H*0.21);  
-    hoop.rx = mobile?58:84;
     hoop.ry = hoop.rx*0.30;
   }
-  function resetBall(){ ball.x = W<=700 ? W*0.5 : W*0.8; ball.y=floorY-ball.r; ball.vx=0; ball.vy=0; ball.rot=0; ball.behind=false; }
+  function resetBall(){ ball.x = W<=700 ? W*0.5 : W*0.4; ball.y=floorY-ball.r; ball.vx=0; ball.vy=0; ball.rot=0; ball.behind=false; }
 
   /* ---- Bulletproof input ---- */
   let dragging=false, lastPts=[], activeId=null;
@@ -475,49 +468,35 @@
     const {cx,rimY,rx,ry}=hoop;
     const bw=rx*1.6, bh=rx*1.0, bx=cx-bw/2, by=rimY-ry-bh+4;
     
-    // Glass board with background match gradient
     const bg=ctx.createLinearGradient(0,by,0,by+bh);
     bg.addColorStop(0,'#F3F1EB'); bg.addColorStop(1,'#EAE8E2');
     ctx.fillStyle=bg; roundRect(bx,by,bw,bh,4); ctx.fill();
     
-    // Thin black outer border
     ctx.strokeStyle='#141316'; ctx.lineWidth=3; roundRect(bx,by,bw,bh,4); ctx.stroke();
+    ctx.strokeStyle='#141316'; ctx.lineWidth=2; roundRect(cx-rx*0.4, by+bh*0.4, rx*0.8, bh*0.35, 2); ctx.stroke();
     
-    // Inner target square (black)
-    ctx.strokeStyle='#141316'; ctx.lineWidth=2;
-    roundRect(cx-rx*0.4, by+bh*0.4, rx*0.8, bh*0.35, 2); ctx.stroke();
-    
-    // Steel bracket arms
     ctx.strokeStyle='#909090'; ctx.lineWidth=3; ctx.lineCap='round';
     ctx.beginPath(); ctx.moveTo(cx-rx*0.25, by+bh); ctx.lineTo(cx-rx*0.25, rimY-3); ctx.stroke();
     ctx.beginPath(); ctx.moveTo(cx+rx*0.25, by+bh); ctx.lineTo(cx+rx*0.25, rimY-3); ctx.stroke();
     
-    // Back rim attachment base
     ctx.fillStyle='#999999'; roundRect(cx-rx*0.15, rimY-10, rx*0.3, 10, 2); ctx.fill();
     
-    // Rim BACK half — metallic silver
     ctx.strokeStyle='#909090'; ctx.lineWidth=4.5;
     ctx.beginPath(); ctx.ellipse(cx,rimY,rx,ry,0,Math.PI,Math.PI*2); ctx.stroke();
   }
   
-  function drawFrontRimAndNet(){
+  function renderNetHalf(isFront) {
     const {cx,rimY,rx,ry,netKick}=hoop;
     const netH = ry*5.4 + netKick*12;
-    
     const inNetY = ball.y > rimY && ball.y < rimY + netH;
     const ballOffset = (inNetY && Math.abs(ball.x - cx) < rx) ? (ball.x - cx) * 0.6 : 0;
     
-    ctx.lineCap = 'round';
-    ctx.lineJoin = 'round';
+    ctx.lineCap = 'round'; ctx.lineJoin = 'round';
     
     const pts = 11; 
     const ring = (t) => { 
-      const w = rx * (1 - t * 0.5); 
-      return {
-        w: w, 
-        y: rimY + netH * t, 
-        bx: t > 0.05 ? ballOffset * t : 0 
-      }; 
+      const curve = 1 - Math.pow(t, 1.5) * 0.6; // Curvish 3D taper
+      return { w: rx * curve, y: rimY + netH * t, bx: t > 0.05 ? ballOffset * t : 0 }; 
     };
     
     const rings = [ring(0), ring(0.33), ring(0.66), ring(1)];
@@ -530,38 +509,41 @@
       for(let k = 0; k < rings.length - 1; k++){
         const a = rings[k], b = rings[k+1];
         for(let i = 0; i < pts; i++){
-          const t1 = i / (pts - 1);
+          const p = i / (pts - 1);
+          const x1 = cx - a.w + 2 * a.w * p + a.bx;
+          
+          if(isFront && (p < 0.1 || p > 0.9)) continue; // Back renders edges, front renders center depth
+          if(!isFront && (p > 0.2 && p < 0.8)) continue;
+          
           const t2 = Math.min(1, (i + 0.5) / (pts - 1));
           const t0 = Math.max(0, (i - 0.5) / (pts - 1));
           
-          const x1 = cx - a.w + 2 * a.w * t1 + a.bx;
           ctx.moveTo(x1, a.y);
-          ctx.lineTo(cx - b.w + 2 * b.w * t2 + b.bx, b.y);
+          ctx.quadraticCurveTo(cx + (a.bx+b.bx)/2, (a.y+b.y)/2, cx - b.w + 2 * b.w * t2 + b.bx, b.y);
           
           ctx.moveTo(x1, a.y);
-          ctx.lineTo(cx - b.w + 2 * b.w * t0 + b.bx, b.y);
+          ctx.quadraticCurveTo(cx + (a.bx+b.bx)/2, (a.y+b.y)/2, cx - b.w + 2 * b.w * t0 + b.bx, b.y);
         }
       }
       ctx.stroke();
     }
-    
-    // Premium 3D Rim Details - Metallic Silver
+  }
+
+  function drawFrontRim(){
+    const {cx,rimY,rx,ry}=hoop;
     ctx.strokeStyle = '#AAAAAA'; ctx.lineWidth = 6;
     ctx.beginPath(); ctx.ellipse(cx, rimY, rx, ry, 0, 0, Math.PI); ctx.stroke();
     ctx.strokeStyle = '#E0E0E0'; ctx.lineWidth = 2;
     ctx.beginPath(); ctx.ellipse(cx, rimY - 1, rx, ry, 0, 0, Math.PI); ctx.stroke();
-    
     if(hoop.netKick > 0) hoop.netKick = Math.max(0, hoop.netKick - 0.04);
   }
 
   function drawBall(){
     const r=ball.r;
-    // floor shadow
     const h01=Math.min(1, Math.max(0,(floorY-ball.y)/(H*0.8)));
     ctx.beginPath(); ctx.ellipse(ball.x, floorY+8, r*(1.15-h01*0.5), r*0.2*(1-h01*0.5), 0, 0, Math.PI*2);
     ctx.fillStyle='rgba(20,19,22,'+(0.16*(1-h01*0.6)).toFixed(3)+')'; ctx.fill();
     
-    // motion streak when fast
     const sp=Math.hypot(ball.vx,ball.vy);
     if(sp>13){
       for(let g=1;g<=2;g++){
@@ -571,41 +553,40 @@
     }
     
     ctx.save(); ctx.translate(ball.x, ball.y); ctx.rotate(ball.rot);
-    
-    // Solid orange ball with gradient sheen
     const g=ctx.createRadialGradient(-r*0.3,-r*0.3,r*0.1,0,0,r);
-    g.addColorStop(0,'#FF7A33'); 
-    g.addColorStop(0.7,'#FF4D00'); 
-    g.addColorStop(1,'#B33600');
-    
+    g.addColorStop(0,'#FF7A33'); g.addColorStop(0.7,'#FF4D00'); g.addColorStop(1,'#B33600');
     ctx.beginPath(); ctx.arc(0,0,r,0,Math.PI*2); ctx.fillStyle=g; ctx.fill();
-    
     ctx.restore();
   }
 
   function tick(){
     ctx.clearRect(0,0,W,H);
     drawBoardAndBackRim();
+    renderNetHalf(false); // Draw back of net
 
     if(!dragging){
       prevY=ball.y;
       ball.vy+=GRAV; ball.vx*=FRICair;
       ball.x+=ball.vx; ball.y+=ball.vy;
       ball.rot+=ball.vx*0.02;
+      
+      // Dynamic Z-Index for 3D Text layering
+      if (ball.vy < -3 && ball.y < H * 0.65) cv.style.zIndex = 1;
+      else if (ball.vy > 3) cv.style.zIndex = 3;
 
-      // Text collision physics (hero boundary constrained)
+      // Text collision physics (rolls right and falls)
       hero.querySelectorAll('.or').forEach(el => {
         const r = el.getBoundingClientRect();
         const hr = hero.getBoundingClientRect();
         const tx = r.left - hr.left;
         const ty = r.top - hr.top;
-        const tw = r.width;
         
-        if (ball.vy > 0 && ball.x > tx && ball.x < tx + tw) {
+        if (ball.vy > 0 && ball.x > tx && ball.x < tx + r.width) {
           if (ball.y + ball.r > ty && prevY + ball.r <= ty + Math.max(10, ball.vy + 2)) {
             ball.y = ty - ball.r;
-            ball.vy = -Math.abs(ball.vy) * REST;
-            ball.vx *= FRICground;
+            ball.vy = -Math.abs(ball.vy) * 0.4;
+            ball.vx = (ball.vx * 0.85) + 1.8; // Apply rolling force
+            cv.style.zIndex = 3; // Pop to front on hit
           }
         }
       });
@@ -614,26 +595,23 @@
       if(ball.x+ball.r>W){ ball.x=W-ball.r; ball.vx=-Math.abs(ball.vx)*REST; }
       if(ball.y-ball.r<0){ ball.y=ball.r; ball.vy=Math.abs(ball.vy)*REST; }
       if(ball.y+ball.r>floorY){ ball.y=floorY-ball.r; ball.vy=-Math.abs(ball.vy)*REST; ball.vx*=FRICground;
-        if(Math.abs(ball.vy)<0.8) ball.vy=0; ball.behind=false; }
+        if(Math.abs(ball.vy)<0.8) ball.vy=0; ball.behind=false; cv.style.zIndex = 3; }
 
       collideRimEdges();
 
       if(ball.y > hoop.rimY && ball.y < hoop.rimY + hoop.ry*5.4 && Math.abs(ball.x - hoop.cx) < hoop.rx){
           hoop.netKick = Math.max(hoop.netKick, 0.7);
-          ball.vx *= 0.94; 
-          ball.vy *= 0.94; 
+          ball.vx *= 0.94; ball.vy *= 0.94; 
       }
 
       if(prevY<hoop.rimY && ball.y>=hoop.rimY && ball.vy>0 && Math.abs(ball.x-hoop.cx)<hoop.rx*0.64){
-        showScore();
-        ball.behind=true;
-        ball.vy*=0.5; ball.vx*=0.35;
+        showScore(); ball.behind=true; ball.vy*=0.5; ball.vx*=0.35;
       }
       if(ball.behind && ball.y>hoop.rimY+hoop.ry*5.8) ball.behind=false;
     }
 
-    if(ball.behind){ drawBall(); drawFrontRimAndNet(); }
-    else { drawFrontRimAndNet(); drawBall(); }
+    if(ball.behind){ drawBall(); renderNetHalf(true); drawFrontRim(); }
+    else { renderNetHalf(true); drawFrontRim(); drawBall(); }
 
     requestAnimationFrame(tick);
   }
