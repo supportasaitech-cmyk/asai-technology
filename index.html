@@ -397,9 +397,9 @@
     ctx.setTransform(DPR,0,0,DPR,0,0);
     const mobile = W<=700;
     ball.r = mobile?27:36;
-    floorY = mobile ? H-150 : H-22;            /* mobile: ball rests above note/CTA/WhatsApp */
+    floorY = mobile ? H-120 : H-22;            /* mobile: ball rests above note/CTA/WhatsApp */
     hoop.cx = W/2;
-    hoop.rimY = mobile ? Math.max(132, H*0.17) : Math.max(168, H*0.21);  /* mobile: hoop + ball on one screen */
+    hoop.rimY = mobile ? Math.max(132, H*0.26) : Math.max(168, H*0.21);  /* mobile: hoop + ball on one screen */
     hoop.rx = mobile?58:84;
     hoop.ry = hoop.rx*0.30;
   }
@@ -438,15 +438,7 @@
   window.addEventListener('pointercancel', endDrag, {capture:true});
 
   /* ---- scroll makes the ball react like a real ball ---- */
-  let lastSY=scrollY;
-  addEventListener('scroll',()=>{
-    const dy=scrollY-lastSY; lastSY=scrollY;
-    if(!dragging){
-      ball.vy += Math.max(-7, Math.min(7, dy*0.08));
-      ball.rot += dy*0.0015;
-    }
-  },{passive:true});
-
+  
   function showScore(){
     score++;
     scorePop.textContent=score;
