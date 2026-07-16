@@ -356,7 +356,7 @@
   }
 
   /* ---- MAGNETIC LETTERS ---- */
-  if(hasHover && !reduce){
+  if(hasHover){
     setTimeout(()=>{
       document.querySelectorAll('#heroHl .w').forEach(w=>{
         const text=w.textContent; w.textContent='';
@@ -436,6 +436,7 @@
   }
   window.addEventListener('pointerup', endDrag, {capture:true});
   window.addEventListener('pointercancel', endDrag, {capture:true});
+window.addEventListener('touchmove', e=>{ if(dragging) e.preventDefault(); }, {passive:false, capture:true});
 
   /* ---- scroll makes the ball react like a real ball ---- */
   
@@ -603,8 +604,7 @@
 
   addEventListener('resize', ()=>{ resize(); resetBall(); });
   resize(); resetBall();
-  if(!reduce) tick();
-  else { drawBoardAndBackRim(); drawFrontRimAndNet(); drawBall(); }
+  tick();
 
   /* ---- section heading reveals ---- */
   const rls=document.querySelectorAll('h2.rl');
