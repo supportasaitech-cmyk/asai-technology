@@ -41,7 +41,7 @@
   @media (max-width:860px){ .nav-r a.l{display:none;} nav{padding:16px 20px;} }
 
   /* ---------- HERO ---------- */
-  .hero { position:relative; height:100vh; min-height:660px; overflow:hidden; }
+  .hero { position:relative; height:100vh; height:100svh; min-height:560px; overflow:hidden; }
   #cv { position:absolute; inset:0; touch-action:pan-y; }
   .hero-ui { position:absolute; inset:0; pointer-events:none; z-index:2; }
   .hint { position:absolute; top:94px; left:44px; font-size:12.5px; color:var(--ink40); display:flex; align-items:center; gap:8px; }
@@ -308,7 +308,7 @@
     <span class="b">LET'S TALK ↗</span>
   </a>
   <div class="fmeta">
-    <span>© 2026 ASAI Technology — Noida, IN</span>
+    <span>© 2026 ASAI Technology — Noida, IN <span style="opacity:0.35">· v9</span></span>
     <a href="about.html">About</a>
     <a href="privacy.html">Privacy</a>
     <a href="pricing.html">Pricing</a>
@@ -366,12 +366,12 @@
       let mx=-9999,my=-9999;
       addEventListener('mousemove',e=>{ mx=e.clientX; my=e.clientY; });
       (function magLoop(){
-        const R=140;
+        const R=170;
         for(const c of chars){
           const r=c.el.getBoundingClientRect();
           const ccx=r.left+r.width/2, ccy=r.top+r.height/2;
           const dx=ccx-mx, dy=ccy-my, d=Math.hypot(dx,dy);
-          if(d<R && d>0){ const f=(1-d/R)*24; c.tx=dx/d*f; c.ty=dy/d*f; }
+          if(d<R && d>0){ const f=(1-d/R)*30; c.tx=dx/d*f; c.ty=dy/d*f; }
           else { c.tx=0; c.ty=0; }
           c.x+=(c.tx-c.x)*0.14; c.y+=(c.ty-c.y)*0.14;
           c.el.style.transform='translate('+c.x.toFixed(2)+'px,'+c.y.toFixed(2)+'px)';
@@ -395,50 +395,47 @@
     W=hero.offsetWidth; H=hero.offsetHeight;
     cv.width=W*DPR; cv.height=H*DPR; cv.style.width=W+'px'; cv.style.height=H+'px';
     ctx.setTransform(DPR,0,0,DPR,0,0);
-    ball.r = W>700?36:27;
-    floorY = H-22;
+    const mobile = W<=700;
+    ball.r = mobile?27:36;
+    floorY = mobile ? H-150 : H-22;            /* mobile: ball rests above note/CTA/WhatsApp */
     hoop.cx = W/2;
-    hoop.rimY = Math.max(168, H*0.21);
-    hoop.rx = W>700?84:60;
+    hoop.rimY = mobile ? Math.max(132, H*0.17) : Math.max(168, H*0.21);  /* mobile: hoop + ball on one screen */
+    hoop.rx = mobile?58:84;
     hoop.ry = hoop.rx*0.30;
   }
-  function resetBall(){ ball.x=W*0.8; ball.y=floorY-ball.r; ball.vx=0; ball.vy=0; ball.rot=0; ball.behind=false; }
+  function resetBall(){ ball.x = W<=700 ? W*0.5 : W*0.8; ball.y=floorY-ball.r; ball.vx=0; ball.vy=0; ball.rot=0; ball.behind=false; }
 
-  /* ---- Pointer Events on the canvas — the reliable path ---- */
+  /* ---- Bulletproof input: window-level capture phase, bypasses any page overlay ---- */
   let dragging=false, lastPts=[], activeId=null;
-  function localPos(e){ const r=cv.getBoundingClientRect(); return {x:e.clientX-r.left, y:e.clientY-r.top}; }
+  function heroLocal(clientX, clientY){ const r=hero.getBoundingClientRect();
+    return {x:clientX-r.left, y:clientY-r.top, inside: clientY>=r.top && clientY<=r.bottom && clientX>=r.left && clientX<=r.right}; }
   function onBall(x,y){ const dx=x-ball.x, dy=y-ball.y, rr=ball.r+28; return dx*dx+dy*dy<rr*rr; }
-  cv.addEventListener('pointerdown', e=>{
-    const p=localPos(e);
-    if(!onBall(p.x,p.y)) return;                 // not on ball → page interactions proceed
+  window.addEventListener('pointerdown', e=>{
+    const p=heroLocal(e.clientX,e.clientY);
+    if(!p.inside || !onBall(p.x,p.y)) return;
     dragging=true; activeId=e.pointerId;
-    cv.setPointerCapture(e.pointerId);
     lastPts=[{x:p.x,y:p.y,t:performance.now()}];
-    e.preventDefault();
-  });
-  cv.addEventListener('pointermove', e=>{
-    if(!dragging || e.pointerId!==activeId) return;
-    const p=localPos(e);
-    ball.x=p.x; ball.y=p.y; ball.vx=0; ball.vy=0; ball.behind=false;
-    lastPts.push({x:p.x,y:p.y,t:performance.now()}); if(lastPts.length>6) lastPts.shift();
-    e.preventDefault();
-  });
+    e.preventDefault(); e.stopPropagation();
+  }, {capture:true, passive:false});
+  window.addEventListener('pointermove', e=>{
+    if(dragging && e.pointerId===activeId){
+      const p=heroLocal(e.clientX,e.clientY);
+      ball.x=p.x; ball.y=p.y; ball.vx=0; ball.vy=0; ball.behind=false;
+      lastPts.push({x:p.x,y:p.y,t:performance.now()}); if(lastPts.length>6) lastPts.shift();
+      e.preventDefault();
+    } else if(hasHover && !dragging){
+      const p=heroLocal(e.clientX,e.clientY);
+      cv.style.cursor = (p.inside && onBall(p.x,p.y)) ? 'grab' : 'default';
+    }
+  }, {capture:true, passive:false});
   function endDrag(e){
-    if(!dragging || (e && e.pointerId!==activeId)) return;
+    if(!dragging || (e && e.pointerId!==undefined && e.pointerId!==activeId)) return;
     dragging=false; activeId=null;
     if(lastPts.length>1){ const a=lastPts[0], b=lastPts[lastPts.length-1], dt=Math.max((b.t-a.t)/16.7,1);
       ball.vx=(b.x-a.x)/dt*1.12; ball.vy=(b.y-a.y)/dt*1.12; }
   }
-  cv.addEventListener('pointerup', endDrag);
-  cv.addEventListener('pointercancel', endDrag);
-  /* cursor feedback over ball */
-  if(hasHover){
-    cv.addEventListener('pointermove', e=>{
-      if(dragging) return;
-      const p=localPos(e);
-      cv.style.cursor = onBall(p.x,p.y) ? 'grab' : 'default';
-    });
-  }
+  window.addEventListener('pointerup', endDrag, {capture:true});
+  window.addEventListener('pointercancel', endDrag, {capture:true});
 
   /* ---- scroll makes the ball react like a real ball ---- */
   let lastSY=scrollY;
