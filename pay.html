@@ -56,6 +56,11 @@
   .fld input { width:100%; border:1px solid var(--line); border-radius:12px; background:transparent; padding:15px 16px;
     font-family:'Archivo',sans-serif; font-size:16px; color:var(--ink); }
   .fld input:focus { outline:none; border-color:var(--ink); }
+  .phone-row { display:flex; gap:10px; }
+  .phone-row select { border:1px solid var(--line); border-radius:12px; background:transparent; padding:15px 12px;
+    font-family:'Archivo',sans-serif; font-size:16px; color:var(--ink); cursor:pointer; max-width:130px; }
+  .phone-row select:focus { outline:none; border-color:var(--ink); }
+  .phone-row input { flex:1; }
   .pay-btn {
     width:100%; font-family:'Space Mono',monospace; font-size:13px; letter-spacing:0.06em; text-transform:uppercase; font-weight:700;
     background:var(--ink); color:var(--paper); border:none; border-radius:100px; padding:20px;
@@ -112,7 +117,10 @@
       </div>
       <div class="fld">
         <label>Phone / WhatsApp</label>
-        <input type="tel" id="buyerPhone" placeholder="+91 ..." required>
+        <div class="phone-row">
+          <select id="buyerCode" aria-label="Country code"></select>
+          <input type="tel" id="buyerPhone" placeholder="98765 43210" required>
+        </div>
       </div>
       <button class="pay-btn" id="payBtn">Pay <span id="btnAmt">—</span> securely →</button>
       <div class="secure-note">🔒 Powered by Razorpay · UPI · Cards · Netbanking</div>
@@ -176,6 +184,34 @@ const PLANS = {
   }
 };
 
+/* ---- Country code dropdown, auto-selects by user's region ---- */
+(function(){
+  const codes = [
+    ["+91","IN 🇮🇳"],["+1","US 🇺🇸"],["+44","UK 🇬🇧"],["+971","AE 🇦🇪"],["+61","AU 🇦🇺"],
+    ["+65","SG 🇸🇬"],["+49","DE 🇩🇪"],["+33","FR 🇫🇷"],["+81","JP 🇯🇵"],["+880","BD 🇧🇩"],
+    ["+92","PK 🇵🇰"],["+94","LK 🇱🇰"],["+977","NP 🇳🇵"],["+1","CA 🇨🇦"],["+64","NZ 🇳🇿"],
+    ["+27","ZA 🇿🇦"],["+60","MY 🇲🇾"],["+63","PH 🇵🇭"],["+66","TH 🇹🇭"],["+974","QA 🇶🇦"],
+    ["+966","SA 🇸🇦"],["+968","OM 🇴🇲"],["+973","BH 🇧🇭"],["+965","KW 🇰🇼"]
+  ];
+  const sel = document.getElementById("buyerCode");
+  codes.forEach(([code,label])=>{
+    const o=document.createElement("option"); o.value=code; o.textContent=label+" "+code; sel.appendChild(o);
+  });
+  // Guess region from timezone/locale; default to +91 (India)
+  let guess = "+91";
+  try {
+    const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || "";
+    const loc = (navigator.language || "").toUpperCase();
+    const map = { "Asia/Kolkata":"+91","Asia/Calcutta":"+91","America/":"+1","Europe/London":"+44",
+      "Asia/Dubai":"+971","Australia/":"+61","Asia/Singapore":"+65","Asia/Dhaka":"+880",
+      "Asia/Karachi":"+92","Asia/Colombo":"+94","Asia/Kathmandu":"+977" };
+    for (const k in map) { if (tz.startsWith(k) || tz===k) { guess = map[k]; break; } }
+    if (guess==="+91" && loc.endsWith("-US")) guess="+1";
+    if (guess==="+91" && loc.endsWith("-GB")) guess="+44";
+  } catch(e){}
+  sel.value = guess;
+})();
+
 const params = new URLSearchParams(location.search);
 const planKey = (params.get("plan") in PLANS) ? params.get("plan") : "professional";
 const plan = PLANS[planKey];
@@ -197,7 +233,7 @@ if (!RAZORPAY_KEY_ID.includes("REPLACE")) {
 document.getElementById("payBtn").addEventListener("click", () => {
   const name = document.getElementById("buyerName").value.trim();
   const email = document.getElementById("buyerEmail").value.trim();
-  const phone = document.getElementById("buyerPhone").value.trim();
+  const phone = (document.getElementById("buyerCode").value + " " + document.getElementById("buyerPhone").value.trim()).trim();
   if (!name || !email || !phone) { alert("Please fill your name, email and phone — the invoice needs them."); return; }
   if (RAZORPAY_KEY_ID.includes("REPLACE")) {
     alert("Payments are not configured yet. Site owner: add your Razorpay Key ID in pay.html (see the note at the bottom of the page).");
