@@ -17,10 +17,8 @@
   .it { font-family:'Instrument Serif',serif; font-style:italic; font-weight:400; }
   .or { color:var(--orange); }
 
-  /* scroll progress */
   #prog { position:fixed; top:0; left:0; height:3px; width:0%; background:var(--orange); z-index:500; }
 
-  /* custom cursor */
   #curDot { position:fixed; top:0; left:0; width:8px; height:8px; border-radius:50%; background:var(--ink);
     pointer-events:none; z-index:999; transform:translate(-50%,-50%); }
   #curRing { position:fixed; top:0; left:0; width:34px; height:34px; border-radius:50%; border:1.5px solid rgba(20,19,22,0.45);
@@ -38,9 +36,8 @@
   .nav-r a.l:hover { color:var(--ink); }
   @media (max-width:860px){ .nav-r a.l{display:none;} nav{padding:16px 20px;} }
 
-  /* ---------- HERO ---------- */
   .hero { position:relative; height:100vh; height:100svh; min-height:560px; overflow:hidden; }
-  #cv { position:absolute; inset:0; touch-action:none; z-index: 3; }
+  #cv { position:absolute; inset:0; z-index: 3; }
   .hero-ui { position:absolute; inset:0; pointer-events:none; z-index:2; }
   .hint { position:absolute; top:94px; left:44px; font-size:12.5px; color:var(--ink40); display:flex; align-items:center; gap:8px; }
   .hint .dot { width:7px; height:7px; border-radius:50%; background:var(--orange); animation:pulse 1.8s ease-in-out infinite; }
@@ -70,7 +67,6 @@
   @keyframes pop { 0%{opacity:0; transform:translate(-50%,12px) scale(0.6);} 22%{opacity:1; transform:translate(-50%,-8px) scale(1.18);}
     100%{opacity:0; transform:translate(-50%,-66px) scale(1);} }
 
-  /* ---------- MARQUEE ---------- */
   .marq { border-top:1px solid var(--line); border-bottom:1px solid var(--line); overflow:hidden; white-space:nowrap; padding:14px 0; background:var(--paper); }
   .marq-track { display:inline-flex; animation:slide 22s linear infinite; }
   .marq-track span { font-weight:800; font-size:14px; letter-spacing:0.02em; text-transform:uppercase; padding:0 24px;
@@ -319,12 +315,10 @@
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const hasHover = matchMedia('(hover: hover)').matches;
 
-  /* ---- scroll progress ---- */
   const prog=document.getElementById('prog');
   addEventListener('scroll',()=>{ const h=document.documentElement;
     prog.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+'%'; },{passive:true});
 
-  /* ---- custom cursor ---- */
   if(hasHover && !reduce){
     const dot=document.getElementById('curDot'), ring=document.getElementById('curRing');
     let rx=0, ry=0, mx=0, my=0;
@@ -341,14 +335,16 @@
     document.getElementById('curRing').style.display='none';
   }
 
-  /* ---- hero headline reveal ---- */
   if(!reduce){
     document.querySelectorAll('#heroHl .w').forEach((w,i)=>{
       setTimeout(()=> w.style.transform='translateY(0)', 300 + i*85);
     });
+    // Remove masking boundary to prevent character clipping on magnetic hover
+    setTimeout(() => {
+      document.querySelectorAll('.hl .msk').forEach(m => m.style.overflow = 'visible');
+    }, 1500);
   }
 
-  /* ---- MAGNETIC LETTERS ---- */
   setTimeout(()=>{
     document.querySelectorAll('#heroHl .w').forEach(w=>{
       const text=w.textContent; w.textContent='';
@@ -382,7 +378,6 @@
     })();
   }, 1700);
 
-  /* ============ BASKETBALL — detailed, robust Pointer Events ============ */
   const hero=document.getElementById('hero'), cv=document.getElementById('cv'), ctx=cv.getContext('2d');
   const scorePop=document.getElementById('scorePop');
   let W,H,DPR=Math.min(devicePixelRatio||1,2);
@@ -399,14 +394,13 @@
     const mobile = W<=700;
     ball.r = mobile?34:45; 
     floorY = mobile ? H-120 : H-22;            
-    hoop.rx = mobile?42:58; // Smaller scale for deeper 3D look
-    hoop.cx = mobile?W/2:W - hoop.rx - (W*0.15); // Shifted to right empty space on desktop
+    hoop.rx = mobile?30:40; 
+    hoop.cx = mobile?W/2:W - hoop.rx - (W*0.15); 
     hoop.rimY = mobile ? Math.max(132, H*0.26) : Math.max(168, H*0.21);  
     hoop.ry = hoop.rx*0.30;
   }
   function resetBall(){ ball.x = W<=700 ? W*0.5 : W*0.4; ball.y=floorY-ball.r; ball.vx=0; ball.vy=0; ball.rot=0; ball.behind=false; }
 
-  /* ---- Bulletproof input ---- */
   let dragging=false, lastPts=[], activeId=null;
   function heroLocal(clientX, clientY){ const r=hero.getBoundingClientRect();
     return {x:clientX-r.left, y:clientY-r.top, inside: clientY>=r.top && clientY<=r.bottom && clientX>=r.left && clientX<=r.right}; }
@@ -437,7 +431,11 @@
   }
   window.addEventListener('pointerup', endDrag, {capture:true});
   window.addEventListener('pointercancel', endDrag, {capture:true});
-  window.addEventListener('touchmove', e=>{ if(dragging) e.preventDefault(); }, {passive:false, capture:true});
+  
+  // Fix mobile page scrolling by conditionally intercepting touch moves
+  window.addEventListener('touchmove', e=>{ 
+    if(dragging) e.preventDefault(); 
+  }, {passive:false, capture:true});
 
   function showScore(){
     score++;
@@ -489,44 +487,42 @@
     const {cx,rimY,rx,ry,netKick}=hoop;
     const netH = ry*5.4 + netKick*12;
     const inNetY = ball.y > rimY && ball.y < rimY + netH;
-    const ballOffset = (inNetY && Math.abs(ball.x - cx) < rx) ? (ball.x - cx) * 0.6 : 0;
+    const ballOffset = (inNetY && Math.abs(ball.x - cx) < rx) ? (ball.x - cx) * 0.4 : 0;
     
     ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+    const pts = 12;
+    const rings = 5;
     
-    const pts = 11; 
-    const ring = (t) => { 
-      const curve = 1 - Math.pow(t, 1.5) * 0.6; // Curvish 3D taper
-      return { w: rx * curve, y: rimY + netH * t, bx: t > 0.05 ? ballOffset * t : 0 }; 
-    };
+    ctx.strokeStyle = isFront ? 'rgba(230,230,230,0.95)' : 'rgba(120,120,120,0.5)';
+    ctx.lineWidth = isFront ? 1.8 : 1.2;
     
-    const rings = [ring(0), ring(0.33), ring(0.66), ring(1)];
-    
-    for (let layer = 0; layer < 2; layer++) {
-      ctx.strokeStyle = layer === 0 ? 'rgba(60,60,60,0.6)' : 'rgba(80,80,80,0.9)';
-      ctx.lineWidth = layer === 0 ? 2 : 1;
-      
-      ctx.beginPath();
-      for(let k = 0; k < rings.length - 1; k++){
-        const a = rings[k], b = rings[k+1];
-        for(let i = 0; i < pts; i++){
-          const p = i / (pts - 1);
-          const x1 = cx - a.w + 2 * a.w * p + a.bx;
-          
-          if(isFront && (p < 0.1 || p > 0.9)) continue; // Back renders edges, front renders center depth
-          if(!isFront && (p > 0.2 && p < 0.8)) continue;
-          
-          const t2 = Math.min(1, (i + 0.5) / (pts - 1));
-          const t0 = Math.max(0, (i - 0.5) / (pts - 1));
-          
-          ctx.moveTo(x1, a.y);
-          ctx.quadraticCurveTo(cx + (a.bx+b.bx)/2, (a.y+b.y)/2, cx - b.w + 2 * b.w * t2 + b.bx, b.y);
-          
-          ctx.moveTo(x1, a.y);
-          ctx.quadraticCurveTo(cx + (a.bx+b.bx)/2, (a.y+b.y)/2, cx - b.w + 2 * b.w * t0 + b.bx, b.y);
+    ctx.beginPath();
+    for(let r=0; r<rings-1; r++) {
+        const t1 = r/(rings-1);
+        const t2 = (r+1)/(rings-1);
+        const w1 = rx * (1 - t1*0.6);
+        const w2 = rx * (1 - t2*0.6);
+        const y1 = rimY + netH*t1;
+        const y2 = rimY + netH*t2;
+        const bx1 = t1>0.05 ? ballOffset*t1 : 0;
+        const bx2 = t2>0.05 ? ballOffset*t2 : 0;
+
+        for(let i=0; i<pts; i++) {
+            const p1 = i/(pts-1);
+            if (isFront && (p1 < 0.2 || p1 > 0.8)) continue;
+            if (!isFront && (p1 > 0.2 && p1 < 0.8)) continue;
+
+            const xA = cx - w1 + 2*w1*p1 + bx1;
+            const pLeft = Math.max(0, p1 - 1/(pts-1));
+            const pRight = Math.min(1, p1 + 1/(pts-1));
+            const xB1 = cx - w2 + 2*w2*pLeft + bx2;
+            const xB2 = cx - w2 + 2*w2*pRight + bx2;
+
+            ctx.moveTo(xA, y1); ctx.lineTo(xB1, y2);
+            ctx.moveTo(xA, y1); ctx.lineTo(xB2, y2);
         }
-      }
-      ctx.stroke();
     }
+    ctx.stroke();
   }
 
   function drawFrontRim(){
@@ -562,7 +558,7 @@
   function tick(){
     ctx.clearRect(0,0,W,H);
     drawBoardAndBackRim();
-    renderNetHalf(false); // Draw back of net
+    renderNetHalf(false); 
 
     if(!dragging){
       prevY=ball.y;
@@ -570,11 +566,9 @@
       ball.x+=ball.vx; ball.y+=ball.vy;
       ball.rot+=ball.vx*0.02;
       
-      // Dynamic Z-Index for 3D Text layering
       if (ball.vy < -3 && ball.y < H * 0.65) cv.style.zIndex = 1;
       else if (ball.vy > 3) cv.style.zIndex = 3;
 
-      // Text collision physics (rolls right and falls)
       hero.querySelectorAll('.or').forEach(el => {
         const r = el.getBoundingClientRect();
         const hr = hero.getBoundingClientRect();
@@ -584,9 +578,9 @@
         if (ball.vy > 0 && ball.x > tx && ball.x < tx + r.width) {
           if (ball.y + ball.r > ty && prevY + ball.r <= ty + Math.max(10, ball.vy + 2)) {
             ball.y = ty - ball.r;
-            ball.vy = -Math.abs(ball.vy) * 0.4;
-            ball.vx = (ball.vx * 0.85) + 1.8; // Apply rolling force
-            cv.style.zIndex = 3; // Pop to front on hit
+            ball.vy = -Math.abs(ball.vy) * 0.3; 
+            ball.vx = (ball.vx * 0.98) + 0.25; 
+            cv.style.zIndex = 3; 
           }
         }
       });
@@ -620,7 +614,6 @@
   resize(); resetBall();
   tick();
 
-  /* ---- section heading reveals ---- */
   const rls=document.querySelectorAll('h2.rl');
   const rio=new IntersectionObserver(es=>es.forEach(e=>{
     if(e.isIntersecting){
@@ -630,7 +623,6 @@
   }),{threshold:0.4});
   rls.forEach(h=>rio.observe(h));
 
-  /* ---- card deal + reveals ---- */
   const deck=document.querySelectorAll('#noteDeck .noteCard');
   const dio=new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting){ const i=[...deck].indexOf(e.target);
     setTimeout(()=>e.target.classList.add('dealt'), i*120); dio.unobserve(e.target);} }),{threshold:0.2});
