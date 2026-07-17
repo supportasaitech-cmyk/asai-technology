@@ -197,17 +197,21 @@ const PLANS = {
   codes.forEach(([code,label])=>{
     const o=document.createElement("option"); o.value=code; o.textContent=label+" "+code; sel.appendChild(o);
   });
-  // Guess region from timezone/locale; default to +91 (India)
+  // Guess region — trust the timezone first (reliable), language only as fallback.
+  // Many Indian users run Chrome in en-US, so language must NOT override a matched timezone.
   let guess = "+91";
   try {
     const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || "";
-    const loc = (navigator.language || "").toUpperCase();
     const map = { "Asia/Kolkata":"+91","Asia/Calcutta":"+91","America/":"+1","Europe/London":"+44",
       "Asia/Dubai":"+971","Australia/":"+61","Asia/Singapore":"+65","Asia/Dhaka":"+880",
       "Asia/Karachi":"+92","Asia/Colombo":"+94","Asia/Kathmandu":"+977" };
-    for (const k in map) { if (tz.startsWith(k) || tz===k) { guess = map[k]; break; } }
-    if (guess==="+91" && loc.endsWith("-US")) guess="+1";
-    if (guess==="+91" && loc.endsWith("-GB")) guess="+44";
+    let matched = false;
+    for (const k in map) { if (tz.startsWith(k) || tz===k) { guess = map[k]; matched = true; break; } }
+    if (!matched) {
+      const loc = (navigator.language || "").toUpperCase();
+      if (loc.endsWith("-US")) guess = "+1";
+      else if (loc.endsWith("-GB")) guess = "+44";
+    }
   } catch(e){}
   sel.value = guess;
 })();
