@@ -47,6 +47,9 @@
   .hl { font-weight:900; line-height:1.06; letter-spacing:-0.045em; -webkit-font-smoothing: antialiased; }
   .hl .top-line { display:block; font-size:clamp(15px, 3.8vw, 48px); white-space:nowrap; }
   .hl .bot-line { display:block; font-size:clamp(28px, 6.5vw, 68px); margin-top:2px; }
+  @media (max-width:700px){
+    .hl .bot-line { font-size:clamp(28px, 9vw, 68px); }
+  }
   .hl .msk { display:inline-block; overflow:visible; padding-bottom:0.08em; }
   .hl .w { display:inline-block; transform:translateY(115%); transition:transform 0.9s cubic-bezier(0.22,1,0.36,1); }
   .hl .ch { display:inline-block; will-change:transform; }
@@ -55,6 +58,10 @@
   .sub-row { margin-top:32px; display:flex; gap:14px; flex-wrap:wrap; align-items:center; }
   .sub-row .stat { font-size:14px; font-weight:600; color:var(--ink); background:#fff; padding:10px 18px; border-radius:100px; border:1px solid rgba(20,19,22,0.08); display:flex; align-items:center; gap:10px; box-shadow:0 4px 14px rgba(0,0,0,0.04); }
   .sub-row .stat b { color:var(--orange); font-weight:900; letter-spacing:0.02em; }
+  @media (max-width:700px){
+    .sub-row { gap:8px; margin-top:18px; }
+    .sub-row .stat { font-size:11px; padding:8px 12px; gap:6px; }
+  }
   .hero-bottom { position:absolute; left:44px; right:44px; bottom:30px; display:flex; justify-content:space-between; align-items:flex-end; gap:24px; }
   .note { max-width:380px; font-size:14.5px; color:var(--ink60); }
   .note b { color:var(--ink); font-weight:600; }
@@ -378,7 +385,7 @@
   let W,H,DPR=Math.min(devicePixelRatio||1,1.5);
 
   const ball={x:0,y:0,vx:0,vy:0,r:45,rot:0,behind:false};
-  const GRAV=0.62, REST=0.7, FRICair=0.999, FRICground=0.975;
+  const GRAV=0.558, REST=0.63, FRICair=0.999, FRICground=0.975;
   const hoop={cx:0, rimY:0, rx:0, ry:0, netKick:0};
   let score=0, prevY=0, floorY=0;
 
@@ -551,6 +558,10 @@
       if(ball.x+ball.r>W){ ball.x=W-ball.r; ball.vx=-Math.abs(ball.vx)*REST; }
       if(ball.y-ball.r<0){ ball.y=ball.r; ball.vy=Math.abs(ball.vy)*REST; }
       if(ball.y+ball.r>floorY){ ball.y=floorY-ball.r; ball.vy=-Math.abs(ball.vy)*REST; ball.vx*=FRICground; }
+
+      const wallL=60, wallR=W-60;
+      if(ball.x-ball.r<wallL){ ball.x=wallL+ball.r; ball.vx=Math.abs(ball.vx)*0.72; }
+      if(ball.x+ball.r>wallR){ ball.x=wallR-ball.r; ball.vx=-Math.abs(ball.vx)*0.72; }
 
       for(const sx of [-1,1]){
         const tx=hoop.cx+sx*hoop.rx, ty=hoop.rimY;
