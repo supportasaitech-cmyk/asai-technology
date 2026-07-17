@@ -37,14 +37,14 @@
   @media (max-width:860px){ .nav-r a.l{display:none;} nav{padding:16px 20px;} }
 
   .hero { position:relative; height:100svh; min-height:560px; overflow:hidden; transform:translateZ(0); }
-  #cv { position:absolute; inset:0; z-index:3; }
+  #cv { position:absolute; inset:0; z-index:1; }
   .hero-ui { position:absolute; inset:0; pointer-events:none; z-index:2; }
   .hint { position:absolute; top:94px; left:44px; font-size:12.5px; color:var(--ink40); display:flex; align-items:center; gap:8px; }
   .hint .dot { width:7px; height:7px; border-radius:50%; background:var(--orange); animation:pulse 1.8s ease-in-out infinite; }
   @keyframes pulse { 50%{opacity:0.25;} }
-  .hl-wrap { position:absolute; left:44px; right:44px; top:47%; }
+  .hl-wrap { position:absolute; left:44px; right:44px; top:42%; transform:translateY(-10%); }
   
-  .hl { font-weight:900; font-size:68px; line-height:1.06; letter-spacing:-0.045em; }
+  .hl { font-weight:900; font-size:clamp(42px, 5.5vw, 68px); line-height:1.06; letter-spacing:-0.045em; }
   .hl .msk { display:block; overflow:visible; padding-bottom:0.08em; }
   .hl .w { display:inline-block; transform:translateY(115%); transition:transform 0.9s cubic-bezier(0.22,1,0.36,1); }
   .hl .ch { display:inline-block; will-change:transform; }
@@ -56,11 +56,9 @@
   .note { max-width:380px; font-size:14.5px; color:var(--ink60); }
   .note b { color:var(--ink); font-weight:600; }
   
-  @media (max-width:1024px){ .hl { font-size:54px; } }
   @media (max-width:700px){
     .hint{left:20px; top:84px;}
-    .hl{font-size:36px;}
-    .hl-wrap{left:20px; right:20px; top:44%;}
+    .hl-wrap{left:20px; right:20px; top:40%;}
     .hero-bottom{left:20px; right:20px; bottom:20px; flex-direction:column; align-items:flex-start; gap:12px;}
     .note{max-width:85%; font-size:13px;}
     .sub-row{gap:16px;}
@@ -82,8 +80,7 @@
   section { padding:96px 44px; }
   .wrap { max-width:1200px; margin:0 auto; }
   .kicker { font-size:13px; font-weight:700; color:var(--orange); text-transform:uppercase; letter-spacing:0.1em; margin-bottom:16px; }
-  h2.rl { font-weight:900; font-size:54px; letter-spacing:-0.035em; line-height:1.08; margin-bottom:48px; }
-  @media (max-width:700px){ h2.rl { font-size:32px; } }
+  h2.rl { font-weight:900; font-size:clamp(32px, 4.5vw, 54px); letter-spacing:-0.035em; line-height:1.08; margin-bottom:48px; }
   h2.rl .msk { display:block; overflow:hidden; padding-bottom:0.08em; }
   h2.rl .w { display:inline-block; transform:translateY(115%); transition:transform 0.85s cubic-bezier(0.22,1,0.36,1); }
   .rev { opacity:0; transform:translateY(30px); transition:opacity 0.8s cubic-bezier(0.22,1,0.36,1), transform 0.8s cubic-bezier(0.22,1,0.36,1); }
@@ -105,8 +102,7 @@
   .prow { display:grid; grid-template-columns:1fr 1.4fr auto; gap:30px; align-items:center;
     padding:34px 6px; border-bottom:1px solid var(--line); transition:padding-left 0.3s ease, background 0.3s ease; }
   .prow:hover { padding-left:20px; background:#fff; }
-  .prow h3 { font-weight:900; font-size:32px; letter-spacing:-0.03em; }
-  @media (max-width:700px){ .prow h3 { font-size:24px; } }
+  .prow h3 { font-weight:900; font-size:clamp(24px, 2.8vw, 32px); letter-spacing:-0.03em; }
   .prow p { font-size:14.5px; color:var(--ink60); }
   .prow .go { font-size:13px; font-weight:700; color:var(--orange); white-space:nowrap; opacity:0; transform:translateX(-6px); transition:opacity 0.25s, transform 0.25s; }
   .prow:hover .go { opacity:1; transform:none; }
@@ -209,9 +205,12 @@
       <span class="msk"><span class="w it or">well.</span></span>
     </h2>
     <div class="plain">
-      <a class="prow rev" href="pricing.html"><h3>Websites</h3><p>A site that looks premium, loads fast, and brings you enquiries — whether you are one professional or a full business.</p><span class="go">See pricing →</span></a>
-      <a class="prow rev" href="#contact"><h3>Extensions</h3><p>Small tools that live in your browser and remove the boring, repeated clicks from your day. We build and ship our own, too.</p><span class="go">How we build them →</span></a>
-      <a class="prow rev" href="#contact"><h3>Automation</h3><p>The report you make every morning, the data you copy every week — we make it happen by itself.</p><span class="go">How we build it →</span></a>
+      <a class="prow rev" href="how-we-do-it.html"><h3>Websites</h3><p>A site that looks premium, loads fast, and brings you enquiries — whether you are one professional or a full business.</p><span class="go">See how we build it →</span></a>
+      <a class="prow rev" href="how-we-do-it.html"><h3>Extensions</h3><p>Small tools that live in your browser and remove the boring, repeated clicks from your day. We build and ship our own, too.</p><span class="go">See the mind map →</span></a>
+      <a class="prow rev" href="how-we-do-it.html"><h3>Automation</h3><p>The report you make every morning, the data you copy every week — we make it happen by itself.</p><span class="go">See the workflow →</span></a>
+      <a class="prow rev" href="how-we-do-it.html"><h3>SEO Growth</h3><p>Rank for what your customers actually search for and dominate your local market organically.</p><span class="go">See our strategy →</span></a>
+      <a class="prow rev" href="how-we-do-it.html"><h3>Social Media</h3><p>Look sharp on Instagram & LinkedIn with branded, high-conversion content designed for authority.</p><span class="go">See the process →</span></a>
+      <a class="prow rev" href="how-we-do-it.html"><h3>Design & Branding</h3><p>Logos, guidelines, and visual identities that make you impossible to ignore.</p><span class="go">See how we design →</span></a>
     </div>
   </div>
 </section>
