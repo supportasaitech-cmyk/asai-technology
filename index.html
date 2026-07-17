@@ -45,9 +45,10 @@
   .hl-wrap { position:absolute; left:44px; right:44px; top:42%; transform:translateY(-15%); }
   
   .hl { font-weight:900; line-height:1.06; letter-spacing:-0.045em; -webkit-font-smoothing: antialiased; }
-  .hl .top-line { display:block; font-size:clamp(15px, 3.8vw, 48px); white-space:nowrap; }
+  .hl .top-line { display:block; font-size:clamp(16px, 4.5vw, 58px); white-space:nowrap; text-shadow:0 1px 6px rgba(20,19,22,0.10); }
   .hl .bot-line { display:block; font-size:clamp(28px, 6.5vw, 68px); margin-top:2px; }
   @media (max-width:700px){
+    .hl .top-line { white-space:normal; font-size:clamp(20px, 6.2vw, 40px); }
     .hl .bot-line { font-size:clamp(28px, 9vw, 68px); }
   }
   .hl .msk { display:inline-block; overflow:visible; padding-bottom:0.08em; }
@@ -58,10 +59,6 @@
   .sub-row { margin-top:32px; display:flex; gap:14px; flex-wrap:wrap; align-items:center; }
   .sub-row .stat { font-size:14px; font-weight:600; color:var(--ink); background:#fff; padding:10px 18px; border-radius:100px; border:1px solid rgba(20,19,22,0.08); display:flex; align-items:center; gap:10px; box-shadow:0 4px 14px rgba(0,0,0,0.04); }
   .sub-row .stat b { color:var(--orange); font-weight:900; letter-spacing:0.02em; }
-  @media (max-width:700px){
-    .sub-row { gap:8px; margin-top:18px; }
-    .sub-row .stat { font-size:11px; padding:8px 12px; gap:6px; }
-  }
   .hero-bottom { position:absolute; left:44px; right:44px; bottom:30px; display:flex; justify-content:space-between; align-items:flex-end; gap:24px; }
   .note { max-width:380px; font-size:14.5px; color:var(--ink60); }
   .note b { color:var(--ink); font-weight:600; }
@@ -72,8 +69,8 @@
     .hero-bottom{left:20px; right:20px; bottom:20px; flex-direction:column; align-items:flex-start; gap:12px;}
     .note{max-width:90%; font-size:13px;}
     
-    .sub-row{flex-direction:row; flex-wrap:nowrap; align-items:center; gap:6px; margin-top:20px; width:100%;}
-    .sub-row .stat { width:auto; font-size:9.5px; padding:6px 10px; gap:4px; white-space:nowrap; letter-spacing:-0.01em; }
+    .sub-row{flex-direction:row; flex-wrap:nowrap; justify-content:space-between; align-items:center; gap:6px; margin-top:20px; width:100%;}
+    .sub-row .stat { flex:0 0 auto; font-size:9.5px; padding:6px 11px; gap:4px; white-space:nowrap; letter-spacing:-0.01em; }
   }
 
   .score-pop { position:absolute; z-index:5; pointer-events:none; font-weight:900; font-size:42px; color:var(--orange);
@@ -542,26 +539,25 @@
       hero.querySelectorAll('.or').forEach(el => {
         const r = el.getBoundingClientRect(), hr = hero.getBoundingClientRect();
         const tx = r.left - hr.left, ty = r.top - hr.top;
-        if (ball.vy > 0 && ball.x > tx && ball.x < tx + r.width) {
-          if (ball.y + ball.r > ty && prevY + ball.r <= ty + Math.max(10, ball.vy + 2)) {
+        if (ball.vy >= 0 && ball.x > tx && ball.x < tx + r.width) {
+          if (ball.y + ball.r > ty && prevY + ball.r <= ty + Math.max(12, ball.vy + 4)) {
             ball.y = ty - ball.r;
-            ball.vy = -Math.abs(ball.vy) * 0.15; 
-            
-            const centerText = tx + (r.width / 2);
-            const slideForce = ball.x < centerText ? -4 : 4; 
-            ball.vx = (ball.vx * 0.95) + slideForce;  
+            // settle vertically: a small damped bounce, then rest — no buzzing
+            ball.vy = Math.abs(ball.vy) > 1.4 ? -Math.abs(ball.vy) * 0.32 : 0;
+            // keep only the ball's own momentum, slowed by rolling friction —
+            // no artificial push, so it never fights itself or the wall
+            ball.vx *= Math.pow(0.96, dtf);
+            if (Math.abs(ball.vx) < 0.15) ball.vx = 0;
           }
         }
       });
 
-      if(ball.x-ball.r<0){ ball.x=ball.r; ball.vx=Math.abs(ball.vx)*REST; }
-      if(ball.x+ball.r>W){ ball.x=W-ball.r; ball.vx=-Math.abs(ball.vx)*REST; }
-      if(ball.y-ball.r<0){ ball.y=ball.r; ball.vy=Math.abs(ball.vy)*REST; }
-      if(ball.y+ball.r>floorY){ ball.y=floorY-ball.r; ball.vy=-Math.abs(ball.vy)*REST; ball.vx*=FRICground; }
-
-      const wallL=60, wallR=W-60;
-      if(ball.x-ball.r<wallL){ ball.x=wallL+ball.r; ball.vx=Math.abs(ball.vx)*0.72; }
-      if(ball.x+ball.r>wallR){ ball.x=wallR-ball.r; ball.vx=-Math.abs(ball.vx)*0.72; }
+      // single side-wall pair: ball meets the wall and settles, never vibrates
+      const wallL = 56, wallR = W - 56;
+      if (ball.x - ball.r < wallL) { ball.x = wallL + ball.r; ball.vx = Math.abs(ball.vx) * 0.5; }
+      if (ball.x + ball.r > wallR) { ball.x = wallR - ball.r; ball.vx = -Math.abs(ball.vx) * 0.5; }
+      if (ball.y - ball.r < 0) { ball.y = ball.r; ball.vy = Math.abs(ball.vy) * REST; }
+      if (ball.y + ball.r > floorY) { ball.y = floorY - ball.r; ball.vy = -Math.abs(ball.vy) * REST; ball.vx *= FRICground; }
 
       for(const sx of [-1,1]){
         const tx=hoop.cx+sx*hoop.rx, ty=hoop.rimY;
