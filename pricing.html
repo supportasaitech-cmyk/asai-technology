@@ -140,6 +140,10 @@
   .plan-tag .pop { color:var(--accent); }
   .plan h2 { font-weight:800; font-size:26px; letter-spacing:-0.02em; margin-bottom:8px; }
   .plan .for { font-family:'Instrument Serif',serif; font-style:italic; color:inherit; opacity:0.65; font-size:15.5px; margin-bottom:28px; }
+  
+  .p-select { width:100%; padding:10px 14px; margin-bottom:22px; border:1px solid var(--line); border-radius:8px; font-family:'Space Mono',monospace; font-size:11px; font-weight:700; text-transform:uppercase; background:var(--paper-2); color:var(--ink); outline:none; cursor:pointer; }
+  .p-select:focus { border-color:var(--accent); }
+
   .price { display:flex; align-items:baseline; gap:8px; margin-bottom:6px; }
   .price .cur { font-weight:600; font-size:18px; }
   .price .amt { font-weight:900; font-size:52px; letter-spacing:-0.03em; line-height:1; }
@@ -232,7 +236,7 @@
     <span>Source files included</span>
   </div>
 
-    <div class="plans">
+  <div class="plans">
     <div class="plan">
       <div class="plan-tag"><span>/ 01</span><span>One-time</span></div>
       <h2>Professional</h2>
@@ -293,40 +297,60 @@
       <div class="plan-tag"><span>/ 04</span><span>Monthly</span></div>
       <h2>Care Plan</h2>
       <div class="for">updates & priority support</div>
+      <select class="p-select" data-base="1499">
+        <option value="1">1 Month</option>
+        <option value="3">3 Months (Save 5%)</option>
+        <option value="6">6 Months (Save 10%)</option>
+        <option value="12">12 Months (Save 15%)</option>
+      </select>
       <div class="price"><span class="cur">₹</span><span class="amt">1,499</span></div>
-      <div class="price-note">Per month · cancel anytime</div>
+      <div class="price-note">Subscription · cancel anytime</div>
       <ul>
         <li>Content & image updates on request</li>
         <li>Uptime & performance monitoring</li>
         <li>Priority WhatsApp support</li>
       </ul>
-      <button class="plan-btn" onclick="location.href='pay.html?plan=care'">Start — ₹1,499/mo →</button>
+      <button class="plan-btn" onclick="location.href='pay.html?plan=care'">Start Plan →</button>
     </div>
+
     <div class="plan">
       <div class="plan-tag"><span>/ 05</span><span>Monthly</span></div>
       <h2>SEO Growth</h2>
       <div class="for">rank for what customers search</div>
+      <select class="p-select" data-base="3999">
+        <option value="1">1 Month</option>
+        <option value="3">3 Months (Save 5%)</option>
+        <option value="6">6 Months (Save 10%)</option>
+        <option value="12">12 Months (Save 15%)</option>
+      </select>
       <div class="price"><span class="cur">₹</span><span class="amt">3,999</span></div>
-      <div class="price-note">Per month · min. 3 months advised</div>
+      <div class="price-note">Subscription · min. 3 months advised</div>
       <ul>
         <li>Keyword research & content plan</li>
         <li>Technical + local SEO work monthly</li>
         <li>Monthly ranking report</li>
       </ul>
-      <button class="plan-btn" onclick="location.href='pay.html?plan=seo'">Start — ₹3,999/mo →</button>
+      <button class="plan-btn" onclick="location.href='pay.html?plan=seo'">Start Plan →</button>
     </div>
+
     <div class="plan">
       <div class="plan-tag"><span>/ 06</span><span>Monthly</span></div>
       <h2>Social Presence</h2>
       <div class="for">look sharp on Instagram & LinkedIn</div>
+      <select class="p-select" data-base="5999">
+        <option value="1">1 Month</option>
+        <option value="3">3 Months (Save 5%)</option>
+        <option value="6">6 Months (Save 10%)</option>
+        <option value="12">12 Months (Save 15%)</option>
+      </select>
       <div class="price"><span class="cur">₹</span><span class="amt">5,999</span></div>
-      <div class="price-note">Per month · 12 branded posts</div>
+      <div class="price-note">Subscription · 12 branded posts</div>
       <ul>
         <li>12 designed posts + captions monthly</li>
         <li>Profile optimisation & highlights</li>
         <li>Content calendar & hashtag sets</li>
       </ul>
-      <button class="plan-btn" onclick="location.href='pay.html?plan=social'">Start — ₹5,999/mo →</button>
+      <button class="plan-btn" onclick="location.href='pay.html?plan=social'">Start Plan →</button>
     </div>
   </div>
 
@@ -371,6 +395,23 @@
 
 <script>
 (function() {
+  /* Pricing Logic Integration */
+  const fmt = new Intl.NumberFormat('en-IN');
+  document.querySelectorAll('.p-select').forEach(sel => {
+    sel.addEventListener('change', (e) => {
+      const base = parseInt(e.target.getAttribute('data-base'), 10);
+      const months = parseInt(e.target.value, 10);
+      let total = base * months;
+      
+      if(months === 3) total *= 0.95;
+      if(months === 6) total *= 0.90;
+      if(months === 12) total *= 0.85;
+      
+      e.target.closest('.plan').querySelector('.amt').textContent = fmt.format(Math.round(total));
+    });
+  });
+
+  /* Menu Logic */
   const burger = document.getElementById('burger');
   const mmenu = document.getElementById('mmenu');
   if (burger && mmenu) {
@@ -385,6 +426,7 @@
     addEventListener('keydown', e => { if (e.key === 'Escape') setMenu(false); });
   }
 
+  /* Text Animation Logic */
   const splitWords = (node) => {
     [...node.childNodes].forEach(ch => {
       if (ch.nodeType === 3) {
