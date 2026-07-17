@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ASAI Technology — Websites that transform traffic into momentum</title>
 <meta name="description" content="ASAI Technology builds websites, extensions and automation. Premium work, final draft in 24 hours.">
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;900&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;900&family=Instrument+Serif:ital@0;1&display=optional" rel="stylesheet">
 <style>
   :root { --paper:#F3F1EB; --ink:#141316; --ink60:rgba(20,19,22,0.6); --ink40:rgba(20,19,22,0.4);
     --line:rgba(20,19,22,0.13); --orange:#FF4D00; --wa:#25D366; }
@@ -341,12 +341,12 @@
     });
   }
 
-  setTimeout(()=>{
+  if(hasHover) setTimeout(()=>{
     document.querySelectorAll('#heroHl .w').forEach(w=>{
       const text=w.textContent; w.textContent='';
       [...text].forEach(c=>{ const s=document.createElement('span'); s.className='ch'; s.textContent=c; w.appendChild(s); });
     });
-    const chars=[...document.querySelectorAll('#heroHl .ch')].map(el=>({el,x:0,y:0,tx:0,ty:0}));
+    const chars=[...document.querySelectorAll('#heroHl .ch')].map(el=>({el,x:0,y:0,tx:0,ty:0,px:0,py:0}));
     let mx=-9999,my=-9999;
     
     const setPos = e => { 
@@ -355,31 +355,41 @@
     };
     
     addEventListener('mousemove', setPos);
-    addEventListener('touchmove', setPos, {passive:true});
-    addEventListener('touchstart', setPos, {passive:true});
-    addEventListener('touchend', () => { mx=-9999; my=-9999; }, {passive:true});
 
+    function cacheRects(){
+      for(const ch of chars){
+        const r=ch.el.getBoundingClientRect();
+        ch.cx=r.left+r.width/2 - ch.x; ch.cy=r.top+r.height/2 - ch.y;
+      }
+    }
+    cacheRects();
+    if(document.fonts && document.fonts.ready) document.fonts.ready.then(cacheRects);
+    setTimeout(cacheRects, 1600);
+    addEventListener('resize', cacheRects);
+    let scT; addEventListener('scroll', ()=>{ clearTimeout(scT); scT=setTimeout(cacheRects, 120); }, {passive:true});
     (function magLoop(){
       const R=170;
-      for(const c of chars){
-        const r=c.el.getBoundingClientRect();
-        const ccx=r.left+r.width/2, ccy=r.top+r.height/2;
-        const dx=ccx-mx, dy=ccy-my, d=Math.hypot(dx,dy);
-        if(d<R && d>0){ const f=(1-d/R)*30; c.tx=dx/d*f; c.ty=dy/d*f; }
-        else { c.tx=0; c.ty=0; }
-        c.x+=(c.tx-c.x)*0.14; c.y+=(c.ty-c.y)*0.14;
-        c.el.style.transform='translate('+c.x.toFixed(2)+'px,'+c.y.toFixed(2)+'px)';
+      if(scrollY < innerHeight){
+        for(const c of chars){
+          const ccx=c.cx, ccy=c.cy - scrollY0();
+          const dx=ccx-mx, dy=ccy-my, d=Math.hypot(dx,dy);
+          if(d<R && d>0){ const f=(1-d/R)*30; c.tx=dx/d*f; c.ty=dy/d*f; }
+          else { c.tx=0; c.ty=0; }
+          c.x+=(c.tx-c.x)*0.16; c.y+=(c.ty-c.y)*0.16;
+          c.el.style.transform='translate('+c.x.toFixed(2)+'px,'+c.y.toFixed(2)+'px)';
+        }
       }
       requestAnimationFrame(magLoop);
     })();
-  }, 1700);
+    function scrollY0(){ return 0; } /* rects cached in viewport coords, refreshed after scroll settles */
+  }, 1500);
 
-  const hero=document.getElementById('hero'), cv=document.getElementById('cv'), ctx=cv.getContext('2d');
+  const hero=document.getElementById('hero'), cv=document.getElementById('cv'), ctx=cv.getContext('2d',{desynchronized:true});
   const scorePop=document.getElementById('scorePop');
   let W,H,DPR=Math.min(devicePixelRatio||1,1.5);
 
   const ball={x:0,y:0,vx:0,vy:0,r:45,rot:0,behind:false};
-  const GRAV=0.55, REST=0.66, FRICair=0.999, FRICground=0.965;
+  const GRAV=0.62, REST=0.7, FRICair=0.999, FRICground=0.975;
   const hoop={cx:0, rimY:0, rx:0, ry:0, netKick:0};
   let score=0, prevY=0, floorY=0;
 
@@ -423,7 +433,7 @@
     if(!dragging || (e && e.pointerId!==undefined && e.pointerId!==activeId)) return;
     dragging=false; activeId=null;
     if(lastPts.length>1){ const a=lastPts[0], b=lastPts[lastPts.length-1], dt=Math.max((b.t-a.t)/16.7,1);
-      ball.vx=(b.x-a.x)/dt*1.08; ball.vy=(b.y-a.y)/dt*1.08; }
+      ball.vx=(b.x-a.x)/dt*1.18; ball.vy=(b.y-a.y)/dt*1.18; }
   }
   window.addEventListener('pointerup', endDrag, {capture:true});
   window.addEventListener('pointercancel', endDrag, {capture:true});
@@ -489,10 +499,10 @@
     const ballOffset = (inNetY && Math.abs(ball.x - cx) < rx) ? (ball.x - cx) * 0.4 : 0;
     
     ctx.lineCap = 'round'; ctx.lineJoin = 'round';
-    const pts = 14;
-    const rings = 6;
+    const pts = 10;
+    const rings = 5;
     
-    for(let layer = 0; layer < 2; layer++) {
+    for(let layer = 0; layer < (isFront?2:1); layer++) {
       if (layer === 0) {
         ctx.strokeStyle = 'rgba(0,0,0,0.3)';
         ctx.lineWidth = isFront ? 2.5 : 1.5;
@@ -560,25 +570,29 @@
     }
     
     ctx.save(); ctx.translate(ball.x, ball.y); ctx.rotate(ball.rot);
-    const g=ctx.createRadialGradient(-r*0.3,-r*0.3,r*0.1,0,0,r);
-    g.addColorStop(0,'#FF7A33'); g.addColorStop(0.7,'#FF4D00'); g.addColorStop(1,'#B33600');
+    const g=ctx.createRadialGradient(-r*0.28,-r*0.3,r*0.46,0,0,r);
+    g.addColorStop(0,'#E4602A'); g.addColorStop(0.6,'#DC4A0C'); g.addColorStop(1,'#9E3000');
     ctx.beginPath(); ctx.arc(0,0,r,0,Math.PI*2); ctx.fillStyle=g; ctx.fill();
     ctx.restore();
   }
 
-  function tick(){
+  let heroVisible=true;
+  new IntersectionObserver(es=>{ heroVisible=es[0].isIntersecting; },{threshold:0}).observe(hero);
+  let lastT=0;
+  function tick(ts){
+    if(!heroVisible){ lastT=ts; requestAnimationFrame(tick); return; }
+    const dtf = lastT ? Math.min(2.5, Math.max(0.4, (ts-lastT)/16.7)) : 1;
+    lastT = ts;
+    if(scrollY > H*1.15){ requestAnimationFrame(tick); return; }  /* hero off-screen: skip work */
     ctx.clearRect(0,0,W,H);
     drawBoardAndBackRim();
     renderNetHalf(false); 
 
     if(!dragging){
       prevY=ball.y;
-      ball.vy+=GRAV; ball.vx*=FRICair;
-      ball.x+=ball.vx; ball.y+=ball.vy;
-      ball.rot+=ball.vx*0.014;
-      
-      if (ball.vy < -3 && ball.y < H * 0.65) cv.style.zIndex = 1;
-      else if (ball.vy > 3) cv.style.zIndex = 3;
+      ball.vy+=GRAV*dtf; ball.vx*=Math.pow(FRICair,dtf);
+      ball.x+=ball.vx*dtf; ball.y+=ball.vy*dtf;
+      ball.rot+=ball.vx*0.014*dtf;
 
       hero.querySelectorAll('.or').forEach(el => {
         const r = el.getBoundingClientRect();
@@ -590,8 +604,7 @@
           if (ball.y + ball.r > ty && prevY + ball.r <= ty + Math.max(10, ball.vy + 2)) {
             ball.y = ty - ball.r;
             ball.vy = -Math.abs(ball.vy) * 0.3; 
-            ball.vx = (ball.vx * 0.98) + 0.25; 
-            cv.style.zIndex = 3; 
+            ball.vx = (ball.vx * 0.98) + 0.25;  
           }
         }
       });
@@ -599,8 +612,7 @@
       if(ball.x-ball.r<0){ ball.x=ball.r; ball.vx=Math.abs(ball.vx)*REST; }
       if(ball.x+ball.r>W){ ball.x=W-ball.r; ball.vx=-Math.abs(ball.vx)*REST; }
       if(ball.y-ball.r<0){ ball.y=ball.r; ball.vy=Math.abs(ball.vy)*REST; }
-      if(ball.y+ball.r>floorY){ ball.y=floorY-ball.r; ball.vy=-Math.abs(ball.vy)*REST; ball.vx*=FRICground;
-        if(Math.abs(ball.vy)<0.8) ball.vy=0; if(Math.abs(ball.vx)<0.15) ball.vx=0; ball.behind=false; cv.style.zIndex = 3; }
+      if(ball.y+ball.r>floorY){ ball.y=floorY-ball.r; ball.vy=-Math.abs(ball.vy)*REST; ball.vx*=FRICground; }
 
       collideRimEdges();
 
