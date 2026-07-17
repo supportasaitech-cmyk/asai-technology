@@ -42,26 +42,28 @@
   .hint { position:absolute; top:94px; left:44px; font-size:12.5px; color:var(--ink40); display:flex; align-items:center; gap:8px; }
   .hint .dot { width:7px; height:7px; border-radius:50%; background:var(--orange); animation:pulse 1.8s ease-in-out infinite; }
   @keyframes pulse { 50%{opacity:0.25;} }
-  .hl-wrap { position:absolute; left:44px; right:44px; top:42%; transform:translateY(-10%); }
+  .hl-wrap { position:absolute; left:44px; right:44px; top:42%; transform:translateY(-15%); }
   
-  .hl { font-weight:900; font-size:clamp(28px, 5.5vw, 68px); line-height:1.06; letter-spacing:-0.045em; }
+  .hl { font-weight:900; font-size:clamp(32px, 5.5vw, 68px); line-height:1.06; letter-spacing:-0.045em; }
   .hl .msk { display:block; overflow:visible; padding-bottom:0.08em; }
   .hl .w { display:inline-block; transform:translateY(115%); transition:transform 0.9s cubic-bezier(0.22,1,0.36,1); }
   .hl .ch { display:inline-block; will-change:transform; }
+  .hl .hero-main-word { font-weight:900; font-size:1.15em; font-style:normal; }
   
-  .sub-row { margin-top:22px; display:flex; gap:28px; flex-wrap:wrap; align-items:center; }
-  .sub-row .stat { font-size:13px; font-weight:700; color:var(--ink60); display:flex; align-items:center; gap:8px; }
-  .sub-row .stat b { color:var(--orange); font-weight:900; font-size:15px; }
+  .sub-row { margin-top:32px; display:flex; gap:14px; flex-wrap:wrap; align-items:center; }
+  .sub-row .stat { font-size:15px; font-weight:600; color:var(--ink); background:#fff; padding:10px 20px; border-radius:100px; border:1px solid rgba(20,19,22,0.08); display:flex; align-items:center; gap:10px; box-shadow:0 4px 14px rgba(0,0,0,0.04); }
+  .sub-row .stat b { color:var(--orange); font-weight:900; letter-spacing:0.02em; }
   .hero-bottom { position:absolute; left:44px; right:44px; bottom:30px; display:flex; justify-content:space-between; align-items:flex-end; gap:24px; }
   .note { max-width:380px; font-size:14.5px; color:var(--ink60); }
   .note b { color:var(--ink); font-weight:600; }
   
   @media (max-width:700px){
     .hint{left:20px; top:84px;}
-    .hl-wrap{left:20px; right:20px; top:40%;}
+    .hl-wrap{left:20px; right:20px; top:35%;}
     .hero-bottom{left:20px; right:20px; bottom:20px; flex-direction:column; align-items:flex-start; gap:12px;}
     .note{max-width:85%; font-size:13px;}
-    .sub-row{gap:16px;}
+    .sub-row{flex-direction:column; align-items:flex-start; gap:10px; margin-top:24px;}
+    .sub-row .stat { width:100%; max-width:280px; }
   }
 
   .score-pop { position:absolute; z-index:5; pointer-events:none; font-weight:900; font-size:42px; color:var(--orange);
@@ -175,8 +177,8 @@
     <div class="hint"><span class="dot"></span>grab the ball — sink it in the hoop</div>
     <div class="hl-wrap">
       <h1 class="hl" id="heroHl">
-        <span class="msk"><span class="w">Websites</span> <span class="w">that</span> <span class="w">transform</span> <span class="w">traffic</span></span>
-        <span class="msk"><span class="w">into</span> <span class="w it or">momentum.</span></span>
+        <span class="msk"><span class="w">Websites</span> <span class="w">that</span> <span class="w">transform</span> <span class="w">traffic</span> <span class="w">into</span></span>
+        <span class="msk"><span class="w hero-main-word or">momentum.</span></span>
       </h1>
       <div class="sub-row">
         <span class="stat"><b>24h</b> final draft</span>
@@ -519,9 +521,11 @@
         if (ball.vy > 0 && ball.x > tx && ball.x < tx + r.width) {
           if (ball.y + ball.r > ty && prevY + ball.r <= ty + Math.max(10, ball.vy + 2)) {
             ball.y = ty - ball.r;
-            ball.vy = -Math.abs(ball.vy) * 0.3;
-            const push = Math.random() > 0.5 ? 1.5 : -1.5;
-            ball.vx = (ball.vx * 0.9) + push;  
+            ball.vy = -Math.abs(ball.vy) * 0.15; 
+            
+            const centerText = tx + (r.width / 2);
+            const slideForce = ball.x < centerText ? -4 : 4; 
+            ball.vx = (ball.vx * 0.95) + slideForce;  
           }
         }
       });
