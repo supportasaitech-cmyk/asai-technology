@@ -398,6 +398,11 @@
   /* Pricing Logic Integration */
   const fmt = new Intl.NumberFormat('en-IN');
   document.querySelectorAll('.p-select').forEach(sel => {
+    // Store original URL target for buttons
+    const btn = sel.closest('.plan').querySelector('.plan-btn');
+    const originalHref = btn.getAttribute('onclick').match(/'([^']+)'/)[1];
+    btn.dataset.href = originalHref;
+
     sel.addEventListener('change', (e) => {
       const base = parseInt(e.target.getAttribute('data-base'), 10);
       const months = parseInt(e.target.value, 10);
@@ -407,8 +412,19 @@
       if(months === 6) total *= 0.90;
       if(months === 12) total *= 0.85;
       
-      e.target.closest('.plan').querySelector('.amt').textContent = fmt.format(Math.round(total));
+      total = Math.round(total);
+      e.target.closest('.plan').querySelector('.amt').textContent = fmt.format(total);
+      
+      // Update button URL parameters to send to pay.html
+      if (months > 1) {
+        btn.setAttribute('onclick', `location.href='${btn.dataset.href}&months=${months}&amt=${total}'`);
+      } else {
+        btn.setAttribute('onclick', `location.href='${btn.dataset.href}'`);
+      }
     });
+
+    // Trigger on load to set initial state safely
+    sel.dispatchEvent(new Event('change'));
   });
 
   /* Menu Logic */

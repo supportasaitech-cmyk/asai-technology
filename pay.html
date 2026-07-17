@@ -214,7 +214,20 @@ const PLANS = {
 
 const params = new URLSearchParams(location.search);
 const planKey = (params.get("plan") in PLANS) ? params.get("plan") : "professional";
-const plan = PLANS[planKey];
+// Clone the plan object to avoid modifying the base object if user manipulates URL
+const plan = JSON.parse(JSON.stringify(PLANS[planKey]));
+
+// Look for custom amounts and duration from the pricing page dynamic buttons
+const customAmt = params.get("amt");
+const customMonths = params.get("months");
+
+if (customAmt && !isNaN(customAmt)) {
+  plan.amount = parseInt(customAmt, 10);
+}
+if (customMonths && parseInt(customMonths, 10) > 1) {
+  plan.name = plan.name.replace("1 month", `${customMonths} months`);
+}
+
 const fmt = n => "₹" + n.toLocaleString("en-IN");
 
 document.getElementById("planName").textContent = plan.name;
@@ -242,12 +255,12 @@ document.getElementById("payBtn").addEventListener("click", () => {
 
   const rzp = new Razorpay({
     key: RAZORPAY_KEY_ID,
-    amount: plan.amount * 100,  // paise
+    amount: plan.amount * 100,  // automatically uses dynamic custom price (converted to paise)
     currency: "INR",
     name: BUSINESS_NAME,
     description: plan.name,
     prefill: { name, email, contact: phone },
-    notes: { plan: planKey },
+    notes: { plan: planKey, months: customMonths || 1 },
     theme: { color: "#FF4D00" },
     handler: function (response) {
       // Payment success → go to invoice with details
@@ -257,6 +270,8 @@ document.getElementById("payBtn").addEventListener("click", () => {
         name, email, phone,
         amt: plan.amount
       });
+      if(customMonths) q.append("months", customMonths);
+      
       location.href = "invoice.html?" + q.toString();
     }
   });
