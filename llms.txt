@@ -1,0 +1,15 @@
+# ASAI Technology
+> Digital services studio in Noida, India. Premium website development, SEO & GEO, process automation, browser extensions, social media marketing, and branding. First draft delivered within 24 hours. Clients own all source code — no lock-in.
+
+## Services
+- Websites: custom-coded, fast, premium design, from ₹4,999
+- SEO & GEO: Core Web Vitals, schema.org structured data, visibility in Google and AI search
+- Process automation: ETL pipelines, scheduled reports, API integrations
+- Browser extensions: Manifest V3, Chrome Web Store publishing (maker of AI.Reply)
+- Social media marketing: brand systems, 12 posts/month, tracked results
+- Design & branding: logos and visual identity
+
+## Contact
+- WhatsApp/Phone: +91 98166 89339
+- Email: support.asaitech@gmail.com
+- Website: https://asai-technology.pages.dev
