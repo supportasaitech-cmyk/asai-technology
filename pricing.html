@@ -473,6 +473,15 @@
   onWlit();
 })();
 </script>
+<script>
+/* GA4 conversion tracking — WhatsApp, call and plan-buy clicks as lead events */
+(function(){
+  function ev(n,p){ if(typeof gtag==='function') gtag('event',n,p||{}); }
+  document.querySelectorAll('a[href*="wa.me/"]').forEach(a=>a.addEventListener('click',()=>ev('whatsapp_click',{link_url:a.href})));
+  document.querySelectorAll('a[href^="tel:"]').forEach(a=>a.addEventListener('click',()=>ev('call_click',{link_url:a.href})));
+  document.querySelectorAll('a[href*="pay.html"], button.plan-btn').forEach(el=>el.addEventListener('click',()=>ev('begin_checkout',{location:'pricing'})));
+})();
+</script>
 
 </body>
 </html>

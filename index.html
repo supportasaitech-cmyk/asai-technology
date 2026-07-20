@@ -65,16 +65,22 @@
     display:flex; flex-direction:column; padding:26px 20px 30px; transform:translateY(-100%); visibility:hidden;
     transition:transform 0.7s cubic-bezier(0.76,0,0.24,1), visibility 0s 0.7s; }
   body.menu-open #mmenu { transform:none; visibility:visible; transition:transform 0.7s cubic-bezier(0.76,0,0.24,1), visibility 0s 0s; }
-  .mm-links { display:flex; flex-direction:column; justify-content:center; flex:1; gap:6px; }
-  .mm-item { overflow:hidden; }
-  .mm-item a { display:block; font-weight:900; font-size:clamp(38px,12vw,64px); letter-spacing:-0.04em; line-height:1.1;
-    transform:translateY(115%); transition:transform 0.6s cubic-bezier(0.22,1,0.36,1); color:var(--paper); }
-  .mm-item a:active { color:var(--orange); }
-  body.menu-open .mm-item a { transform:none; }
-  body.menu-open .mm-item:nth-child(1) a { transition-delay:0.15s; }
-  body.menu-open .mm-item:nth-child(2) a { transition-delay:0.22s; }
-  body.menu-open .mm-item:nth-child(3) a { transition-delay:0.29s; }
-  body.menu-open .mm-item:nth-child(4) a { transition-delay:0.36s; }
+  .mm-links { display:flex; flex-direction:column; justify-content:center; flex:1; gap:12px; }
+  .mm-item a { display:flex; align-items:center; justify-content:space-between; gap:14px;
+    font-weight:800; font-size:clamp(19px,5.4vw,27px); letter-spacing:-0.02em; line-height:1; color:var(--paper);
+    padding:17px 22px; border-radius:16px;
+    background:rgba(243,241,235,0.07); border:1px solid rgba(243,241,235,0.18);
+    box-shadow:0 4px 0 rgba(0,0,0,0.4);
+    opacity:0; transform:translateY(26px);
+    transition:transform 0.5s cubic-bezier(0.22,1,0.36,1), opacity 0.45s ease, background 0.2s ease, box-shadow 0.12s ease, border-color 0.2s ease; }
+  .mm-item a::after { content:'→'; color:var(--orange); font-weight:900; }
+  body.menu-open .mm-item a { opacity:1; transform:none; }
+  body.menu-open .mm-item a:active { transform:translateY(3px); box-shadow:0 1px 0 rgba(0,0,0,0.4); background:rgba(255,77,0,0.16); border-color:rgba(255,77,0,0.5); }
+  body.menu-open .mm-item:nth-child(1) a { transition-delay:0.12s; }
+  body.menu-open .mm-item:nth-child(2) a { transition-delay:0.18s; }
+  body.menu-open .mm-item:nth-child(3) a { transition-delay:0.24s; }
+  body.menu-open .mm-item:nth-child(4) a { transition-delay:0.30s; }
+  body.menu-open .mm-item:nth-child(5) a { transition-delay:0.36s; }
   .mm-meta { border-top:1px solid rgba(243,241,235,0.18); padding-top:22px; display:flex; flex-direction:column; gap:16px;
     opacity:0; transform:translateY(14px); transition:opacity 0.6s ease, transform 0.6s ease; }
   body.menu-open .mm-meta { opacity:1; transform:none; transition-delay:0.44s; }
@@ -219,9 +225,10 @@
   <div class="nav-r">
     <a class="l" href="#services">What we do</a>
     <a class="l" href="#notes">Notes</a>
-    <a class="l" href="pricing.html">Pricing</a> <a class="l" href="blog.html">Guides</a>
+    <a class="l" href="about.html">About</a>
+    <a class="l" href="pricing.html">Pricing</a>
+    <a class="l" href="blog.html">Guides</a>
     <a class="l" href="#contact">Contact</a>
-    <a class="nav-wa" href="https://wa.me/919816689339">WhatsApp ↗</a>
   </div>
   <button class="nav-burger" id="navBurger" aria-label="Menu"><span></span><span></span></button>
 </nav>
@@ -229,8 +236,9 @@
 <div id="mmenu">
   <div class="mm-links">
     <div class="mm-item"><a href="#services">What we do</a></div>
-    <div class="mm-item"><a href="#notes">Notes</a></div>
+    <div class="mm-item"><a href="about.html">About</a></div>
     <div class="mm-item"><a href="pricing.html">Pricing</a></div>
+    <div class="mm-item"><a href="blog.html">Guides</a></div>
     <div class="mm-item"><a href="#contact">Contact</a></div>
   </div>
   <div class="mm-meta">
@@ -247,6 +255,15 @@
   if(!b) return;
   b.addEventListener('click',()=>document.body.classList.toggle('menu-open'));
   document.querySelectorAll('#mmenu a').forEach(a=>a.addEventListener('click',()=>document.body.classList.remove('menu-open')));
+})();
+</script>
+<script>
+/* GA4 conversion tracking — WhatsApp, call and form-submit as lead events */
+(function(){
+  function ev(n,p){ if(typeof gtag==='function') gtag('event',n,p||{}); }
+  document.querySelectorAll('a[href*="wa.me/"]').forEach(a=>a.addEventListener('click',()=>ev('whatsapp_click',{link_url:a.href})));
+  document.querySelectorAll('a[href^="tel:"]').forEach(a=>a.addEventListener('click',()=>ev('call_click',{link_url:a.href})));
+  var f=document.querySelector('form.lform'); if(f) f.addEventListener('submit',()=>ev('generate_lead',{method:'contact_form'}));
 })();
 </script>
 
@@ -534,10 +551,10 @@
     ctx.beginPath(); ctx.moveTo(cx-rx*0.3, by+bh); ctx.lineTo(cx-rx*0.3, rimY-4); ctx.stroke();
     ctx.beginPath(); ctx.moveTo(cx+rx*0.3, by+bh); ctx.lineTo(cx+rx*0.3, rimY-4); ctx.stroke();
     ctx.fillStyle='rgba(20,19,22,0.5)'; roundRect(cx-rx*0.2, rimY-10, rx*0.4, 10, 2); ctx.fill();
-    ctx.strokeStyle='#8A8880'; ctx.lineWidth=6;
+    ctx.strokeStyle='#0e0d0f'; ctx.lineWidth=6.5;
     ctx.beginPath(); ctx.ellipse(cx,rimY,rx,ry,0,Math.PI,Math.PI*2); ctx.stroke();
-    ctx.strokeStyle='#B4B1A8'; ctx.lineWidth=2.5;
-    ctx.beginPath(); ctx.ellipse(cx,rimY,rx,ry,0,Math.PI,Math.PI*2); ctx.stroke();
+    ctx.strokeStyle='rgba(122,120,128,0.6)'; ctx.lineWidth=1.6;
+    ctx.beginPath(); ctx.ellipse(cx,rimY-1,rx,ry,0,Math.PI,Math.PI*2); ctx.stroke();
   }
   
   function renderNetHalf(isFront) {
@@ -547,10 +564,10 @@
     const ballOffset = (inNetY && Math.abs(ball.x - cx) < rx) ? (ball.x - cx) * 0.4 : 0;
     
     ctx.lineCap = 'round'; ctx.lineJoin = 'round';
-    const pts = 10, rings = 5;
+    const pts = 13, rings = 6;
     for(let layer = 0; layer < (isFront?2:1); layer++) {
-      if (layer === 0) { ctx.strokeStyle = 'rgba(0,0,0,0.3)'; ctx.lineWidth = isFront ? 2.5 : 1.5; ctx.save(); ctx.translate(0, 1); } 
-      else { ctx.strokeStyle = isFront ? '#FBFAF6' : '#CFCBC0'; ctx.lineWidth = isFront ? 1.5 : 1.0; ctx.save(); }
+      if (layer === 0) { ctx.strokeStyle = 'rgba(0,0,0,0.26)'; ctx.lineWidth = isFront ? 2.3 : 1.4; ctx.save(); ctx.translate(0, 1.2); }
+      else { ctx.strokeStyle = isFront ? '#FFFFFF' : '#D8D4C9'; ctx.lineWidth = isFront ? 1.3 : 0.9; ctx.save(); }
       ctx.beginPath();
       for(let r=0; r<rings-1; r++) {
           const t1 = r/(rings-1), t2 = (r+1)/(rings-1);
@@ -573,9 +590,9 @@
 
   function drawFrontRim(){
     const {cx,rimY,rx,ry}=hoop;
-    ctx.strokeStyle = '#8A8880'; ctx.lineWidth = 7; ctx.beginPath(); ctx.ellipse(cx, rimY, rx, ry, 0, 0, Math.PI); ctx.stroke();
-    ctx.strokeStyle = '#C4C1B8'; ctx.lineWidth = 3; ctx.beginPath(); ctx.ellipse(cx, rimY, rx, ry, 0, 0, Math.PI); ctx.stroke();
-    ctx.strokeStyle = 'rgba(255,255,255,0.55)'; ctx.lineWidth = 1.2; ctx.beginPath(); ctx.ellipse(cx, rimY-1.5, rx, ry, 0, 0, Math.PI); ctx.stroke();
+    ctx.strokeStyle = '#0e0d0f'; ctx.lineWidth = 9; ctx.beginPath(); ctx.ellipse(cx, rimY, rx, ry, 0, 0, Math.PI); ctx.stroke();
+    ctx.strokeStyle = '#26242b'; ctx.lineWidth = 4.5; ctx.beginPath(); ctx.ellipse(cx, rimY, rx, ry, 0, 0, Math.PI); ctx.stroke();
+    ctx.strokeStyle = 'rgba(160,158,166,0.85)'; ctx.lineWidth = 1.8; ctx.beginPath(); ctx.ellipse(cx, rimY-2.2, rx, ry, 0, 0, Math.PI); ctx.stroke();
     if(hoop.netKick > 0) hoop.netKick = Math.max(0, hoop.netKick - 0.04);
   }
 
