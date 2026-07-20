@@ -105,11 +105,12 @@
     .hl .bot-line { font-size:clamp(28px, 9vw, 68px); }
   }
   .hl .msk { display:inline-block; overflow:visible; padding-bottom:0.08em; }
-  .hl .w { display:inline-block; transform:translateY(115%); transition:transform 0.9s cubic-bezier(0.22,1,0.36,1); }
+  .hl .w { display:inline-block; opacity:0; transform:translateY(16px); transition:transform 0.7s cubic-bezier(0.22,1,0.36,1), opacity 0.6s ease; }
   .hl .ch { display:inline-block; will-change:transform; }
   .hl .hero-main-word { font-weight:900; font-size:1.25em; font-style:italic; }
   
-  .sub-row { margin-top:32px; display:flex; gap:14px; flex-wrap:wrap; align-items:center; }
+  .sub-row { margin-top:32px; display:flex; gap:14px; flex-wrap:wrap; align-items:center; opacity:0; transform:translateY(10px); animation:subRowIn 0.7s ease 1.15s forwards; }
+  @keyframes subRowIn { to { opacity:1; transform:none; } }
   .sub-row .stat { font-size:14px; font-weight:600; color:var(--ink); background:#fff; padding:10px 18px; border-radius:100px; border:1px solid rgba(20,19,22,0.08); display:flex; align-items:center; gap:10px; box-shadow:0 4px 14px rgba(0,0,0,0.04); }
   .sub-row .stat b { color:var(--orange); font-weight:900; letter-spacing:0.02em; }
   .hero-bottom { position:absolute; left:44px; right:44px; bottom:30px; display:flex; justify-content:space-between; align-items:flex-end; gap:24px; }
@@ -208,8 +209,10 @@
   .wa-float svg { width:29px; height:29px; }
 
   @media (prefers-reduced-motion:reduce){
-    .hl .w, h2.rl .w { transform:none !important; transition:none; }
+    .hl .w { opacity:1 !important; transform:none !important; transition:none; }
+    h2.rl .w { transform:none !important; transition:none; }
     .rev, .noteCard { opacity:1; transform:none; transition:none; }
+    .sub-row { animation:none !important; opacity:1 !important; transform:none !important; }
     .marq-track { animation:none; }
   }
 </style>
@@ -424,8 +427,10 @@
 
   if(!reduce){
     document.querySelectorAll('#heroHl .w').forEach((w,i)=>{
-      setTimeout(()=> w.style.transform='translateY(0)', 300 + i*85);
+      setTimeout(()=>{ w.style.transform='translateY(0)'; w.style.opacity='1'; }, 240 + i*70);
     });
+  } else {
+    document.querySelectorAll('#heroHl .w').forEach(w=>{ w.style.opacity='1'; w.style.transform='none'; });
   }
 
   if(hasHover) setTimeout(()=>{
@@ -479,7 +484,7 @@
 
   const ball={x:0,y:0,vx:0,vy:0,r:45,rot:0,behind:false};
   const GRAV=0.558, REST=0.63, FRICair=0.999, FRICground=0.975;
-  const hoop={cx:0, rimY:0, rx:0, ry:0, netKick:0};
+  const hoop={cx:0, rimY:0, rx:0, ry:0, netKick:0, netSway:0, netT:0};
   let score=0, prevY=0, floorY=0;
 
   function resize(){
@@ -517,6 +522,11 @@
     } else if(hasHover && !dragging){
       const p=heroLocal(e.clientX,e.clientY);
       cv.style.cursor = (p.inside && onBall(p.x,p.y)) ? 'grab' : 'default';
+      // cursor brushing through the net makes it sway gently
+      const netHh = hoop.ry*5.4 + hoop.netKick*14;
+      if(p.inside && Math.abs(p.x-hoop.cx) < hoop.rx*1.05 && p.y > hoop.rimY && p.y < hoop.rimY+netHh){
+        hoop.netSway = Math.max(hoop.netSway, 0.5);
+      }
     }
   }, {capture:true, passive:false});
   
@@ -564,10 +574,13 @@
   
   function renderNetHalf(isFront) {
     const {cx,rimY,rx,ry,netKick}=hoop;
-    const netH = ry*5.4 + netKick*12;
+    const netH = ry*5.4 + netKick*14;
     const inNetY = ball.y > rimY && ball.y < rimY + netH;
-    const ballOffset = (inNetY && Math.abs(ball.x - cx) < rx) ? (ball.x - cx) * 0.4 : 0;
-    
+    const ballNear = inNetY && Math.abs(ball.x - cx) < rx*1.1;
+    const ballOffset = ballNear ? (ball.x - cx) * 0.5 : 0;
+    const bulge = ballNear ? (1 - Math.min(1, Math.abs(ball.x - cx)/rx)) * ball.r * 0.55 : 0;
+    const sway = hoop.netSway, tt = hoop.netT;
+
     ctx.lineCap = 'round'; ctx.lineJoin = 'round';
     const pts = 10, rings = 6;
     for(let layer = 0; layer < (isFront?2:1); layer++) {
@@ -576,16 +589,19 @@
       ctx.beginPath();
       for(let r=0; r<rings-1; r++) {
           const t1 = r/(rings-1), t2 = (r+1)/(rings-1);
-          const w1 = rx * (1 - t1*0.66), w2 = rx * (1 - t2*0.66);
+          const w1 = rx * (1 - t1*0.66) + bulge*t1, w2 = rx * (1 - t2*0.66) + bulge*t2;
           const y1 = rimY + netH*t1, y2 = rimY + netH*t2;
           const bx1 = t1>0.05 ? ballOffset*t1 : 0, bx2 = t2>0.05 ? ballOffset*t2 : 0;
+          // gentle wind-chime sway — grows toward the loose bottom of the net
+          const sw1 = Math.sin(tt*0.15 + t1*4.5) * sway * 11 * t1;
+          const sw2 = Math.sin(tt*0.15 + t2*4.5) * sway * 11 * t2;
           for(let i=0; i<pts; i++) {
               const p1 = i/(pts-1);
               if (isFront && (p1 < 0.15 || p1 > 0.85)) continue;
               if (!isFront && (p1 > 0.15 && p1 < 0.85)) continue;
-              const xA = cx - w1 + 2*w1*p1 + bx1;
+              const xA = cx - w1 + 2*w1*p1 + bx1 + sw1;
               const pLeft = Math.max(0, p1 - 1/(pts-1)), pRight = Math.min(1, p1 + 1/(pts-1));
-              const xB1 = cx - w2 + 2*w2*pLeft + bx2, xB2 = cx - w2 + 2*w2*pRight + bx2;
+              const xB1 = cx - w2 + 2*w2*pLeft + bx2 + sw2, xB2 = cx - w2 + 2*w2*pRight + bx2 + sw2;
               const sag = (y2 - y1) * 0.22;
               ctx.moveTo(xA, y1); ctx.quadraticCurveTo((xA+xB1)/2, (y1+y2)/2 + sag, xB1, y2);
               ctx.moveTo(xA, y1); ctx.quadraticCurveTo((xA+xB2)/2, (y1+y2)/2 + sag, xB2, y2);
@@ -601,11 +617,10 @@
     ctx.strokeStyle = '#8f2b00'; ctx.lineWidth = 10.5; ctx.beginPath(); ctx.ellipse(cx, rimY, rx, ry, 0, 0, Math.PI); ctx.stroke();
     ctx.strokeStyle = '#FF4D00'; ctx.lineWidth = 6.5; ctx.beginPath(); ctx.ellipse(cx, rimY-0.6, rx, ry, 0, 0, Math.PI); ctx.stroke();
     ctx.strokeStyle = 'rgba(255,190,140,0.9)'; ctx.lineWidth = 2; ctx.beginPath(); ctx.ellipse(cx, rimY-2.6, rx, ry, 0, 0, Math.PI); ctx.stroke();
-    // net bottom ring — defines the base of the net like a real one
-    const netH = ry*5.4 + hoop.netKick*12;
-    ctx.strokeStyle='rgba(255,255,255,0.88)'; ctx.lineWidth=1.6;
-    ctx.beginPath(); ctx.ellipse(cx, rimY+netH, rx*0.32, ry*0.55, 0, 0, Math.PI*2); ctx.stroke();
+    // net motion bookkeeping: advance sway clock, decay the kick and the sway
+    hoop.netT += 1;
     if(hoop.netKick > 0) hoop.netKick = Math.max(0, hoop.netKick - 0.04);
+    if(hoop.netSway > 0) hoop.netSway = Math.max(0, hoop.netSway - 0.009);
   }
 
   function drawBall(){
@@ -675,7 +690,7 @@
       }
 
       if(ball.y > hoop.rimY && ball.y < hoop.rimY + hoop.ry*5.4 && Math.abs(ball.x - hoop.cx) < hoop.rx){
-          hoop.netKick = Math.max(hoop.netKick, 0.7); ball.vx *= 0.94; ball.vy *= 0.94; 
+          hoop.netKick = Math.max(hoop.netKick, 0.85); hoop.netSway = 1; ball.vx *= 0.94; ball.vy *= 0.94;
       }
       if(prevY<hoop.rimY && ball.y>=hoop.rimY && ball.vy>0 && Math.abs(ball.x-hoop.cx)<hoop.rx*0.64){
         showScore(); ball.behind=true; ball.vy*=0.5; ball.vx*=0.35;
