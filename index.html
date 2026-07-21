@@ -46,9 +46,9 @@
   .logo { font-weight:900; font-size:17px; letter-spacing:-0.02em; }
   .logo .ai { color:var(--orange); }
   .logo .t { font-family:'Instrument Serif',serif; font-style:italic; font-weight:400; color:var(--ink60); margin-left:6px; font-size:15px; }
-  .nav-r { display:flex; gap:26px; align-items:center; font-size:13.5px; font-weight:600; }
-  .nav-r a.l { color:var(--ink60); transition:color 0.2s; }
-  .nav-r a.l:hover { color:var(--ink); }
+  .nav-r { display:flex; gap:22px; align-items:center; font-size:15px; font-weight:700; }
+  .nav-r a.l { color:var(--ink); transition:color 0.2s; }
+  .nav-r a.l:hover { color:var(--orange); }
   .nav-wa { background:var(--wa); color:#fff; font-weight:800; padding:10px 20px; border-radius:100px; transition:background 0.25s, transform 0.2s; }
   .nav-wa:hover { background:var(--ink); transform:translateY(-1px); }
   .nav-burger { display:none; position:relative; z-index:700; width:44px; height:44px; border:1px solid var(--line);
@@ -178,7 +178,7 @@
     border:1.5px solid rgba(20,19,22,0.14); border-radius:14px; background:#fff; font-weight:800; font-size:16px;
     transition:transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease; }
   .cw:hover { transform:translateY(-2px); border-color:var(--orange); box-shadow:0 10px 24px rgba(20,19,22,0.08); }
-  .cw .v { font-weight:600; font-size:15px; color:var(--ink60); }
+  .cw .v { font-weight:700; font-size:15.5px; color:var(--ink); }
   .cw.wa { background:var(--wa); border-color:var(--wa); color:#fff; }
   .cw.wa .v { color:rgba(255,255,255,0.92); }
   .cw.wa:hover { border-color:#fff; box-shadow:0 12px 28px rgba(37,211,102,0.35); }
@@ -194,6 +194,10 @@
   .sbtn { font-size:14px; font-weight:800; background:var(--orange); color:var(--paper); border:none; cursor:pointer;
     padding:17px 36px; border-radius:100px; transition:transform 0.2s ease, background 0.25s; align-self:flex-start; letter-spacing:0.02em; margin-top:4px; }
   .sbtn:hover { background:var(--ink); transform:translateY(-2px); }
+  .lform .phone-row { display:flex; gap:10px; }
+  .lform .ccode { background:#fff; border:1.5px solid rgba(20,19,22,0.18); border-radius:12px; padding:14px 10px; font-family:'Archivo',sans-serif; font-size:15px; font-weight:700; color:var(--ink); cursor:pointer; }
+  .lform .phone-row input { flex:1; }
+  .lform .ccode:focus { outline:none; border-color:var(--orange); box-shadow:0 0 0 3px rgba(255,77,0,0.15); }
   @media (max-width:860px){ .cgrid{grid-template-columns:1fr; gap:40px;} }
 
   footer { background:var(--ink); color:var(--paper); padding:72px 44px 26px; }
@@ -235,9 +239,8 @@
     <a class="l" href="about.html">About</a>
     <a class="l" href="pricing.html">Pricing</a>
     <a class="l" href="blog.html">Guides</a>
-    <a class="l" href="free-website-audit.html" style="color:var(--orange);font-weight:700;">Free Audit</a>
+    <a class="l" href="free-website-audit.html" style="color:var(--orange);">Free Audit</a>
     <a class="l" href="#contact">Contact Us</a>
-    <a class="nav-wa" href="https://wa.me/919816689339?text=Hi%20ASAI%2C%20I%27d%20like%20to%20discuss%20a%20project" target="_blank" rel="noopener">WhatsApp ↗</a>
   </div>
   <button class="nav-burger" id="navBurger" aria-label="Menu"><span></span><span></span></button>
 </nav>
@@ -380,13 +383,27 @@
         <input type="hidden" name="_captcha" value="false">
         <input type="hidden" name="_template" value="table">
         <div class="fld"><label>Your name</label><input type="text" name="name" placeholder="Full name" required></div>
-        <div class="fld"><label>Phone / WhatsApp / Email</label><input type="text" name="contact" placeholder="How do we reach you?" required></div>
+        <div class="fld"><label>WhatsApp / Phone number</label>
+          <div class="phone-row"><select class="ccode" name="country_code" aria-label="Country code"></select><input type="tel" name="phone" placeholder="98765 43210" required></div>
+        </div>
         <div class="fld"><label>What do you need?</label><textarea name="message" rows="3" placeholder="A website, an extension, automation, design..." required></textarea></div>
         <button class="sbtn" type="submit">Submit →</button>
       </form>
     </div>
   </div>
 </section>
+<script>
+(function(){
+  var codes=[["+1","US"],["+44","UK"],["+91","IN"],["+61","AU"],["+971","AE"],["+65","SG"],["+49","DE"],["+33","FR"],["+64","NZ"],["+27","ZA"],["+353","IE"],["+31","NL"],["+92","PK"],["+880","BD"],["+94","LK"],["+977","NP"],["+81","JP"],["+34","ES"]];
+  var guess="+1";
+  try{var tz=Intl.DateTimeFormat().resolvedOptions().timeZone||"";
+    var m={"Asia/Kolkata":"+91","Asia/Calcutta":"+91","Europe/London":"+44","America/":"+1","Australia/":"+61","Asia/Dubai":"+971","Asia/Singapore":"+65","Europe/Dublin":"+353","Pacific/Auckland":"+64","Africa/Johannesburg":"+27","Asia/Tokyo":"+81"};
+    var matched=false; for(var k in m){ if(tz.indexOf(k)===0){guess=m[k];matched=true;break;} }
+    if(!matched){var loc=(navigator.language||"").toUpperCase(); if(loc.slice(-3)==="-GB")guess="+44"; else if(loc.slice(-3)==="-IN")guess="+91"; else if(loc.slice(-3)==="-AU")guess="+61";}
+  }catch(e){}
+  document.querySelectorAll("select.ccode").forEach(function(sel){ codes.forEach(function(c){var o=document.createElement("option");o.value=c[0];o.textContent=c[1]+" "+c[0];sel.appendChild(o);}); sel.value=guess; });
+})();
+</script>
 
 <footer>
   <a class="fcta" href="https://wa.me/919816689339">
