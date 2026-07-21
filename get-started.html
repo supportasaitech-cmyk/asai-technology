@@ -118,17 +118,7 @@
   footer a:hover { color:var(--paper); }
 
   /* sticky mobile bar */
-  .mbar { display:none; }
-  @media (max-width:760px){
-    .mbar { display:flex; position:fixed; left:0; right:0; bottom:0; z-index:400; gap:8px; padding:10px 12px;
-      background:var(--paper); border-top:1px solid var(--line); box-shadow:0 -6px 20px rgba(0,0,0,0.09); }
-    .mbar a { flex:1; text-align:center; padding:14px; border-radius:100px; font-weight:800; font-size:14px; }
-    .mbar-wa { background:var(--wa); color:#fff; }
-    .mbar-gw { background:var(--accent); color:#fff; }
-    a[aria-label="WhatsApp"] { display:none !important; }
-    body { padding-bottom:72px; }
-    footer { margin-bottom:0; }
-  }
+  /* mobile: single floating WhatsApp only — no sticky bar */
 
   @media (prefers-reduced-motion:reduce){ .rev { opacity:1 !important; transform:none !important; transition:none; } .chip, .cta, .nav-wa { transition:none; } }
 </style>
@@ -246,11 +236,6 @@
   <a href="free-website-audit.html">Free Audit</a>
   <a href="mailto:support.asaitech@gmail.com">support.asaitech@gmail.com</a>
 </footer>
-
-<div class="mbar" aria-label="Quick actions">
-  <a class="mbar-wa" href="https://wa.me/919816689339?text=Hi%20ASAI%2C%20I%20want%20to%20get%20a%20website" target="_blank" rel="noopener">💬 WhatsApp</a>
-  <a class="mbar-gw" href="#estCard">Get my estimate</a>
-</div>
 
 <script>
 (function(){
