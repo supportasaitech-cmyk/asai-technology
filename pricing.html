@@ -168,8 +168,9 @@
     display:grid; grid-template-columns:1fr auto; gap:30px; align-items:center;
     padding:44px 50px; margin-bottom:80px;
   }
-  .custom-strip h3 { font-weight:800; font-size:clamp(22px,2.6vw,34px); letter-spacing:-0.02em; }
-  .custom-strip h3 em { font-family:'Instrument Serif',serif; font-style:italic; font-weight:400; }
+  .custom-strip h3 { font-weight:800; font-size:clamp(20px,2.3vw,29px); letter-spacing:-0.02em; white-space:nowrap; }
+  .custom-strip h3 em { font-family:'Instrument Serif',serif; font-style:italic; font-weight:400; color:var(--accent); }
+  @media (max-width:820px){ .custom-strip h3 { white-space:normal; } }
   .custom-strip p { color:var(--ink-60); margin-top:8px; max-width:520px; font-size:15px; text-align:justify; }
   .btn-solid { font-family:'Space Mono',monospace; font-size:12px; letter-spacing:0.06em; text-transform:uppercase;
     background:var(--ink); color:var(--paper); padding:18px 32px; border-radius:100px; display:inline-block;

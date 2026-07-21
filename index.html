@@ -49,8 +49,8 @@
   .nav-r { display:flex; gap:26px; align-items:center; font-size:13.5px; font-weight:600; }
   .nav-r a.l { color:var(--ink60); transition:color 0.2s; }
   .nav-r a.l:hover { color:var(--ink); }
-  .nav-wa { background:var(--ink); color:var(--paper); font-weight:700; padding:9px 18px; border-radius:100px; transition:background 0.25s; }
-  .nav-wa:hover { background:var(--orange); }
+  .nav-wa { background:var(--wa); color:#fff; font-weight:800; padding:10px 20px; border-radius:100px; transition:background 0.25s, transform 0.2s; }
+  .nav-wa:hover { background:var(--ink); transform:translateY(-1px); }
   .nav-burger { display:none; position:relative; z-index:700; width:44px; height:44px; border:1px solid var(--line);
     border-radius:50%; background:var(--paper); cursor:pointer; padding:0; flex-direction:column; align-items:center; justify-content:center; gap:5px; }
   .nav-burger span { display:block; width:17px; height:2px; background:var(--ink); border-radius:2px;
@@ -173,23 +173,27 @@
   @media (max-width:760px){ .prow{grid-template-columns:1fr; gap:6px;} .prow .go{opacity:1; transform:none;} }
 
   .cgrid { display:grid; grid-template-columns:1fr 1fr; gap:56px; }
-  .cways { display:flex; flex-direction:column; margin-top:32px; }
-  .cw { display:flex; justify-content:space-between; align-items:center; gap:16px; padding:19px 4px;
-    border-top:1px solid var(--line); font-weight:700; font-size:16px; transition:padding-left 0.3s, color 0.3s; }
-  .cw:last-child { border-bottom:1px solid var(--line); }
-  .cw:hover { padding-left:12px; color:var(--orange); }
+  .cways { display:flex; flex-direction:column; gap:12px; margin-top:32px; }
+  .cw { display:flex; justify-content:space-between; align-items:center; gap:16px; padding:20px 22px;
+    border:1.5px solid rgba(20,19,22,0.14); border-radius:14px; background:#fff; font-weight:800; font-size:16px;
+    transition:transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease; }
+  .cw:hover { transform:translateY(-2px); border-color:var(--orange); box-shadow:0 10px 24px rgba(20,19,22,0.08); }
   .cw .v { font-weight:600; font-size:15px; color:var(--ink60); }
+  .cw.wa { background:var(--wa); border-color:var(--wa); color:#fff; }
+  .cw.wa .v { color:rgba(255,255,255,0.92); }
+  .cw.wa:hover { border-color:#fff; box-shadow:0 12px 28px rgba(37,211,102,0.35); }
   
   .lform { display:flex; flex-direction:column; }
-  .lform .fld { border-bottom:1px solid var(--line); padding:6px 0 15px; margin-bottom:22px; }
-  .lform label { display:block; font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; color:var(--ink); margin-bottom:9px; }
-  .lform input, .lform textarea { width:100%; border:none; background:transparent; color:var(--ink);
-    font-family:'Archivo',sans-serif; font-size:18px; font-weight:500; resize:vertical; }
-  .lform input:focus, .lform textarea:focus { outline:none; }
+  .lform .fld { margin-bottom:16px; }
+  .lform label { display:block; font-size:12px; font-weight:800; text-transform:uppercase; letter-spacing:0.06em; color:var(--ink); margin-bottom:8px; }
+  .lform input, .lform textarea { width:100%; background:#fff; border:1.5px solid rgba(20,19,22,0.18); border-radius:12px;
+    padding:14px 16px; color:var(--ink); font-family:'Archivo',sans-serif; font-size:16px; font-weight:600; resize:vertical;
+    box-shadow:0 1px 2px rgba(20,19,22,0.04); transition:border-color 0.2s ease, box-shadow 0.2s ease; }
   .lform input::placeholder, .lform textarea::placeholder { color:var(--ink40); font-weight:400; }
-  .sbtn { font-size:13.5px; font-weight:700; background:var(--ink); color:var(--paper); border:none; cursor:pointer;
-    padding:16px 30px; border-radius:100px; transition:background 0.25s; align-self:flex-start; }
-  .sbtn:hover { background:var(--orange); }
+  .lform input:focus, .lform textarea:focus { outline:none; border-color:var(--orange); box-shadow:0 0 0 3px rgba(255,77,0,0.15); }
+  .sbtn { font-size:14px; font-weight:800; background:var(--orange); color:var(--paper); border:none; cursor:pointer;
+    padding:17px 36px; border-radius:100px; transition:transform 0.2s ease, background 0.25s; align-self:flex-start; letter-spacing:0.02em; margin-top:4px; }
+  .sbtn:hover { background:var(--ink); transform:translateY(-2px); }
   @media (max-width:860px){ .cgrid{grid-template-columns:1fr; gap:40px;} }
 
   footer { background:var(--ink); color:var(--paper); padding:72px 44px 26px; }
@@ -228,12 +232,12 @@
   <a class="logo" href="index.html">AS<span class="ai">AI</span><span class="t">Technology</span></a>
   <div class="nav-r">
     <a class="l" href="#services">What we do</a>
-    <a class="l" href="#notes">Notes</a>
     <a class="l" href="about.html">About</a>
     <a class="l" href="pricing.html">Pricing</a>
     <a class="l" href="blog.html">Guides</a>
     <a class="l" href="free-website-audit.html" style="color:var(--orange);font-weight:700;">Free Audit</a>
-    <a class="l" href="#contact">Contact</a>
+    <a class="l" href="#contact">Contact Us</a>
+    <a class="nav-wa" href="https://wa.me/919816689339?text=Hi%20ASAI%2C%20I%27d%20like%20to%20discuss%20a%20project" target="_blank" rel="noopener">WhatsApp ↗</a>
   </div>
   <button class="nav-burger" id="navBurger" aria-label="Menu"><span></span><span></span></button>
 </nav>
@@ -245,7 +249,7 @@
     <div class="mm-item"><a href="pricing.html">Pricing</a></div>
     <div class="mm-item"><a href="blog.html">Guides</a></div>
     <div class="mm-item"><a href="free-website-audit.html">Free Audit</a></div>
-    <div class="mm-item"><a href="#contact">Contact</a></div>
+    <div class="mm-item"><a href="#contact">Contact Us</a></div>
   </div>
   <div class="mm-meta">
     <a class="mm-wa" href="https://wa.me/919816689339">WhatsApp us — +91 98166 89339 ↗</a>
@@ -358,7 +362,7 @@
 
 <section id="contact" style="padding-top:40px;">
   <div class="wrap">
-    <div class="kicker rev">Contact</div>
+    <div class="kicker rev">Contact Us</div>
     <h2 class="rl">
       <span class="msk"><span class="w">Tell</span> <span class="w">us</span> <span class="w">your</span> <span class="w">idea.</span></span>
       <span class="msk"><span class="w it or">We</span> <span class="w it or">reply</span> <span class="w it or">with</span> <span class="w it or">a</span> <span class="w it or">premium</span> <span class="w it or">draft.</span></span>
@@ -366,7 +370,7 @@
     <div class="cgrid">
       <div class="rev">
         <div class="cways">
-          <a class="cw" href="https://wa.me/919816689339"><span>WhatsApp — fastest</span><span class="v">+91 98166 89339 ↗</span></a>
+          <a class="cw wa" href="https://wa.me/919816689339?text=Hi%20ASAI%2C%20I%27d%20like%20to%20discuss%20a%20project" target="_blank" rel="noopener"><span>WhatsApp — fastest reply</span><span class="v">+91 98166 89339 ↗</span></a>
           <a class="cw" href="tel:+919816689339"><span>Call</span><span class="v">+91 98166 89339</span></a>
           <a class="cw" href="mailto:support.asaitech@gmail.com"><span>Email</span><span class="v">support.asaitech@gmail.com</span></a>
         </div>
@@ -378,7 +382,7 @@
         <div class="fld"><label>Your name</label><input type="text" name="name" placeholder="Full name" required></div>
         <div class="fld"><label>Phone / WhatsApp / Email</label><input type="text" name="contact" placeholder="How do we reach you?" required></div>
         <div class="fld"><label>What do you need?</label><textarea name="message" rows="3" placeholder="A website, an extension, automation, design..." required></textarea></div>
-        <button class="sbtn" type="submit">Send →</button>
+        <button class="sbtn" type="submit">Submit →</button>
       </form>
     </div>
   </div>

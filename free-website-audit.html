@@ -123,11 +123,13 @@
   .req .pts li { font-size:14.5px; color:rgba(241,239,233,0.85); display:flex; gap:10px; }
   .req .pts li::before { content:'✓'; color:var(--cyan); font-weight:700; }
   form { display:flex; flex-direction:column; }
-  .fld { border-bottom:1px solid rgba(241,239,233,0.25); padding:6px 0 13px; margin-bottom:20px; }
-  label { display:block; font-family:'Space Mono',monospace; font-size:10.5px; letter-spacing:0.08em; text-transform:uppercase; color:rgba(241,239,233,0.6); margin-bottom:8px; }
-  input, textarea { width:100%; border:none; background:transparent; color:var(--paper); font-family:'Archivo',sans-serif; font-size:16.5px; font-weight:500; resize:vertical; }
-  input:focus, textarea:focus { outline:none; }
-  input::placeholder, textarea::placeholder { color:rgba(241,239,233,0.35); }
+  .fld { margin-bottom:15px; }
+  label { display:block; font-family:'Space Mono',monospace; font-size:11px; letter-spacing:0.08em; text-transform:uppercase; color:var(--cyan); margin-bottom:8px; }
+  input, textarea { width:100%; background:rgba(255,255,255,0.06); border:1.5px solid rgba(63,224,216,0.3); border-radius:12px;
+    padding:14px 16px; color:var(--paper); font-family:'Archivo',sans-serif; font-size:16px; font-weight:600; resize:vertical;
+    transition:border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease; }
+  input::placeholder, textarea::placeholder { color:rgba(241,239,233,0.4); font-weight:400; }
+  input:focus, textarea:focus { outline:none; border-color:var(--cyan); box-shadow:0 0 0 3px rgba(63,224,216,0.18); background:rgba(255,255,255,0.1); }
   .submit { font-family:'Space Mono',monospace; font-size:12.5px; letter-spacing:0.05em; text-transform:uppercase; font-weight:700;
     background:var(--accent); color:var(--ink); border:none; cursor:pointer; padding:17px 30px; border-radius:100px; transition:background 0.25s; }
   .submit:hover { background:var(--cyan); }
@@ -240,7 +242,7 @@
       <div class="fld"><label>Website URL (or business name)</label><input type="text" name="website" placeholder="yoursite.com — or 'no website yet'" required></div>
       <div class="fld"><label>WhatsApp / Email to send it to</label><input type="text" name="contact" placeholder="How should we reach you?" required></div>
       <div class="fld"><label>Anything specific? (optional)</label><textarea name="message" rows="2" placeholder="e.g. 'not getting enquiries', 'too slow'..."></textarea></div>
-      <button class="submit" type="submit">Send audit request →</button>
+      <button class="submit" type="submit">Submit audit request →</button>
       <div class="or">— or —</div>
       <a class="wa2" href="https://wa.me/919816689339?text=Hi%20ASAI%2C%20I%27d%20like%20a%20free%20website%20audit%20%E2%80%94%20my%20site%3A%20" target="_blank" rel="noopener">Request on WhatsApp ↗</a>
     </form>
