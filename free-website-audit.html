@@ -159,7 +159,7 @@
     <h1>See exactly what's <span class="acc">costing you customers.</span></h1>
     <p class="lede">Send us your website — or just your business name if you don't have one yet. We'll run a real audit across <b>speed, mobile, SEO, AI-search readiness, conversion and design</b>, then send you clear findings and fixes on WhatsApp. <b>Within 24 hours. Free.</b></p>
     <div class="hero-cta">
-      <a class="btn-wa" href="https://wa.me/919816689339?text=Hi%20ASAI%2C%20I%27d%20like%20a%20free%20website%20audit%20%E2%80%94%20my%20site%3A%20" target="_blank" rel="noopener">Get my free audit ↗</a>
+      <a class="btn-wa" href="https://wa.me/919816689339?text=Hi%20ASAI%2C%20I%27d%20like%20a%20free%20website%20audit." target="_blank" rel="noopener">Get my free audit ↗</a>
       <span class="free">No cost · <b>No sales pressure</b></span>
     </div>
   </div>
@@ -251,7 +251,7 @@
       <div class="fld"><label>Anything specific? (optional)</label><textarea name="message" rows="2" placeholder="e.g. 'not getting enquiries', 'too slow'..."></textarea></div>
       <button class="submit" type="submit">Submit audit request →</button>
       <div class="or">— or —</div>
-      <a class="wa2" href="https://wa.me/919816689339?text=Hi%20ASAI%2C%20I%27d%20like%20a%20free%20website%20audit%20%E2%80%94%20my%20site%3A%20" target="_blank" rel="noopener">Request on WhatsApp ↗</a>
+      <a class="wa2" id="waAudit" href="https://wa.me/919816689339?text=Hi%20ASAI%2C%20I%27d%20like%20a%20free%20website%20audit." target="_blank" rel="noopener">Request on WhatsApp ↗</a>
     </form>
   </div>
 </section>
@@ -277,6 +277,18 @@
     if(!matched){var loc=(navigator.language||"").toUpperCase(); if(loc.slice(-3)==="-GB")guess="+44"; else if(loc.slice(-3)==="-IN")guess="+91"; else if(loc.slice(-3)==="-AU")guess="+61";}
   }catch(e){}
   document.querySelectorAll("select.ccode").forEach(function(sel){ codes.forEach(function(c){var o=document.createElement("option");o.value=c[0];o.textContent=c[1]+" "+c[0];sel.appendChild(o);}); sel.value=guess; });
+  // WhatsApp button carries the form details (esp. the website) into the chat
+  var waBtn=document.getElementById('waAudit');
+  if(waBtn){ waBtn.addEventListener('click',function(e){
+    var g=function(s){var el=document.querySelector(s);return el?el.value.trim():'';};
+    var name=g('input[name="name"]'), web=g('input[name="website"]'), code=g('select.ccode'), phone=g('input[name="phone"]');
+    if(!web){ e.preventDefault(); var w=document.querySelector('input[name="website"]'); if(w){ w.focus(); w.scrollIntoView({block:'center',behavior:'smooth'}); w.style.borderColor='#FF4D00'; w.style.boxShadow='0 0 0 3px rgba(255,77,0,0.25)'; } alert('Please add your website (or business name) first — that’s what we audit.'); return; }
+    var msg="Hi ASAI, I'd like a free website audit.";
+    if(name) msg+="\nName: "+name;
+    msg+="\nWebsite: "+web;
+    if(phone) msg+="\nPhone: "+code+" "+phone;
+    waBtn.setAttribute('href','https://wa.me/919816689339?text='+encodeURIComponent(msg));
+  }); }
 })();
 </script>
 </body>
