@@ -114,6 +114,33 @@
   @keyframes subRowIn { to { opacity:1; transform:none; } }
   .sub-row .stat { font-size:14px; font-weight:600; color:var(--ink); background:#fff; padding:10px 18px; border-radius:100px; border:1px solid rgba(20,19,22,0.08); display:flex; align-items:center; gap:10px; box-shadow:0 4px 14px rgba(0,0,0,0.04); }
   .sub-row .stat b { color:var(--orange); font-weight:900; letter-spacing:0.02em; }
+
+  .hero-forks { margin-top:24px; pointer-events:auto; max-width:600px; opacity:0; transform:translateY(12px); animation:subRowIn 0.7s ease 1.05s forwards; }
+  .hero-out { font-size:clamp(14px,1.7vw,18px); font-weight:600; color:var(--ink); margin-bottom:16px; max-width:500px; }
+  .fork-btns { display:flex; gap:12px; flex-wrap:wrap; }
+  .fbtn { font-size:14.5px; font-weight:800; padding:15px 26px; border-radius:100px; display:inline-flex; align-items:center; gap:8px; transition:transform 0.2s ease, background 0.25s ease, color 0.25s ease; }
+  .fbtn.primary { background:var(--orange); color:#fff; }
+  .fbtn.primary:hover { background:var(--ink); transform:translateY(-2px); }
+  .fbtn.ghost { border:1.5px solid var(--ink); color:var(--ink); }
+  .fbtn.ghost:hover { background:var(--ink); color:#fff; transform:translateY(-2px); }
+  @media (max-width:700px){ .hero-forks{ margin-top:18px; } .fork-btns{ gap:8px; } .fbtn{ font-size:13px; padding:13px 18px; } }
+
+  .trustbar { background:var(--ink); color:var(--paper); }
+  .trustbar .tb-in { max-width:1200px; margin:0 auto; padding:15px 44px; display:flex; flex-wrap:wrap; gap:12px 40px; justify-content:center; align-items:center; font-size:13.5px; font-weight:600; }
+  .trustbar .tb-in span { display:inline-flex; align-items:center; gap:7px; color:rgba(243,241,235,0.72); }
+  .trustbar .tb-in b { color:var(--orange); font-weight:900; }
+  @media (max-width:600px){ .trustbar .tb-in { gap:8px 18px; font-size:11.5px; padding:13px 16px; } }
+
+  .mbar { display:none; }
+  @media (max-width:760px){
+    .mbar { display:flex; position:fixed; left:0; right:0; bottom:0; z-index:400; gap:8px; padding:10px 12px;
+      background:var(--paper); border-top:1px solid var(--line); box-shadow:0 -6px 20px rgba(0,0,0,0.09); }
+    .mbar a { flex:1; text-align:center; padding:14px; border-radius:100px; font-weight:800; font-size:14px; }
+    .mbar-wa { background:var(--wa); color:#fff; }
+    .mbar-gw { background:var(--orange); color:#fff; }
+    .wa-float { display:none !important; }
+    body { padding-bottom:72px; }
+  }
   .hero-bottom { position:absolute; left:44px; right:44px; bottom:30px; display:flex; justify-content:space-between; align-items:flex-end; gap:24px; }
   .note { max-width:380px; font-size:14.5px; color:var(--ink60); }
   .note b { color:var(--ink); font-weight:600; }
@@ -221,7 +248,7 @@
     .hl .w { opacity:1 !important; transform:none !important; transition:none; }
     h2.rl .w { transform:none !important; transition:none; }
     .rev, .noteCard { opacity:1; transform:none; transition:none; }
-    .sub-row { animation:none !important; opacity:1 !important; transform:none !important; }
+    .sub-row, .hero-forks { animation:none !important; opacity:1 !important; transform:none !important; }
     .marq-track { animation:none; }
   }
 </style>
@@ -294,10 +321,12 @@
           <span class="msk"><span class="w hero-main-word or it">momentum.</span></span>
         </span>
       </h1>
-      <div class="sub-row">
-        <span class="stat"><b>24h</b> final draft</span>
-        <span class="stat"><b>Premium</b> responsive design</span>
-        <span class="stat"><b>Fully</b> SEO optimized</span>
+      <div class="hero-forks">
+        <p class="hero-out">Premium websites that bring you enquiries — first working draft in 24 hours.</p>
+        <div class="fork-btns">
+          <a class="fbtn primary" href="get-started.html">Get Your Website →</a>
+          <a class="fbtn ghost" href="free-website-audit.html">Free Website Audit</a>
+        </div>
       </div>
     </div>
     <div class="hero-bottom">
@@ -305,6 +334,15 @@
     </div>
   </div>
 </header>
+
+<div class="trustbar">
+  <div class="tb-in">
+    <span><b>24h</b> first draft</span>
+    <span><b>120+</b> projects delivered</span>
+    <span>Avg reply <b>&lt; 30 min</b></span>
+    <span>Noida, India</span>
+  </div>
+</div>
 
 <div class="marq" aria-hidden="true">
   <div class="marq-track">
@@ -414,6 +452,7 @@
     <span>© 2026 ASAI Technology — Noida, IN</span>
     <a href="about.html">About Us</a>
     <a href="free-website-audit.html">Free Website Audit</a>
+    <a href="get-started.html">Get Your Website</a>
     <a href="social-media-marketing-system.html">SMM System Guide</a>
     <a href="technical-seo-guide.html">Technical SEO Guide</a>
     <a href="privacy.html">Privacy Policy</a>
@@ -423,6 +462,11 @@
     <a href="tel:+919816689339">+91 98166 89339</a>
   </div>
 </footer>
+
+<div class="mbar" aria-label="Quick actions">
+  <a class="mbar-wa" href="https://wa.me/919816689339?text=Hi%20ASAI%2C%20I%27d%20like%20to%20discuss%20a%20project" target="_blank" rel="noopener">💬 WhatsApp</a>
+  <a class="mbar-gw" href="get-started.html">Get Your Website</a>
+</div>
 
 <a class="wa-float" href="https://wa.me/919816689339" target="_blank" rel="noopener" aria-label="WhatsApp">
   <svg viewBox="0 0 32 32" fill="white"><path d="M16 3C9.4 3 4 8.4 4 15c0 2.6.8 5 2.2 7L4.5 28l6.2-1.6c1.9 1 4 1.6 5.3 1.6 6.6 0 12-5.4 12-12S22.6 3 16 3zm0 22c-1.8 0-3.6-.5-5.1-1.4l-.4-.2-3.7 1 1-3.6-.2-.4C6.6 18.9 6 17 6 15 6 9.5 10.5 5 16 5s10 4.5 10 10-4.5 10-10 10zm5.5-7.5c-.3-.2-1.8-.9-2-1-.3-.1-.5-.2-.7.2-.2.3-.8 1-.9 1.1-.2.2-.3.2-.6.1-.3-.2-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.5-.5c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5-.1-.2-.7-1.7-1-2.3-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.2.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.3-.7.3-1.3.2-1.4-.1-.1-.3-.2-.6-.3z"/></svg>
