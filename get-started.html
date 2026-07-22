@@ -104,10 +104,13 @@
   .cform input::placeholder { color:var(--ink-40); font-weight:400; }
   .cform input:focus, .cform select:focus { outline:none; border-color:var(--accent); box-shadow:0 0 0 3px rgba(255,77,0,0.15); }
   .cform .cta { grid-column:1 / -1; }
-  .thanks { text-align:center; padding:40px 20px; }
-  .thanks .big { font-weight:900; font-size:clamp(24px,3.4vw,36px); letter-spacing:-0.02em; margin:10px 0 8px; }
-  .thanks p { color:var(--ink-60); max-width:420px; margin:0 auto 22px; }
-  .thanks .wa-btn { display:inline-block; background:var(--wa); color:#fff; font-weight:800; padding:15px 30px; border-radius:100px; }
+  .thanks { text-align:center; padding:50px 20px; }
+  .thanks .check { width:70px; height:70px; margin:0 auto 22px; border-radius:50%; background:var(--wa); color:#fff; font-size:38px; font-weight:900; display:flex; align-items:center; justify-content:center; box-shadow:0 12px 34px rgba(37,211,102,0.4); }
+  .thanks .big { font-weight:900; font-size:clamp(28px,4vw,42px); letter-spacing:-0.02em; margin:0 0 14px; }
+  .thanks p { color:var(--ink-60); max-width:480px; margin:0 auto 16px; font-size:17px; line-height:1.6; }
+  .thanks p b { color:var(--ink); }
+  .thanks .sub2 { font-size:13.5px; color:var(--ink-40); margin-bottom:14px; }
+  .thanks .wa-btn { display:inline-block; background:var(--wa); color:#fff; font-weight:800; padding:16px 32px; border-radius:100px; }
 
   /* reveal */
   .rev { opacity:0; transform:translateY(22px); transition:opacity 0.7s cubic-bezier(0.22,1,0.36,1), transform 0.7s cubic-bezier(0.22,1,0.36,1); }
@@ -290,7 +293,13 @@
   document.querySelectorAll('a[href*="wa.me/"]').forEach(function(a){ a.addEventListener('click',function(){ ev('whatsapp_click',{location:'get_started'}); }); });
 
   /* ---- thank-you states ---- */
-  var thanks=function(title){ return '<div class="thanks"><div class="mono" style="color:var(--accent)">✓ Received</div><div class="big">'+title+'</div><p>We\'ll reply within 24 hours — usually much faster, on WhatsApp or email. Keep an eye out!</p><a class="wa-btn" href="https://wa.me/919816689339" target="_blank" rel="noopener">Message us now ↗</a></div>'; };
+  var thanks=function(title){ return '<div class="thanks">'
+    + '<div class="check">&#10003;</div>'
+    + '<div class="big">'+title+'</div>'
+    + '<p>Thank you — <b>we\'ve received your details.</b> A real person from ASAI Technology will personally review it and get back to you within <b>24 hours</b> (usually much sooner), on WhatsApp or email. You don\'t need to do anything else.</p>'
+    + '<p class="sub2">Prefer an instant reply? Message us directly 👇</p>'
+    + '<a class="wa-btn" href="https://wa.me/919816689339" target="_blank" rel="noopener">Chat with us on WhatsApp ↗</a>'
+    + '</div>'; };
   var sent=new URLSearchParams(location.search).get('sent');
   if(sent==='estimate'){ var e=document.getElementById('estCard'); if(e){ e.style.display='block'; e.innerHTML=thanks('Your estimate is locked in.'); e.scrollIntoView({block:'center'}); } }
   if(sent==='concept'){ var c=document.getElementById('conCard'); if(c){ c.innerHTML=thanks('Your free concept is on the way.'); c.scrollIntoView({block:'center'}); } }
