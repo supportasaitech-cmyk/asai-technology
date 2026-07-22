@@ -22,7 +22,7 @@
 <meta name="twitter:image" content="https://asai-technology.pages.dev/og-image.png?v=3">
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;900&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
 <style>
-  :root { --paper:#F3F1EB; --ink:#141316; --ink60:rgba(20,19,22,0.6); --ink40:rgba(20,19,22,0.4);
+  :root { --paper:#F3F1EB; --ink:#141316; --ink60:rgba(20,19,22,0.72); --ink40:rgba(20,19,22,0.4);
     --line:rgba(20,19,22,0.13); --orange:#FF4D00; --wa:#25D366; }
   * { margin:0; padding:0; box-sizing:border-box; }
   html { scroll-behavior:smooth; background:var(--paper); -webkit-text-size-adjust:100%; }
@@ -120,12 +120,19 @@
   .fork-btns { display:flex; gap:14px; flex-wrap:wrap; align-items:flex-end; }
   .fork-col { display:flex; flex-direction:column; align-items:center; gap:8px; }
   .fork-lab { font-size:12.5px; font-weight:700; color:var(--ink60); letter-spacing:0.01em; text-align:center; }
-  .fbtn { font-size:14.5px; font-weight:800; padding:15px 26px; border-radius:100px; display:inline-flex; align-items:center; gap:8px; transition:transform 0.2s ease, background 0.25s ease, color 0.25s ease; }
+  .fbtn { font-size:14.5px; font-weight:800; padding:15px 26px; border-radius:100px; border:1.5px solid transparent; display:inline-flex; align-items:center; gap:8px; transition:transform 0.2s ease, background 0.25s ease, color 0.25s ease; }
   .fbtn.primary { background:var(--orange); color:#fff; }
   .fbtn.primary:hover { background:var(--ink); transform:translateY(-2px); }
   .fbtn.ghost { border:1.5px solid var(--ink); color:var(--ink); }
   .fbtn.ghost:hover { background:var(--ink); color:#fff; transform:translateY(-2px); }
-  @media (max-width:700px){ .hero-forks{ margin-top:18px; } .fork-btns{ gap:8px; } .fbtn{ font-size:13px; padding:13px 18px; } }
+  @media (max-width:700px){
+    .hero-forks{ margin-top:18px; width:100%; }
+    .fork-btns{ gap:8px; justify-content:space-between; flex-wrap:nowrap; width:100%; }
+    .fork-col:first-child{ align-items:flex-start; }
+    .fork-col:last-child{ align-items:flex-end; }
+    .fbtn{ font-size:12.5px; padding:12px 16px; }
+    .fork-lab{ font-size:11px; }
+  }
 
   .trustbar { background:var(--ink); color:var(--paper); }
   .trustbar .tb-in { max-width:1200px; margin:0 auto; padding:15px 44px; display:flex; flex-wrap:wrap; gap:12px 40px; justify-content:center; align-items:center; font-size:13.5px; font-weight:600; }
