@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Free Instagram Engagement Rate Calculator (2026) | ASAI Technology</title>
+<meta name="description" content="Calculate your Instagram engagement rate free in seconds. Enter followers, likes and comments to see your rate, how it compares to benchmarks, and whether brands rate it high or low.">
+<link rel="canonical" href="https://asai-technology.pages.dev/instagram-engagement-rate-calculator.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="ASAI Technology">
+<meta property="og:title" content="Free Instagram Engagement Rate Calculator">
+<meta property="og:description" content="See your Instagram engagement rate in seconds — plus how it compares to industry benchmarks. Free, no login.">
+<meta property="og:url" content="https://asai-technology.pages.dev/instagram-engagement-rate-calculator.html">
+<meta property="og:image" content="https://asai-technology.pages.dev/og-image.png?v=3">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"Instagram Engagement Rate Calculator","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"INR"},"provider":{"@type":"Organization","name":"ASAI Technology","url":"https://asai-technology.pages.dev/"},"description":"Free tool to calculate Instagram engagement rate from followers, likes and comments."}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"How do you calculate Instagram engagement rate?","acceptedAnswer":{"@type":"Answer","text":"Engagement rate = (average likes + average comments) ÷ followers × 100. For example, an account with 10,000 followers averaging 400 likes and 20 comments has an engagement rate of (420 ÷ 10000) × 100 = 4.2%."}},
+{"@type":"Question","name":"What is a good Instagram engagement rate in 2026?","acceptedAnswer":{"@type":"Answer","text":"It depends on account size. Under 1% is below average, 1-3% is typical, 3-6% is great, and above 6% is elite. Smaller accounts (nano and micro) usually have higher rates than large ones."}},
+{"@type":"Question","name":"Why does engagement rate matter more than follower count?","acceptedAnswer":{"@type":"Answer","text":"Brands pay for real influence, not vanity numbers. A smaller account with high engagement often drives more sales than a large account with low engagement, so engagement rate is the metric that decides your value."}}
+]}
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Instrument+Serif:ital@0;1&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root { --paper:#F1EFE9; --paper-2:#E9E6DE; --ink:#131215; --ink-60:rgba(19,18,21,0.72); --ink-40:rgba(19,18,21,0.42);
+    --line:rgba(19,18,21,0.14); --accent:#FF4D00; --wa:#25D366; --lo:#e0483a; --ok:#e8a13a; --good:#2fb36b; }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+  body { background:var(--paper); color:var(--ink); font-family:'Archivo',sans-serif; line-height:1.6; overflow-x:hidden; -webkit-font-smoothing:antialiased; }
+  ::selection { background:var(--accent); color:#fff; }
+  a { color:inherit; text-decoration:none; }
+  .mono { font-family:'Space Mono',monospace; font-size:11px; letter-spacing:0.1em; text-transform:uppercase; }
+  .wrap { max-width:820px; margin:0 auto; padding:0 22px; }
+
+  nav { position:fixed; top:0; left:0; right:0; z-index:100; display:flex; justify-content:space-between; align-items:center;
+    padding:16px 22px; background:linear-gradient(180deg, var(--paper) 65%, transparent); }
+  .nav-logo { font-weight:900; font-size:16px; } .nav-logo .ai { color:var(--accent); }
+  .nav-logo .t { font-family:'Instrument Serif',serif; font-style:italic; font-weight:400; color:var(--ink-60); margin-left:6px; font-size:14px; }
+  .nav-wa { font-family:'Space Mono',monospace; font-size:11px; font-weight:700; letter-spacing:0.05em; text-transform:uppercase;
+    background:var(--wa); color:#fff; padding:10px 18px; border-radius:100px; }
+
+  header.hero { padding:120px 0 22px; text-align:center; }
+  .kick { font-family:'Space Mono',monospace; font-size:12px; letter-spacing:0.12em; text-transform:uppercase; color:var(--accent); margin-bottom:14px; }
+  h1 { font-weight:900; font-size:clamp(32px,5.2vw,52px); letter-spacing:-0.035em; line-height:1.03; margin-bottom:14px; text-wrap:balance; }
+  h1 em { font-family:'Instrument Serif',serif; font-style:italic; font-weight:400; color:var(--accent); }
+  .hero p { color:var(--ink-60); max-width:520px; margin:0 auto; font-size:17px; text-wrap:balance; }
+
+  .tool { background:#fff; border:1px solid var(--line); border-radius:24px; padding:34px 32px; margin:28px 0; box-shadow:0 20px 50px rgba(19,18,21,0.06); }
+  @media (max-width:600px){ .tool { padding:26px 20px; } }
+  .row { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  @media (max-width:520px){ .row { grid-template-columns:1fr; } }
+  .fld { margin-bottom:16px; }
+  .fld.full { grid-column:1 / -1; }
+  label { display:block; font-size:12px; font-weight:800; text-transform:uppercase; letter-spacing:0.05em; color:var(--ink); margin-bottom:8px; }
+  input { width:100%; background:var(--paper); border:1.5px solid rgba(19,18,21,0.18); border-radius:12px; padding:14px 16px; color:var(--ink); font-family:'Archivo',sans-serif; font-size:16px; font-weight:600; }
+  input::placeholder { color:var(--ink-40); font-weight:400; }
+  input:focus { outline:none; border-color:var(--accent); box-shadow:0 0 0 3px rgba(255,77,0,0.15); }
+  .calc { width:100%; margin-top:6px; font-size:15px; font-weight:800; letter-spacing:0.02em; background:var(--accent); color:#fff; border:none; cursor:pointer; padding:17px; border-radius:100px; transition:transform 0.2s, background 0.25s; }
+  .calc:hover { background:var(--ink); transform:translateY(-2px); }
+
+  /* result */
+  .result { display:none; margin-top:26px; border-top:1px dashed var(--line); padding-top:26px; text-align:center; }
+  .result.show { display:block; animation:pop 0.5s ease; }
+  @keyframes pop { from{opacity:0; transform:translateY(10px);} to{opacity:1; transform:none;} }
+  .result .who { font-family:'Space Mono',monospace; font-size:12px; color:var(--ink-40); letter-spacing:0.05em; margin-bottom:8px; }
+  .result .pct { font-weight:900; font-size:clamp(52px,12vw,84px); letter-spacing:-0.04em; line-height:0.9; }
+  .badge { display:inline-block; font-family:'Space Mono',monospace; font-size:12px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; padding:8px 18px; border-radius:100px; margin:12px 0 8px; color:#fff; }
+  .result .note { color:var(--ink-60); max-width:440px; margin:6px auto 20px; font-size:15.5px; }
+  .bar { height:12px; border-radius:100px; background:linear-gradient(90deg, var(--lo), var(--ok) 45%, var(--good)); position:relative; max-width:460px; margin:0 auto 8px; }
+  .bar .mk { position:absolute; top:-5px; width:22px; height:22px; border-radius:50%; background:#fff; border:3px solid var(--ink); transform:translateX(-50%); transition:left 0.6s cubic-bezier(0.22,1,0.36,1); }
+  .scale { display:flex; justify-content:space-between; max-width:460px; margin:0 auto 22px; font-family:'Space Mono',monospace; font-size:10px; color:var(--ink-40); }
+  .share { display:flex; gap:10px; justify-content:center; flex-wrap:wrap; }
+  .sbtn { font-size:13px; font-weight:800; padding:13px 24px; border-radius:100px; cursor:pointer; border:none; }
+  .sbtn.share1 { background:var(--ink); color:#fff; }
+  .sbtn.share2 { background:var(--wa); color:#fff; }
+  .sbtn.copy { background:transparent; border:1.5px solid var(--ink); color:var(--ink); }
+
+  section.info { padding:20px 0 10px; }
+  section.info h2 { font-weight:900; font-size:clamp(24px,3.4vw,34px); letter-spacing:-0.02em; margin:30px 0 12px; text-wrap:balance; }
+  section.info h2 em { font-family:'Instrument Serif',serif; font-style:italic; font-weight:400; }
+  section.info p { color:var(--ink-60); font-size:16.5px; margin-bottom:14px; }
+  section.info p b { color:var(--ink); }
+  .bmk { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin:22px 0; }
+  @media (max-width:600px){ .bmk { grid-template-columns:1fr 1fr; } }
+  .bmk .b { border:1px solid var(--line); border-radius:14px; background:#fff; padding:18px 16px; text-align:center; }
+  .bmk .b .n { font-weight:900; font-size:20px; }
+  .bmk .b .l { font-family:'Space Mono',monospace; font-size:10px; letter-spacing:0.06em; text-transform:uppercase; color:var(--ink-60); margin-top:5px; }
+
+  .cta { background:var(--ink); color:var(--paper); border-radius:24px; padding:48px 40px; text-align:center; margin:34px 0; }
+  .cta h2 { font-weight:900; font-size:clamp(24px,3.4vw,38px); letter-spacing:-0.03em; margin-bottom:12px; color:var(--paper); text-wrap:balance; }
+  .cta h2 em { font-family:'Instrument Serif',serif; font-style:italic; font-weight:400; color:#fff; }
+  .cta p { color:rgba(241,239,233,0.62); margin-bottom:26px; max-width:460px; margin-left:auto; margin-right:auto; }
+  .cta-btns { display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
+  .cta-btns a { font-size:13.5px; font-weight:800; padding:16px 28px; border-radius:100px; }
+  .cta-btns .p { background:var(--accent); color:#fff; }
+  .cta-btns .g { border:1.5px solid rgba(241,239,233,0.4); color:var(--paper); }
+
+  footer { background:var(--ink); color:var(--paper); padding:36px 22px; text-align:center; font-size:13.5px; }
+  footer .fl { display:flex; gap:16px; justify-content:center; flex-wrap:wrap; margin-bottom:14px; }
+  footer a, footer span { color:rgba(241,239,233,0.62); }
+  footer a:hover { color:var(--paper); }
+  footer .built { font-family:'Space Mono',monospace; font-size:11px; letter-spacing:0.06em; color:rgba(241,239,233,0.45); }
+  footer .built b { color:var(--accent); }
+
+  .wa-float { position:fixed; bottom:22px; right:22px; z-index:300; width:56px; height:56px; border-radius:50%;
+    background:var(--wa); display:flex; align-items:center; justify-content:center; box-shadow:0 12px 32px rgba(37,211,102,0.45); }
+  .wa-float svg { width:28px; height:28px; }
+  .toast { position:fixed; left:50%; bottom:26px; transform:translateX(-50%) translateY(20px); background:var(--ink); color:#fff; padding:12px 22px; border-radius:100px; font-size:13px; font-weight:700; opacity:0; pointer-events:none; transition:opacity 0.25s, transform 0.25s; z-index:500; }
+  .toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
+</style>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-ETPMSBSL9H"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-ETPMSBSL9H');</script></head>
+<body>
+<nav>
+  <a class="nav-logo" href="index.html">AS<span class="ai">AI</span><span class="t">Technology</span></a>
+  <a class="nav-wa" href="https://wa.me/919816689339?text=Hi%20ASAI%2C%20I%20want%20to%20grow%20my%20Instagram%20and%20get%20a%20website" target="_blank" rel="noopener">WhatsApp ↗</a>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="kick">Free Tool · No login</div>
+    <h1>Instagram Engagement Rate <em>Calculator</em></h1>
+    <p>See your real engagement rate in seconds — and whether brands would rate it low, average or elite.</p>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="tool">
+    <div class="fld full"><label>Instagram handle (optional)</label><input type="text" id="handle" placeholder="@yourname" maxlength="40"></div>
+    <div class="row">
+      <div class="fld"><label>Followers</label><input type="number" id="followers" inputmode="numeric" placeholder="e.g. 10000" min="1"></div>
+      <div class="fld"><label>Avg likes per post</label><input type="number" id="likes" inputmode="numeric" placeholder="e.g. 400" min="0"></div>
+    </div>
+    <div class="fld"><label>Avg comments per post</label><input type="number" id="comments" inputmode="numeric" placeholder="e.g. 20" min="0"></div>
+    <button class="calc" id="calcBtn">Calculate my engagement rate →</button>
+
+    <div class="result" id="result">
+      <div class="who" id="who"></div>
+      <div class="pct" id="pct">0%</div>
+      <span class="badge" id="badge">—</span>
+      <div class="note" id="note"></div>
+      <div class="bar"><div class="mk" id="mk" style="left:0%"></div></div>
+      <div class="scale"><span>0%</span><span>2%</span><span>4%</span><span>6%</span><span>8%+</span></div>
+      <div class="share">
+        <button class="sbtn share1" id="shareBtn">Share my result</button>
+        <button class="sbtn copy" id="copyBtn">Copy result</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section class="info">
+  <div class="wrap">
+    <h2>What counts as a <em>good</em> engagement rate?</h2>
+    <p><b>Engagement rate = (average likes + average comments) ÷ followers × 100.</b> It measures how many of your followers actually interact with your posts — the number brands trust far more than raw follower count, because it shows real influence.</p>
+    <div class="bmk">
+      <div class="b"><div class="n" style="color:var(--lo)">&lt;1%</div><div class="l">Below average</div></div>
+      <div class="b"><div class="n" style="color:var(--ok)">1–3%</div><div class="l">Average</div></div>
+      <div class="b"><div class="n" style="color:var(--good)">3–6%</div><div class="l">Great</div></div>
+      <div class="b"><div class="n" style="color:var(--accent)">6%+</div><div class="l">Elite</div></div>
+    </div>
+    <p>Smaller accounts usually score higher — a <b>nano-influencer (under 10k)</b> often sees 2–5%, while very large accounts sit under 1.5%. That's why a focused account with strong engagement can out-earn a bigger, quieter one.</p>
+    <h2>Why it matters for your business</h2>
+    <p>High engagement is proof people are listening — but a Instagram profile can't take payments, rank on Google, or capture leads. The brands and creators who win pair strong social with a <b>fast website that converts that attention into enquiries and sales.</b> That's what we build.</p>
+  </div>
+</section>
+
+<div class="wrap">
+  <div class="cta">
+    <h2>Great engagement deserves a <em>great website.</em></h2>
+    <p>We build premium, custom websites that turn your Instagram audience into paying customers — first draft in 24 hours.</p>
+    <div class="cta-btns">
+      <a class="p" href="https://wa.me/919816689339?text=Hi%20ASAI%2C%20I%20checked%20my%20engagement%20rate%20and%20want%20a%20website" target="_blank" rel="noopener">Get a website on WhatsApp ↗</a>
+      <a class="g" href="get-started.html">See instant pricing</a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="fl">
+    <a href="index.html">Home</a>
+    <a href="get-started.html">Get a Website</a>
+    <a href="free-website-audit.html">Free Audit</a>
+    <a href="pricing.html">Pricing</a>
+    <a href="https://wa.me/919816689339" target="_blank" rel="noopener">WhatsApp</a>
+  </div>
+  <div class="built">Built by <b>ASAI Technology</b> · Websites · Automation · SEO · +91 98166 89339</div>
+</footer>
+
+<a class="wa-float" href="https://wa.me/919816689339?text=Hi%20ASAI%2C%20I%20want%20a%20website" target="_blank" rel="noopener" aria-label="WhatsApp">
+  <svg viewBox="0 0 32 32" fill="#fff"><path d="M16 3C9.4 3 4 8.4 4 15c0 2.6.8 5 2.2 7L4.5 28l6.2-1.6c1.9 1 4 1.6 5.3 1.6 6.6 0 12-5.4 12-12S22.6 3 16 3zm0 22c-1.8 0-3.6-.5-5.1-1.4l-.4-.2-3.7 1 1-3.6-.2-.4C6.6 18.9 6 17 6 15 6 9.5 10.5 5 16 5s10 4.5 10 10-4.5 10-10 10zm5.5-7.5c-.3-.2-1.8-.9-2-1-.3-.1-.5-.2-.7.2-.2.3-.8 1-.9 1.1-.2.2-.3.2-.6.1-.3-.2-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.5-.5c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5-.1-.2-.7-1.7-1-2.3-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.2.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.3-.7.3-1.3.2-1.4-.1-.1-.3-.2-.6-.3z"/></svg>
+</a>
+<div class="toast" id="toast">Copied!</div>
+
+<script>
+(function(){
+  function ev(n,p){ if(typeof gtag==='function') gtag('event',n,p||{}); }
+  var $=function(id){return document.getElementById(id);};
+  var last={er:0,label:'',handle:''};
+
+  function verdict(er){
+    if(er<1) return {label:'Below average', color:'var(--lo)', note:"Under 1%. Don't panic — a clearer niche and consistent posting lift this fast."};
+    if(er<3) return {label:'Average', color:'var(--ok)', note:"A normal, healthy range. You're in the typical zone for most accounts."};
+    if(er<6) return {label:'Great', color:'var(--good)', note:"Above average — brands love this. Your audience is genuinely engaged."};
+    return {label:'Elite', color:'var(--accent)', note:"Top-tier engagement. This is the kind of rate brands pay a real premium for."};
+  }
+
+  function calc(){
+    var f=parseFloat($('followers').value), l=parseFloat($('likes').value)||0, c=parseFloat($('comments').value)||0;
+    if(!f || f<1){ $('followers').focus(); $('followers').style.borderColor='#FF4D00'; return; }
+    var er=((l+c)/f)*100;
+    var erR=Math.round(er*100)/100;
+    var v=verdict(er);
+    var h=$('handle').value.trim().replace(/^@/,'');
+    last={er:erR,label:v.label,handle:h};
+    $('who').textContent = h ? ('@'+h) : 'Your account';
+    $('pct').textContent = erR+'%';
+    $('pct').style.color = v.color;
+    $('badge').textContent = v.label;
+    $('badge').style.background = v.color;
+    $('note').textContent = v.note;
+    var pos=Math.max(2, Math.min(98, (er/8)*100));
+    $('mk').style.left = pos+'%';
+    var r=$('result'); r.classList.add('show'); r.scrollIntoView({behavior:'smooth', block:'center'});
+    ev('tool_calculate', {tool:'ig_engagement', rate:erR});
+  }
+
+  function shareText(){
+    var who = last.handle ? ('@'+last.handle+"'s") : 'My';
+    return who+' Instagram engagement rate is '+last.er+'% — '+last.label+'! 🔥\nCheck yours free:\nhttps://asai-technology.pages.dev/instagram-engagement-rate-calculator.html';
+  }
+  function toast(msg){ var t=$('toast'); t.textContent=msg; t.classList.add('show'); setTimeout(function(){t.classList.remove('show');},1600); }
+
+  $('calcBtn').addEventListener('click', calc);
+  ['followers','likes','comments'].forEach(function(id){ $(id).addEventListener('keydown', function(e){ if(e.key==='Enter') calc(); }); });
+
+  $('shareBtn').addEventListener('click', function(){
+    var txt=shareText();
+    ev('tool_share',{tool:'ig_engagement', method:'share'});
+    if(navigator.share){ navigator.share({title:'My Instagram engagement rate', text:txt}).catch(function(){}); }
+    else { navigator.clipboard.writeText(txt).then(function(){toast('Result copied — paste it anywhere!');}); }
+  });
+  $('copyBtn').addEventListener('click', function(){
+    navigator.clipboard.writeText(shareText()).then(function(){ toast('Copied!'); ev('tool_share',{tool:'ig_engagement', method:'copy'}); });
+  });
+  document.querySelectorAll('a[href*="wa.me/"]').forEach(function(a){ a.addEventListener('click', function(){ ev('whatsapp_click',{location:'ig_calculator'}); }); });
+})();
+</script>
+</body>
+</html>
