@@ -40,7 +40,19 @@
     <button class="btn g">Another button</button>
   </div>
 
-  <div class="note"><b>How to test BYTE:</b> move your cursor around (his eyes follow), wait a few seconds between actions (he picks random antics), stop touching everything for ~20s (he falls asleep with 💤), then move the mouse (he wakes), and <b>click him</b> for a happy reaction. Refresh for a different sequence each visit.</div>
+  <div class="note"><b>How to test BYTE:</b> he now cycles through <b>every</b> trick on his own (shuffled, ~every 3–6s). Or make him do any trick instantly with these buttons. Also: swoop your cursor onto him fast (he panics), click him (delight), leave him ~25s (he sleeps 💤).</div>
+
+  <div class="row" style="flex-wrap:wrap;gap:8px;">
+    <button class="btn g" onclick="BYTE.play('ballSaga')">🏀 Ball saga</button>
+    <button class="btn g" onclick="BYTE.play('snack')">🍫 Sneaky snack</button>
+    <button class="btn g" onclick="BYTE.play('trip')">💫 Trip &amp; fall</button>
+    <button class="btn g" onclick="BYTE.play('wallBump')">💥 Wall bump</button>
+    <button class="btn g" onclick="BYTE.play('pointWhatsApp')">👉 Point to WhatsApp</button>
+    <button class="btn g" onclick="BYTE.play('peek')">👀 Peek away</button>
+    <button class="btn g" onclick="BYTE.play('dance')">🎵 Dance</button>
+    <button class="btn g" onclick="BYTE.play('stretch')">🥱 Stretch</button>
+    <button class="btn g" onclick="BYTE.play('wave')">👋 Wave</button>
+  </div>
 
   <h2>Some headings for him to explore</h2>
   <div class="cards">
@@ -55,6 +67,8 @@
   <div style="height:60vh"></div>
   <p class="mono">— end of preview —</p>
 </div>
+
+<a class="wa-float" href="#" onclick="return false" aria-label="WhatsApp" style="position:fixed;bottom:22px;right:22px;z-index:300;width:56px;height:56px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;box-shadow:0 12px 32px rgba(37,211,102,.45);color:#fff;font-size:26px;text-decoration:none;">💬</a>
 
 <script src="byte.js" defer></script>
 </body>

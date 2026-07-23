@@ -176,9 +176,10 @@
   }
 
   /* ---------- BALL PHYSICS (only while active) ---------- */
-  var B = { x:0, y:0, vx:0, vy:0, on:false };
+  var B = { x:0, y:0, vx:0, vy:0, on:false, raf:false };
   function ballLoop(){
-    if (!B.on) return;
+    if (!B.on){ B.raf = false; return; }
+    B.raf = true;
     B.vy += 0.55; B.x += B.vx; B.y += B.vy;
     var fy = H - 30;
     if (B.y > fy){ B.y = fy; B.vy = -B.vy * 0.62; B.vx *= 0.98; }
@@ -263,14 +264,14 @@
         setMouth('grin'); speak('ball time! 🏀', 1300);
         ballShow(pos.x + (faceL ? -20 : CW + 2), H - 34);
         var d = 0;
-        (function dribble(){                                    // dribble 4 bounces
-          B.on = true; B.vy = -7.5; B.vx = 0; ballLoop();
+        (function dribble(){                                    // dribble bounces
+          B.on = true; B.vy = -7.5; B.vx = 0; if (!B.raf) ballLoop();
           setTimeout(function(){
             if (++d < 3) return dribble();
             B.on = false; setMouth('flat'); speak('okay... focus.', 1200);   // determined
             setTimeout(function(){
               el.classList.add('armsUp'); setMouth('o'); speak('HNNGG!', 900);
-              B.on = true; B.vy = -16 - Math.random()*3; B.vx = (Math.random()*2 - 1); ballLoop();  // straight UP — too much power
+              B.on = true; B.vy = -16 - Math.random()*3; B.vx = (Math.random()*2 - 1); if (!B.raf) ballLoop();  // straight UP — too much power
               setTimeout(function(){ el.classList.remove('armsUp'); }, 500);
               setTimeout(function(){                             // ball returns → BONK
                 B.vx = 0; B.x = pos.x + CW/2 - 13;               // gravity finds his head
@@ -335,13 +336,16 @@
           mx = pos.x + (Math.random()<.5?-220:240); my = pos.y - 60 + Math.random()*140; setTimeout(look, 650); })();
       }}
   ];
+  /* shuffle-bag: every behavior plays once before any repeats — guaranteed variety */
+  var bag = [];
   function pick(){
     var pool = BEHAVIORS.filter(function(b){ return mobile ? b.mobileOk : true; });
-    var tot = pool.reduce(function(s,b){ return s + b.weight; }, 0), r = Math.random()*tot;
-    for (var i = 0; i < pool.length; i++){ r -= pool[i].weight; if (r <= 0) return pool[i]; }
-    return pool[0];
+    if (!bag.length){
+      bag = pool.slice();
+      for (var i = bag.length - 1; i > 0; i--){ var j = Math.floor(Math.random()*(i+1)); var t = bag[i]; bag[i] = bag[j]; bag[j] = t; }
+    }
+    return bag.pop();
   }
-  var lastName = '';
 
   /* ---------- SLEEP ---------- */
   var lastActive = Date.now();
@@ -360,14 +364,13 @@
       if (reduce) return tick();
       if (Date.now() - lastActive > 25000 && !sleeping){ if (!busy) goSleep(); return tick(); }
       if (busy || sleeping || guardsBlock()) return tick();
-      var b = pick(); if (b.name === lastName) b = pick();   // avoid instant repeats
-      lastName = b.name; busy = true;
+      var b = pick(); busy = true;
       var released = false;
       function release(){ if (!released){ released = true; busy = false; } }
       try { b.run(release); } catch(e){ release(); }
       setTimeout(release, 12000);                             // safety
       tick();
-    }, (mobile ? 9000 : 4500) + Math.random()*6000);
+    }, (mobile ? 7000 : 2600) + Math.random()*3500);
   }
 
   /* ---------- CLICK / TAP = delight ---------- */
