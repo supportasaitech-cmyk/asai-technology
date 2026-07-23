@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Meet BYTE — ASAI Technology (preview)</title>
+<meta name="robots" content="noindex">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;700;800;900&family=Instrument+Serif:ital@1&family=Space+Mono&display=swap" rel="stylesheet">
+<style>
+  :root { --paper:#F1EFE9; --ink:#131215; --ink-60:rgba(19,18,21,0.72); --line:rgba(19,18,21,0.14); --accent:#FF4D00; }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:var(--paper); color:var(--ink); font-family:'Archivo',sans-serif; line-height:1.6; min-height:200vh; }
+  .mono { font-family:'Space Mono',monospace; font-size:11px; letter-spacing:0.12em; text-transform:uppercase; color:var(--accent); }
+  .wrap { max-width:820px; margin:0 auto; padding:80px 24px; }
+  h1 { font-weight:900; font-size:clamp(40px,8vw,88px); letter-spacing:-0.05em; line-height:0.92; margin:14px 0 20px; }
+  h1 em { font-family:'Instrument Serif',serif; font-style:italic; font-weight:400; color:var(--accent); }
+  p.lead { font-size:19px; color:var(--ink-60); max-width:560px; }
+  .row { display:flex; gap:14px; margin:34px 0; flex-wrap:wrap; }
+  .btn { font-weight:800; font-size:14px; padding:15px 28px; border-radius:100px; border:none; cursor:pointer; }
+  .btn.p { background:var(--accent); color:#fff; }
+  .btn.g { background:transparent; border:1.5px solid var(--ink); color:var(--ink); }
+  .cards { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin:60px 0; }
+  @media (max-width:640px){ .cards { grid-template-columns:1fr; } }
+  .card { background:#fff; border:1px solid var(--line); border-radius:18px; padding:28px 24px; }
+  .card h3 { font-weight:800; font-size:19px; margin-bottom:8px; }
+  .card p { font-size:14.5px; color:var(--ink-60); }
+  h2 { font-weight:900; font-size:clamp(28px,4vw,44px); letter-spacing:-0.03em; margin:50px 0 16px; }
+  .note { background:#fff; border:1px solid var(--line); border-radius:16px; padding:22px 26px; margin:30px 0; font-size:15px; color:var(--ink-60); }
+  .note b { color:var(--ink); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="mono">Mascot preview · not linked publicly</div>
+  <h1>Meet <em>BYTE.</em></h1>
+  <p class="lead">He lives in the corner, watches your cursor, blinks, strolls, waves, naps when you're away, and cheers when you click him. Move your mouse, scroll, leave him alone for 20 seconds, or click him — he behaves differently every time.</p>
+
+  <div class="row">
+    <button class="btn p">A button to notice</button>
+    <button class="btn g">Another button</button>
+  </div>
+
+  <div class="note"><b>How to test BYTE:</b> move your cursor around (his eyes follow), wait a few seconds between actions (he picks random antics), stop touching everything for ~20s (he falls asleep with 💤), then move the mouse (he wakes), and <b>click him</b> for a happy reaction. Refresh for a different sequence each visit.</div>
+
+  <h2>Some headings for him to explore</h2>
+  <div class="cards">
+    <div class="card"><h3>Websites</h3><p>Fast, custom-coded, built to convert.</p></div>
+    <div class="card"><h3>Automation</h3><p>Remove the manual work from your day.</p></div>
+    <div class="card"><h3>SEO &amp; GEO</h3><p>Get found on Google and in AI answers.</p></div>
+  </div>
+
+  <h2>Scroll down — he keeps living here</h2>
+  <p class="lead">BYTE stays pinned in his corner as you scroll, doing his thing without ever blocking what you're reading. This is just Phase 1 — the engine is modular, so we can keep adding behaviors (basketball play, peeking from cards, climbing headings, coding gags) as drop-in modules.</p>
+
+  <div style="height:60vh"></div>
+  <p class="mono">— end of preview —</p>
+</div>
+
+<script src="byte.js" defer></script>
+</body>
+</html>
