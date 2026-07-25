@@ -3,22 +3,22 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>ASAI Technology — Websites, automation & growth systems</title>
-<meta name="description" content="ASAI Technology engineers premium websites, business automation, SEO and growth systems — first working draft in 24 hours.">
+<title>ASAI Technology — AI agents, automation & systems, shipped</title>
+<meta name="description" content="We build AI agents, business automation and internal tools that actually ship — not slide decks. Our own AI product is live on the Chrome Web Store. First working build in 24 hours.">
 <meta name="theme-color" content="#131215">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><g stroke='%23FF4D00' stroke-width='13' stroke-linecap='round'><path d='M50 8v84M14 29l72 42M86 29L14 71'/></g></svg>">
 <link rel="canonical" href="https://asai-technology.pages.dev/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="ASAI Technology">
-<meta property="og:title" content="ASAI Technology — Websites, automation & growth systems">
-<meta property="og:description" content="Premium websites, business automation, SEO and growth systems — first working draft in 24 hours.">
+<meta property="og:title" content="ASAI Technology — AI agents, automation & systems, shipped">
+<meta property="og:description" content="AI agents, automation and internal tools that actually ship — not slide decks. First working build in 24 hours.">
 <meta property="og:url" content="https://asai-technology.pages.dev/">
 <meta property="og:image" content="https://asai-technology.pages.dev/og-image.png?v=3">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="ASAI Technology — Websites, automation & growth systems">
-<meta name="twitter:description" content="Premium websites, business automation, SEO and growth systems — first working draft in 24 hours.">
+<meta name="twitter:title" content="ASAI Technology — AI agents, automation & systems, shipped">
+<meta name="twitter:description" content="AI agents, automation and internal tools that actually ship — not slide decks. First working build in 24 hours.">
 <meta name="twitter:image" content="https://asai-technology.pages.dev/og-image.png?v=3">
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;900&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
 <style>
@@ -139,6 +139,83 @@
   .trustbar .tb-in span { display:inline-flex; align-items:center; gap:7px; color:rgba(243,241,235,0.72); }
   .trustbar .tb-in b { color:var(--orange); font-weight:900; }
   @media (max-width:600px){ .trustbar .tb-in { gap:8px 18px; font-size:11.5px; padding:13px 16px; } }
+
+  /* ===== SYSTEM OVERVIEW ===== */
+  .sysgrid { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
+  @media (max-width:900px){ .sysgrid { grid-template-columns:1fr; } }
+  .syscard { border:1px solid var(--line); border-radius:18px; background:#fff; padding:30px 28px; position:relative; }
+  .syscard .sn { font-family:'Space Mono',monospace; font-size:11px; letter-spacing:0.1em; color:var(--orange); }
+  .syscard h3 { font-weight:800; font-size:19px; letter-spacing:-0.015em; margin:12px 0 9px; }
+  .syscard p { font-size:14.5px; color:var(--ink60); }
+  .flow { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-top:16px; padding-top:14px; border-top:1px dashed var(--line); }
+  .flow span { font-family:'Space Mono',monospace; font-size:10px; letter-spacing:0.04em; text-transform:uppercase;
+    border:1px solid var(--line); border-radius:6px; padding:5px 9px; color:var(--ink); background:var(--paper); }
+  .flow i { color:var(--orange); font-style:normal; font-weight:800; }
+
+  /* ===== PROOF LAYER ===== */
+  .proofgrid { display:grid; grid-template-columns:1.25fr 1fr; gap:18px; }
+  @media (max-width:860px){ .proofgrid { grid-template-columns:1fr; } }
+  .pcard { border:1px solid var(--line); border-radius:20px; background:#fff; padding:32px 30px; display:flex; flex-direction:column; }
+  .pcard.live { border-color:rgba(20,19,22,0.28); }
+  .ptag { display:inline-flex; align-items:center; gap:7px; font-family:'Space Mono',monospace; font-size:10px; letter-spacing:0.08em;
+    text-transform:uppercase; padding:6px 11px; border-radius:100px; width:fit-content; }
+  .ptag.shipped { background:rgba(37,211,102,0.14); color:#12794a; }
+  .ptag.building { background:rgba(255,77,0,0.12); color:var(--orange); }
+  .ptag.soon { background:rgba(20,19,22,0.07); color:var(--ink60); }
+  .pcard h3 { font-weight:900; font-size:23px; letter-spacing:-0.025em; margin:16px 0 10px; }
+  .pcard p { font-size:15px; color:var(--ink60); margin-bottom:16px; }
+  .pcard .plink { font-family:'Space Mono',monospace; font-size:11.5px; font-weight:700; letter-spacing:0.05em;
+    text-transform:uppercase; color:var(--ink); margin-top:auto; }
+  .pcard .plink:hover { color:var(--orange); }
+  .pstack { display:flex; flex-direction:column; gap:18px; }
+  .pnote { border:1px dashed var(--line); border-radius:16px; padding:22px 24px; font-size:14px; color:var(--ink60); background:transparent; }
+  .pnote b { color:var(--ink); }
+
+  /* ===== PRODUCTIZED SERVICES ===== */
+  .psvc { border-top:1px solid var(--line); }
+  .psrow { display:grid; grid-template-columns:auto 1fr 1.15fr auto; gap:26px; align-items:start;
+    padding:30px 6px; border-bottom:1px solid var(--line); transition:padding-left .3s ease, background .3s ease; }
+  .psrow:hover { padding-left:16px; background:#fff; }
+  .psrow .idx { font-family:'Space Mono',monospace; font-size:11px; color:var(--orange); padding-top:6px; }
+  .psrow h3 { font-weight:900; font-size:clamp(21px,2.4vw,27px); letter-spacing:-0.028em; }
+  .psrow .flag { display:inline-block; font-family:'Space Mono',monospace; font-size:9px; letter-spacing:0.08em;
+    text-transform:uppercase; background:var(--orange); color:#fff; padding:3px 8px; border-radius:5px; margin-left:8px; vertical-align:middle; }
+  .psrow .out { font-size:14.5px; color:var(--ink60); margin-top:8px; }
+  .psrow .out b { color:var(--ink); }
+  .psrow .meta { font-family:'Space Mono',monospace; font-size:10.5px; letter-spacing:0.04em; text-transform:uppercase;
+    color:var(--ink40); white-space:nowrap; padding-top:7px; }
+  @media (max-width:860px){ .psrow { grid-template-columns:1fr; gap:10px; } .psrow .meta { white-space:normal; } }
+
+  /* ===== HOW IT WORKS ===== */
+  .steps4 { display:grid; grid-template-columns:repeat(4,1fr); gap:20px; counter-reset:s; }
+  @media (max-width:860px){ .steps4 { grid-template-columns:1fr 1fr; } }
+  @media (max-width:560px){ .steps4 { grid-template-columns:1fr; } }
+  .st { padding-top:18px; border-top:2px solid var(--ink); }
+  .st .n { font-weight:900; font-size:30px; letter-spacing:-0.03em; color:var(--orange); line-height:1; }
+  .st h3 { font-weight:800; font-size:17px; margin:9px 0 7px; }
+  .st p { font-size:14px; color:var(--ink60); }
+
+  /* ===== TRUST LAYER ===== */
+  .trustgrid { display:grid; grid-template-columns:repeat(2,1fr); gap:16px; }
+  @media (max-width:760px){ .trustgrid { grid-template-columns:1fr; } }
+  .tcard { border:1px solid var(--line); border-radius:16px; padding:26px 26px; background:#fff; display:flex; gap:16px; align-items:flex-start; }
+  .tcard .tk { font-size:20px; line-height:1; }
+  .tcard h3 { font-weight:800; font-size:16.5px; margin-bottom:6px; }
+  .tcard p { font-size:14px; color:var(--ink60); }
+
+  /* ===== FINAL CTA ===== */
+  .finalcta { background:var(--ink); color:var(--paper); border-radius:26px; padding:70px 56px; text-align:center; }
+  @media (max-width:700px){ .finalcta { padding:46px 24px; border-radius:20px; } }
+  .finalcta h2 { font-weight:900; font-size:clamp(30px,4.6vw,54px); letter-spacing:-0.035em; line-height:1.02; margin-bottom:16px; text-wrap:balance; }
+  .finalcta h2 em { font-family:'Instrument Serif',serif; font-style:italic; font-weight:400; color:var(--orange); }
+  .finalcta .fsub { color:rgba(243,241,235,0.68); font-size:17px; max-width:520px; margin:0 auto 32px; text-wrap:balance; }
+  .fbtns { display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
+  .fb { font-size:14.5px; font-weight:800; padding:17px 32px; border-radius:100px; border:1.5px solid transparent; transition:transform .2s ease, background .25s ease, color .25s ease; }
+  .fb.main { background:var(--orange); color:#fff; }
+  .fb.main:hover { background:#fff; color:var(--ink); transform:translateY(-2px); }
+  .fb.alt { border-color:rgba(243,241,235,0.35); color:var(--paper); }
+  .fb.alt:hover { background:rgba(243,241,235,0.1); transform:translateY(-2px); }
+  .fmicro { margin-top:20px; font-family:'Space Mono',monospace; font-size:11.5px; letter-spacing:0.05em; color:rgba(243,241,235,0.45); }
 
   /* mobile: single floating WhatsApp only (.wa-float) — no sticky bar */
   .hero-bottom { position:absolute; left:44px; right:44px; bottom:30px; display:flex; justify-content:space-between; align-items:flex-end; gap:24px; }
@@ -262,24 +339,24 @@
 <nav>
   <a class="logo" href="index.html">AS<span class="ai">AI</span><span class="t">Technology</span></a>
   <div class="nav-r">
-    <a class="l" href="#services">What we do</a>
-    <a class="l" href="about.html">About</a>
+    <a class="l" href="#systems">Systems</a>
+    <a class="l" href="#proof">Proof</a>
+    <a class="l" href="#services">Services</a>
     <a class="l" href="pricing.html">Pricing</a>
-    <a class="l" href="blog.html">Guides</a>
     <a class="l" href="free-tools.html" style="color:var(--orange);">Free Tools</a>
-    <a class="l" href="#contact">Contact Us</a>
+    <a class="l" href="#contact">Book a call</a>
   </div>
   <button class="nav-burger" id="navBurger" aria-label="Menu"><span></span><span></span></button>
 </nav>
 
 <div id="mmenu">
   <div class="mm-links">
-    <div class="mm-item"><a href="#services">What we do</a></div>
-    <div class="mm-item"><a href="about.html">About</a></div>
+    <div class="mm-item"><a href="#systems">Systems</a></div>
+    <div class="mm-item"><a href="#proof">Proof</a></div>
+    <div class="mm-item"><a href="#services">Services</a></div>
     <div class="mm-item"><a href="pricing.html">Pricing</a></div>
-    <div class="mm-item"><a href="blog.html">Guides</a></div>
     <div class="mm-item"><a href="free-tools.html">Free Tools</a></div>
-    <div class="mm-item"><a href="#contact">Contact Us</a></div>
+    <div class="mm-item"><a href="#contact">Book a call</a></div>
   </div>
   <div class="mm-meta">
     <a class="mm-wa" href="https://wa.me/919816689339">WhatsApp us — +91 98166 89339 ↗</a>
@@ -315,103 +392,180 @@
     <div class="hl-wrap">
       <h1 class="hl" id="heroHl">
         <span class="top-line">
-          <span class="msk"><span class="w">Websites</span> <span class="w">that</span> <span class="w">transform</span> <span class="w">traffic</span> <span class="w">into</span></span>
+          <span class="msk"><span class="w">AI</span> <span class="w">agents,</span> <span class="w">automation</span> <span class="w">and</span> <span class="w">internal</span> <span class="w">tools</span> <span class="w">—</span></span>
         </span>
         <span class="bot-line">
-          <span class="msk"><span class="w hero-main-word or it">momentum.</span></span>
+          <span class="msk"><span class="w hero-main-word or it">shipped, not pitched.</span></span>
         </span>
       </h1>
       <div class="hero-forks">
+        <p class="hero-out">Most AI agencies hand you a slide deck. We hand you a working system — first build in <b>24 hours</b>. Our own AI product is live on the Chrome Web Store.</p>
         <div class="fork-btns">
           <div class="fork-col">
-            <span class="fork-lab">Want a website built?</span>
-            <a class="fbtn primary" href="get-started.html">Get Your Website →</a>
+            <span class="fork-lab">Have something to automate?</span>
+            <a class="fbtn primary" href="https://wa.me/919816689339?text=Hi%20ASAI%2C%20I%27d%20like%20to%20book%20a%20strategy%20call%20about%20a%20system%20I%20need%20built" target="_blank" rel="noopener">Book a strategy call →</a>
           </div>
           <div class="fork-col">
-            <span class="fork-lab">Already have a website?</span>
-            <a class="fbtn ghost" href="free-website-audit.html">Free Website Audit</a>
+            <span class="fork-lab">Want to see it first?</span>
+            <a class="fbtn ghost" href="#proof">See what we've shipped</a>
           </div>
         </div>
       </div>
     </div>
     <div class="hero-bottom">
-      <div class="note"><b>Yes — we built this to be played with.</b> The ball, the physics, the swish — all hand-coded, a taste of how we sweat every detail.</div>
+      <div class="note"><b>The basketball is real — hand-coded physics, collisions, the swish.</b> We build things that work. This one just happens to be fun.</div>
     </div>
   </div>
 </header>
 
 <div class="trustbar">
   <div class="tb-in">
-    <span><b>24h</b> first draft</span>
-    <span><b>120+</b> projects delivered</span>
-    <span><b>No</b> lock-in — you own it</span>
-    <span>Noida, India · worldwide</span>
+    <span><b>Live</b> product on the Chrome Web Store</span>
+    <span><b>24h</b> first working build</span>
+    <span><b>No</b> lock-in — you own the code</span>
+    <span>India · US · UK</span>
   </div>
 </div>
 
 <div class="marq" aria-hidden="true">
   <div class="marq-track">
-    <span>Websites</span><span>Extensions</span><span>Automation</span><span>SEO</span><span>Social media marketing</span><span>Design &amp; branding</span>
-    <span>Websites</span><span>Extensions</span><span>Automation</span><span>SEO</span><span>Social media marketing</span><span>Design &amp; branding</span>
+    <span>AI Agents</span><span>Process Automation</span><span>Chrome Extensions</span><span>Internal Tools</span><span>Conversion Websites</span><span>Technical SEO</span><span>GEO</span>
+    <span>AI Agents</span><span>Process Automation</span><span>Chrome Extensions</span><span>Internal Tools</span><span>Conversion Websites</span><span>Technical SEO</span><span>GEO</span>
   </div>
 </div>
 
-<section id="services" style="padding-top:96px;">
+<section id="systems" style="padding-top:96px;">
   <div class="wrap">
-    <div class="kicker rev">What we do</div>
+    <div class="kicker rev">What we build</div>
     <h2 class="rl">
-      <span class="msk"><span class="w">Simple</span> <span class="w">to</span> <span class="w">say.</span> <span class="w">Hard</span> <span class="w">to</span> <span class="w">do</span></span>
-      <span class="msk"><span class="w it or">well.</span></span>
+      <span class="msk"><span class="w">Three</span> <span class="w">kinds</span> <span class="w">of</span> <span class="w">system.</span></span>
+      <span class="msk"><span class="w it or">One standard.</span></span>
     </h2>
-    <div class="plain">
-      <a class="prow rev" href="custom-website-development.html"><h3>Websites</h3><p>A site that looks premium, loads fast, and brings you enquiries — whether you are one professional or a full business.</p><span class="go">See how we build it →</span></a>
-      <a class="prow rev" href="extensions.html"><h3>Extensions</h3><p>Small tools that live in your browser and remove the boring, repeated clicks from your day. We build and ship our own, too.</p><span class="go">See the mind map →</span></a>
-      <a class="prow rev" href="automation.html"><h3>Automation</h3><p>The report you make every morning, the data you copy every week — we make it happen by itself.</p><span class="go">See the workflow →</span></a>
-      <a class="prow rev" href="seo.html"><h3>SEO Growth</h3><p>Rank for what your customers actually search for and dominate your local market organically.</p><span class="go">See our strategy →</span></a>
-      <a class="prow rev" href="smm.html"><h3>Social Media</h3><p>Look sharp on Instagram & LinkedIn with branded, high-conversion content designed for authority.</p><span class="go">See the process →</span></a>
-      <a class="prow rev" href="brand-identity-design.html"><h3>Design & Branding</h3><p>Logos, guidelines, and visual identities that make you impossible to ignore.</p><span class="go">See how we design →</span></a>
+    <div class="sysgrid">
+      <div class="syscard rev">
+        <div class="sn">/ 01 — Agent systems</div>
+        <h3>Software that does the work, not just the thinking</h3>
+        <p>An agent watches for a trigger, decides what to do, acts inside the tools you already use, and reports back. No dashboard for you to babysit.</p>
+        <div class="flow"><span>Trigger</span><i>→</i><span>Agent decides</span><i>→</i><span>Acts in your tools</span><i>→</i><span>Reports</span></div>
+      </div>
+      <div class="syscard rev">
+        <div class="sn">/ 02 — Automation pipelines</div>
+        <h3>The repetitive task, permanently removed</h3>
+        <p>Data arrives, gets validated, transformed and delivered on schedule — reporting, entry, routing, invoicing. Set once, runs without you.</p>
+        <div class="flow"><span>Data in</span><i>→</i><span>Validate</span><i>→</i><span>Transform</span><i>→</i><span>Delivered</span></div>
+      </div>
+      <div class="syscard rev">
+        <div class="sn">/ 03 — Revenue systems</div>
+        <h3>Attention turned into booked conversations</h3>
+        <p>A fast site engineered to convert, wired to search and AI answers, with every enquiry landing where you actually reply.</p>
+        <div class="flow"><span>Search / AI</span><i>→</i><span>Landing</span><i>→</i><span>Capture</span><i>→</i><span>Your inbox</span></div>
+      </div>
     </div>
   </div>
 </section>
 
-<section id="notes" style="padding-top:30px;">
+<section id="proof" style="padding-top:40px;">
   <div class="wrap">
-    <div class="kicker rev">Notes from the studio</div>
+    <div class="kicker rev">Proof, not promises</div>
     <h2 class="rl">
-      <span class="msk"><span class="w">A</span> <span class="w">few</span> <span class="w">things</span> <span class="w">we</span></span>
-      <span class="msk"><span class="w it or">believe.</span></span>
+      <span class="msk"><span class="w">We</span> <span class="w">ship</span> <span class="w">our</span> <span class="w">own</span></span>
+      <span class="msk"><span class="w it or">products too.</span></span>
     </h2>
-    <div class="notes" id="noteDeck">
-      <div class="noteCard">
-        <span class="n">On simplicity</span>
-        <h3>Most websites say too much and show too little.</h3>
-        <p>Visitors decide in seconds. A page that loads fast, says one clear thing, and gives one obvious next step will always beat a page stuffed with everything.</p>
+    <div class="proofgrid">
+      <div class="pcard live rev">
+        <span class="ptag shipped">● Shipped &amp; live</span>
+        <h3>AI.Reply — Gmail assistant</h3>
+        <p>A production Chrome extension that drafts replies inside Gmail. Published on the Chrome Web Store, used by real people, maintained through real reviews and real breakage. This is the standard every client build is held to.</p>
+        <span class="plink">Chrome Web Store · live</span>
       </div>
-      <div class="noteCard">
-        <span class="n">On speed</span>
-        <h3>Slow delivery is a choice, not a necessity.</h3>
-        <p>Agencies stretch projects across months because their process demands it. Ours does not. We put a finished draft in your hands within 24 hours.</p>
+      <div class="pstack">
+        <div class="pcard rev">
+          <span class="ptag building">● In development</span>
+          <h3>Desktop automation agent</h3>
+          <p>An agent that operates a computer on its own — navigating apps, completing multi-step tasks without supervision. In active build.</p>
+        </div>
+        <div class="pnote rev">
+          <b>Why this matters to you:</b> most agencies selling "AI" have never shipped a product. Everything we build for clients comes from the same workshop as the software we ship ourselves.
+        </div>
       </div>
-      <div class="noteCard">
-        <span class="n">On engineering</span>
-        <h3>Templates are easily spotted and quickly forgotten.</h3>
-        <p>We hand-code layouts and optimize assets directly. It ensures your brand stands out, loads instantly, and outranks competitors who rely on bloated site builders.</p>
+    </div>
+  </div>
+</section>
+
+<section id="services" style="padding-top:40px;">
+  <div class="wrap">
+    <div class="kicker rev">Productized systems</div>
+    <h2 class="rl">
+      <span class="msk"><span class="w">Defined</span> <span class="w">scope.</span> <span class="w">Defined</span></span>
+      <span class="msk"><span class="w it or">outcome.</span></span>
+    </h2>
+    <div class="psvc">
+      <div class="psrow rev">
+        <span class="idx">/01</span>
+        <div><h3>AI Agents &amp; Autonomous Tools<span class="flag">Flagship</span></h3></div>
+        <div class="out"><b>Outcome:</b> a decision or task your team repeats daily is handled by software that acts on its own — inside your existing tools.<br><b>Typical build:</b> browser or desktop agents, AI assistants embedded in your workflow, autonomous multi-step tasks.</div>
+        <div class="meta">Custom scope<br>Quoted on call</div>
       </div>
-      <div class="noteCard">
-        <span class="n">On results</span>
-        <h3>Traffic means nothing without momentum.</h3>
-        <p>Clicks are a vanity metric. We architect flows designed specifically to convert passive readers into active inquiries and measurable revenue.</p>
+      <div class="psrow rev">
+        <span class="idx">/02</span>
+        <div><h3>Business Process Automation</h3></div>
+        <div class="out"><b>Outcome:</b> hours returned to your week — the daily report, the copy-paste between apps, the follow-up nobody sends, all running without a human.<br><b>Typical build:</b> reporting pipelines, data sync, lead routing, invoicing and reminders.</div>
+        <div class="meta">Custom scope<br>Quoted on call</div>
       </div>
+      <div class="psrow rev">
+        <span class="idx">/03</span>
+        <div><h3>Internal Tools &amp; Extensions</h3></div>
+        <div class="out"><b>Outcome:</b> the missing feature exists, and the repetitive clicks are gone — inside the software your team already lives in.<br><b>Typical build:</b> Chrome extensions, team dashboards, SaaS add-ons, custom utilities. Proven by AI.Reply.</div>
+        <div class="meta">Custom scope<br>Quoted on call</div>
+      </div>
+      <div class="psrow rev">
+        <span class="idx">/04</span>
+        <div><h3>Conversion Websites &amp; Growth Infrastructure</h3></div>
+        <div class="out"><b>Outcome:</b> a site that loads fast, ranks, is readable by AI search, and turns visitors into enquiries — not a brochure.<br><b>Typical build:</b> hand-coded sites, technical SEO, GEO for AI answers, analytics and capture.</div>
+        <div class="meta">From ₹4,999<br>Fixed packages</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="how" style="padding-top:30px;">
+  <div class="wrap">
+    <div class="kicker rev">How it works</div>
+    <h2 class="rl">
+      <span class="msk"><span class="w">Four</span> <span class="w">steps.</span> <span class="w">No</span></span>
+      <span class="msk"><span class="w it or">discovery theatre.</span></span>
+    </h2>
+    <div class="steps4">
+      <div class="st rev"><div class="n">01</div><h3>Strategy call</h3><p>You describe the process that's costing you time or money. We tell you honestly whether software can fix it — and if it can't, we say so.</p></div>
+      <div class="st rev"><div class="n">02</div><h3>Scope &amp; fixed price</h3><p>You get the exact deliverable, timeline and price in writing before anything starts. No hourly billing, no scope drift, no surprise invoices.</p></div>
+      <div class="st rev"><div class="n">03</div><h3>First build in 24h</h3><p>Not a mockup, not a slide — a working build you can open and use. You react to something real while it's still cheap to change.</p></div>
+      <div class="st rev"><div class="n">04</div><h3>Ship &amp; hand over</h3><p>It goes live, and everything transfers to you — source code, accounts, domain. We earn the next project instead of holding this one hostage.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="trust" style="padding-top:40px;">
+  <div class="wrap">
+    <div class="kicker rev">How we work</div>
+    <h2 class="rl">
+      <span class="msk"><span class="w">The</span> <span class="w">things</span> <span class="w">agencies</span></span>
+      <span class="msk"><span class="w it or">don't put in writing.</span></span>
+    </h2>
+    <div class="trustgrid">
+      <div class="tcard rev"><span class="tk">🔑</span><div><h3>You own everything</h3><p>Source code, domain, hosting and accounts are in your name from day one. No monthly fee to keep your own website alive, no hostage situation if you leave.</p></div></div>
+      <div class="tcard rev"><span class="tk">👤</span><div><h3>You talk to the engineer</h3><p>No account managers, no juniors, nothing lost in translation. The person who scopes your system is the person who builds it.</p></div></div>
+      <div class="tcard rev"><span class="tk">📐</span><div><h3>Fixed scope, fixed price</h3><p>Agreed before work starts. If we underestimate, that's our problem — the price you approved is the price you pay.</p></div></div>
+      <div class="tcard rev"><span class="tk">🔎</span><div><h3>No black box</h3><p>You see working builds throughout, not a silent month followed by a reveal. If something isn't going to work, you hear it early.</p></div></div>
     </div>
   </div>
 </section>
 
 <section id="contact" style="padding-top:40px;">
   <div class="wrap">
-    <div class="kicker rev">Contact Us</div>
+    <div class="kicker rev">Book a strategy call</div>
     <h2 class="rl">
-      <span class="msk"><span class="w">Tell</span> <span class="w">us</span> <span class="w">your</span> <span class="w">idea.</span></span>
-      <span class="msk"><span class="w it or">We</span> <span class="w it or">reply</span> <span class="w it or">with</span> <span class="w it or">a</span> <span class="w it or">premium</span> <span class="w it or">draft.</span></span>
+      <span class="msk"><span class="w">Tell</span> <span class="w">us</span> <span class="w">what's</span> <span class="w">eating</span> <span class="w">your</span> <span class="w">time.</span></span>
+      <span class="msk"><span class="w it or">We reply with a plan, not a pitch.</span></span>
     </h2>
     <div class="cgrid">
       <div class="rev">
@@ -447,6 +601,20 @@
   document.querySelectorAll("select.ccode").forEach(function(sel){ codes.forEach(function(c){var o=document.createElement("option");o.value=c[0];o.textContent=c[1]+" "+c[0];sel.appendChild(o);}); sel.value=guess; });
 })();
 </script>
+
+<section style="padding-top:20px;">
+  <div class="wrap">
+    <div class="finalcta rev">
+      <h2>Still doing it <em>manually?</em></h2>
+      <p class="fsub">Tell us the process. We'll tell you honestly whether software can remove it — and what it would take. First working build in 24 hours.</p>
+      <div class="fbtns">
+        <a class="fb main" href="https://wa.me/919816689339?text=Hi%20ASAI%2C%20I%27d%20like%20to%20book%20a%20strategy%20call" target="_blank" rel="noopener">Book a strategy call →</a>
+        <a class="fb alt" href="pricing.html">See pricing</a>
+      </div>
+      <div class="fmicro">No obligation · Honest answer even if it's "you don't need us"</div>
+    </div>
+  </div>
+</section>
 
 <footer>
   <a class="fcta" href="https://wa.me/919816689339">
