@@ -107,21 +107,11 @@
   body.nav-open #mobilemenu a:nth-child(5){transition-delay:.32s}
 
   /* ---------- AMBIENT MESH ---------- */
-  .mesh{position:absolute;inset:-8%;overflow:hidden;z-index:0;pointer-events:none;will-change:transform}
-  .blob{position:absolute;border-radius:50%;filter:blur(80px);opacity:.9;will-change:transform}
-  .b1{width:50vw;height:50vw;background:radial-gradient(circle,rgba(255,90,31,0.52),transparent 66%);top:-12%;right:-6%;
-    animation:drift1 22s ease-in-out infinite}
-  .b2{width:42vw;height:42vw;background:radial-gradient(circle,rgba(255,160,60,0.46),transparent 66%);bottom:-16%;right:14%;
-    animation:drift2 26s ease-in-out infinite}
-  .b3{width:38vw;height:38vw;background:radial-gradient(circle,rgba(110,140,255,0.26),transparent 66%);top:20%;left:-12%;
-    animation:drift3 30s ease-in-out infinite}
-  .b4{width:30vw;height:30vw;background:radial-gradient(circle,rgba(255,110,50,0.32),transparent 68%);top:54%;left:22%;
-    animation:drift4 24s ease-in-out infinite}
-  @keyframes drift1{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-7%,6%) scale(1.14)}}
-  @keyframes drift2{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(8%,-7%) scale(1.10)}}
-  @keyframes drift3{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(9%,8%) scale(1.16)}}
-  @keyframes drift4{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-9%,-6%) scale(1.12)}}
-  @media(max-width:760px){ .blob{filter:blur(58px);opacity:.8} }
+  /* GPU liquid field — one shader pass, far cheaper than blurred divs */
+  .liquid{position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;display:block}
+  .liquid-fallback{position:absolute;inset:0;z-index:0;pointer-events:none;
+    background:radial-gradient(60% 60% at 78% 18%,rgba(255,90,31,0.20),transparent 70%),
+               radial-gradient(50% 50% at 20% 75%,rgba(255,160,60,0.16),transparent 70%)}
 
   /* ---------- HERO ---------- */
   .hero{position:relative;min-height:100svh;display:flex;align-items:center;padding:126px 0 80px;overflow:hidden}
@@ -320,12 +310,7 @@
 
 <!-- ============ HERO ============ -->
 <header class="hero" id="start">
-  <div class="mesh" aria-hidden="true">
-    <div class="blob b1" data-depth="26"></div>
-    <div class="blob b2" data-depth="-18"></div>
-    <div class="blob b3" data-depth="14"></div>
-    <div class="blob b4" data-depth="-30"></div>
-  </div>
+  <canvas class="liquid" id="liquid" aria-hidden="true"></canvas>
 
   <div class="wrap hero-inner" style="max-width:1360px">
    <div class="hero-grid">
@@ -519,29 +504,105 @@
     },90);
   });
 
-  /* ---------- 2. AMBIENT MESH (cursor parallax) ---------- */
+  /* ---------- 2. LIQUID FIELD (WebGL — GPU does the work) ---------- */
   (function(){
-    var blobs=[].slice.call(document.querySelectorAll('.blob'));
-    if(!blobs.length) return;
-    var tx=0,ty=0,cx=0,cy=0,t=0,raf=null,active=true;
-    addEventListener('mousemove',function(e){
-      tx=(e.clientX/innerWidth-0.5); ty=(e.clientY/innerHeight-0.5);
-    },{passive:true});
-    function loop(){
-      cx+=(tx-cx)*0.045; cy+=(ty-cy)*0.045; t+=0.0026;
-      /* parallax moves the whole field; each blob keeps its own CSS drift,
-         so motion is guaranteed even without JS */
-      var m=document.querySelector('.mesh');
-      if(m) m.style.transform='translate3d('+(cx*34).toFixed(2)+'px,'+(cy*30).toFixed(2)+'px,0)';
-      raf=requestAnimationFrame(loop);
+    var cv=document.getElementById('liquid'); if(!cv) return;
+    var gl=null;
+    try{
+      var o={antialias:false,alpha:false,depth:false,stencil:false,preserveDrawingBuffer:false,powerPreference:'high-performance'};
+      gl=cv.getContext('webgl',o)||cv.getContext('experimental-webgl',o);
+    }catch(e){}
+    if(!gl){ /* graceful fallback: static brand gradient */
+      var fb=document.createElement('div'); fb.className='liquid-fallback';
+      cv.parentNode.insertBefore(fb,cv); cv.parentNode.removeChild(cv); return;
     }
+
+    var VS='attribute vec2 p;void main(){gl_Position=vec4(p,0.0,1.0);}';
+    var FS=[
+      'precision mediump float;',
+      'uniform vec2 u_res;uniform float u_time;uniform vec2 u_mouse;',
+      'float hash(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453123);}',
+      'float noise(vec2 p){vec2 i=floor(p),f=fract(p);vec2 u=f*f*(3.0-2.0*f);',
+      ' return mix(mix(hash(i),hash(i+vec2(1.0,0.0)),u.x),mix(hash(i+vec2(0.0,1.0)),hash(i+vec2(1.0,1.0)),u.x),u.y);}',
+      'float fbm(vec2 p){float v=0.0,a=0.5;for(int i=0;i<5;i++){v+=a*noise(p);p*=2.02;a*=0.5;}return v;}',
+      'void main(){',
+      ' vec2 uv=gl_FragCoord.xy/u_res;',
+      ' vec2 asp=vec2(u_res.x/u_res.y,1.0);',
+      ' vec2 st=uv*asp; vec2 m=u_mouse*asp;',
+      ' float d=distance(st,m);',
+      ' float infl=exp(-d*4.2);',
+      ' vec2 dir=normalize(st-m+1e-5);',
+      ' st+=dir*sin(d*20.0-u_time*2.1)*infl*0.06;',           /* liquid ripple */
+      ' float t=u_time*0.05;',
+      ' vec2 q=vec2(fbm(st*1.65+vec2(0.0,t)),fbm(st*1.65+vec2(5.2,-t)));',
+      ' vec2 r=vec2(fbm(st*1.65+3.4*q+vec2(1.7,9.2)+t*0.6),fbm(st*1.65+3.4*q+vec2(8.3,2.8)-t*0.5));',
+      ' float f=fbm(st*1.65+3.6*r);',
+      ' vec3 paper=vec3(0.973,0.969,0.957);',
+      ' vec3 orange=vec3(1.0,0.353,0.122);',
+      ' vec3 amber=vec3(1.0,0.66,0.32);',
+      ' vec3 cool=vec3(0.62,0.68,1.0);',
+      ' vec3 col=paper;',
+      ' col=mix(col,amber,clamp(f*f*1.3,0.0,1.0)*0.40);',
+      ' col=mix(col,orange,clamp(pow(r.x,1.6),0.0,1.0)*0.38);',
+      ' col=mix(col,cool,clamp(q.y*0.8,0.0,1.0)*0.11);',
+      ' col+=infl*0.05;',
+      ' gl_FragColor=vec4(col,1.0);}'
+    ].join('\n');
+
+    function sh(type,src){ var s=gl.createShader(type); gl.shaderSource(s,src); gl.compileShader(s); return s; }
+    var prog=gl.createProgram();
+    gl.attachShader(prog,sh(gl.VERTEX_SHADER,VS));
+    gl.attachShader(prog,sh(gl.FRAGMENT_SHADER,FS));
+    gl.linkProgram(prog);
+    if(!gl.getProgramParameter(prog,gl.LINK_STATUS)){
+      var fb2=document.createElement('div'); fb2.className='liquid-fallback';
+      cv.parentNode.insertBefore(fb2,cv); cv.parentNode.removeChild(cv); return;
+    }
+    gl.useProgram(prog);
+
+    var buf=gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER,buf);
+    gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,3,-1,-1,3]),gl.STATIC_DRAW);
+    var loc=gl.getAttribLocation(prog,'p');
+    gl.enableVertexAttribArray(loc);
+    gl.vertexAttribPointer(loc,2,gl.FLOAT,false,0,0);
+
+    var uRes=gl.getUniformLocation(prog,'u_res'),
+        uTime=gl.getUniformLocation(prog,'u_time'),
+        uMouse=gl.getUniformLocation(prog,'u_mouse');
+
+    var mx=0.72,my=0.62,tx=0.72,ty=0.62,raf=null,t0=performance.now();
+
+    function size(){
+      var dpr=Math.min(window.devicePixelRatio||1,1.25); /* fill-rate bound: cap DPR */
+      var w=Math.max(1,Math.round(cv.clientWidth*dpr)), h=Math.max(1,Math.round(cv.clientHeight*dpr));
+      if(cv.width!==w||cv.height!==h){ cv.width=w; cv.height=h; gl.viewport(0,0,w,h); }
+    }
+    addEventListener('resize',size,{passive:true});
+
+    addEventListener('mousemove',function(e){
+      var r=cv.getBoundingClientRect();
+      tx=(e.clientX-r.left)/r.width;
+      ty=1.0-(e.clientY-r.top)/r.height;   /* gl_FragCoord origin is bottom-left */
+    },{passive:true});
+
+    function draw(now){
+      mx+=(tx-mx)*0.06; my+=(ty-my)*0.06;
+      size();
+      gl.uniform2f(uRes,cv.width,cv.height);
+      gl.uniform1f(uTime,(now-t0)*0.001);
+      gl.uniform2f(uMouse,mx,my);
+      gl.drawArrays(gl.TRIANGLES,0,3);
+      raf=requestAnimationFrame(draw);
+    }
+    function start(){ if(!raf) raf=requestAnimationFrame(draw); }
+    function stop(){ if(raf){ cancelAnimationFrame(raf); raf=null; } }
+
     var hero=document.querySelector('.hero');
-    if('IntersectionObserver' in window&&hero){
-      new IntersectionObserver(function(en){
-        if(en[0].isIntersecting){ if(!raf) raf=requestAnimationFrame(loop); }
-        else if(raf){ cancelAnimationFrame(raf); raf=null; }
-      },{threshold:0}).observe(hero);
-    } else loop();
+    if('IntersectionObserver' in window && hero){
+      new IntersectionObserver(function(en){ en[0].isIntersecting?start():stop(); },{threshold:0}).observe(hero);
+    } else start();
+    document.addEventListener('visibilitychange',function(){ document.hidden?stop():start(); });
   })();
 
   /* ---------- 3. SERVICE PILLS ---------- */
