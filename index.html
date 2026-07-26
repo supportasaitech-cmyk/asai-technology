@@ -255,8 +255,11 @@
      the owner's OS reports "reduce" but wants the effects visible. */
 
   /* ---------- FLASHLIGHT REVEAL PANEL ---------- */
-  .hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,3.4vw,54px);align-items:center}
-  @media(max-width:1080px){ .hero-grid{grid-template-columns:1fr} .torch{margin-top:52px} }
+  /* minmax(0,…) is essential: plain 1fr has min-width:auto, so the nowrap
+     headline would force the left column wider and crush the panel. */
+  .hero-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+    gap:clamp(28px,3.4vw,54px);align-items:center}
+  @media(max-width:1080px){ .hero-grid{grid-template-columns:minmax(0,1fr)} .torch{margin-top:52px} }
   .torch{position:relative}
   .torch-head{font-size:13px;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;
     color:var(--ink-3);margin-bottom:14px}
@@ -358,18 +361,18 @@
       <div class="torch-head">The things you can't see</div>
       <div class="torch-panel" id="torchPanel">
         <div class="grain"></div>
-        <span class="tw" style="left:7%;top:8%;transform:rotate(-14deg)">Dead pages</span>
-        <span class="tw" style="left:48%;top:4%;transform:rotate(21deg)">Poor Core Web Vitals</span>
-        <span class="tw" style="left:26%;top:19%;transform:rotate(-39deg)">Redirect chains</span>
-        <span class="tw" style="left:56%;top:25%;transform:rotate(9deg)">Untracked conversions</span>
-        <span class="tw" style="left:5%;top:32%;transform:rotate(46deg)">Missing schema</span>
-        <span class="tw" style="left:32%;top:43%;transform:rotate(-20deg)">Silent form failures</span>
-        <span class="tw" style="left:55%;top:49%;transform:rotate(34deg)">Render-blocking scripts</span>
-        <span class="tw" style="left:7%;top:57%;transform:rotate(-28deg)">Poor-quality leads</span>
-        <span class="tw" style="left:38%;top:67%;transform:rotate(15deg)">Manual data entry</span>
-        <span class="tw" style="left:57%;top:74%;transform:rotate(-42deg)">Invisible to AI search</span>
-        <span class="tw" style="left:9%;top:81%;transform:rotate(30deg)">Abandoned enquiries</span>
-        <span class="tw" style="left:33%;top:90%;transform:rotate(-9deg)">No follow-up sequence</span>
+        <span class="tw" style="left:8%;top:7%">Dead pages</span>
+        <span class="tw" style="left:47%;top:13%">Poor Core Web Vitals</span>
+        <span class="tw" style="left:13%;top:21%">Redirect chains</span>
+        <span class="tw" style="left:52%;top:29%">Untracked conversions</span>
+        <span class="tw" style="left:6%;top:37%">Missing schema</span>
+        <span class="tw" style="left:45%;top:45%">Silent form failures</span>
+        <span class="tw" style="left:9%;top:53%">Render-blocking scripts</span>
+        <span class="tw" style="left:54%;top:61%">Poor-quality leads</span>
+        <span class="tw" style="left:14%;top:69%">Manual data entry</span>
+        <span class="tw" style="left:48%;top:77%">Invisible to AI search</span>
+        <span class="tw" style="left:7%;top:85%">Abandoned enquiries</span>
+        <span class="tw" style="left:43%;top:93%">No follow-up sequence</span>
         <div class="beam" id="beam"></div>
       </div>
       <p class="torch-foot"><b>Hidden funnels and broken tech are quietly draining your sales.</b> We find the leaks, automate your workflows, and scale your growth.</p>
