@@ -126,8 +126,8 @@
   .ln.go .in{transform:translateY(0);opacity:1;filter:blur(0)}
   .ln:nth-child(2) .in{transition-delay:.13s}
   h1 .dim{color:var(--ink-3)}
-  @media(min-width:560px){ h1{font-size:clamp(30px,5.85vw,86px)} .ln .in{white-space:nowrap} }
-  @media(max-width:559px){ h1{font-size:34px} }
+  @media(min-width:560px){ h1{font-size:clamp(26px,3.15vw,47px)} .ln .in{white-space:nowrap} }
+  @media(max-width:559px){ h1{font-size:31px} }
 
   .hero-sub{font-size:clamp(17px,1.55vw,20.5px);color:var(--ink-2);max-width:50ch;line-height:1.55;
     margin-bottom:38px;text-wrap:balance;opacity:0;transform:translateY(18px);
@@ -136,36 +136,36 @@
   .hero-sub b{color:var(--ink);font-weight:700}
 
   /* ---------- FORM ---------- */
-  .startform{max-width:690px;background:var(--bg-2);border:1px solid var(--line);border-radius:var(--r-lg);
-    padding:26px;box-shadow:0 1px 2px rgba(20,18,15,0.03),0 14px 44px rgba(20,18,15,0.06);
+  .startform{max-width:640px;background:var(--bg-2);border:1px solid var(--line);border-radius:20px;
+    padding:19px;box-shadow:0 1px 2px rgba(20,18,15,0.03),0 14px 44px rgba(20,18,15,0.06);
     opacity:0;transform:translateY(22px);transition:opacity .9s ease .52s,transform .9s var(--ease) .52s,box-shadow .5s var(--ease)}
   .startform.go{opacity:1;transform:none}
   .startform:focus-within{box-shadow:0 1px 2px rgba(20,18,15,0.04),0 20px 60px rgba(20,18,15,0.10)}
 
   .pills{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:8px}
-  .pill{border:1.5px solid var(--line-2);background:var(--bg);border-radius:13px;padding:13px 10px;cursor:pointer;
-    font-family:'Manrope',sans-serif;font-size:14.5px;font-weight:700;color:var(--ink-2);letter-spacing:-0.01em;
+  .pill{border:1.5px solid var(--line-2);background:var(--bg);border-radius:11px;padding:10px 8px;cursor:pointer;
+    font-family:'Manrope',sans-serif;font-size:13.5px;font-weight:700;color:var(--ink-2);letter-spacing:-0.01em;
     transition:all .25s var(--ease)}
   .pill:hover{border-color:var(--ink-2)}
   .pill[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
-  .pill-detail{font-size:13.5px;font-weight:600;color:var(--ink-2);background:var(--tint);
-    border-radius:11px;padding:11px 14px;margin-bottom:20px;line-height:1.45;
-    display:flex;align-items:center;gap:8px}
+  .pill-detail{font-size:12.5px;font-weight:600;color:var(--ink-2);background:var(--tint);
+    border-radius:9px;padding:9px 12px;margin-bottom:15px;line-height:1.4;
+    display:flex;align-items:center;gap:7px}
   .pill-detail b{color:var(--accent);font-weight:800}
   @media(max-width:520px){ .pills{grid-template-columns:1fr} }
 
-  .fl{display:block;font-size:12.5px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;
-    color:var(--ink);margin-bottom:9px}
+  .fl{display:block;font-size:11.5px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;
+    color:var(--ink);margin-bottom:7px}
   .fb{position:relative;border:1.5px solid var(--line-2);border-radius:var(--r-md);background:var(--tint);
     transition:border-color .28s ease,background .28s ease,box-shadow .28s ease}
   .fb:focus-within{border-color:var(--accent);background:#fff;box-shadow:0 0 0 4px var(--accent-soft)}
   .fb textarea,.fb input{width:100%;background:transparent;border:none;color:var(--ink);
-    font-family:'Manrope',sans-serif;font-size:17px;font-weight:600;padding:16px 18px;resize:none;line-height:1.5}
+    font-family:'Manrope',sans-serif;font-size:15px;font-weight:600;padding:12px 14px;resize:none;line-height:1.45}
   .fb textarea:focus,.fb input:focus{outline:none}
   .fb ::placeholder{color:var(--ink-3);font-weight:400;font-style:italic}
-  .frow{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:20px}
-  .submit{width:100%;margin-top:22px;padding:20px;border:none;border-radius:var(--r-md);cursor:pointer;
-    background:var(--ink);color:#fff;font-family:'Manrope',sans-serif;font-size:16.5px;font-weight:800;
+  .frow{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
+  .submit{width:100%;margin-top:16px;padding:15px;border:none;border-radius:13px;cursor:pointer;
+    background:var(--ink);color:#fff;font-family:'Manrope',sans-serif;font-size:15px;font-weight:800;
     letter-spacing:-0.01em;transition:background .25s ease,transform .25s var(--ease)}
   .submit:hover{background:var(--accent);transform:translateY(-2px)}
   .f-note{margin-top:18px;color:var(--ink-3);font-size:14px;font-weight:600}
@@ -255,13 +255,13 @@
      the owner's OS reports "reduce" but wants the effects visible. */
 
   /* ---------- FLASHLIGHT REVEAL PANEL ---------- */
-  .hero-grid{display:grid;grid-template-columns:1.1fr 0.9fr;gap:clamp(30px,4vw,64px);align-items:center}
+  .hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,3.4vw,54px);align-items:center}
   @media(max-width:1080px){ .hero-grid{grid-template-columns:1fr} .torch{margin-top:52px} }
   .torch{position:relative}
   .torch-head{font-size:13px;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;
     color:var(--ink-3);margin-bottom:14px}
   .torch-panel{position:relative;background:#131110;border-radius:22px;overflow:hidden;
-    height:clamp(330px,44vh,430px);cursor:crosshair;
+    height:clamp(400px,58vh,560px);cursor:crosshair;
     box-shadow:0 18px 50px rgba(20,18,15,0.20),inset 0 0 0 1px rgba(255,255,255,0.06)}
   .torch-panel .grain{position:absolute;inset:0;opacity:.35;pointer-events:none;
     background-image:radial-gradient(rgba(255,255,255,0.05) 1px,transparent 1px);background-size:22px 22px}
@@ -358,18 +358,18 @@
       <div class="torch-head">The things you can't see</div>
       <div class="torch-panel" id="torchPanel">
         <div class="grain"></div>
-        <span class="tw" style="left:5%;top:7%;transform:rotate(-3deg)">Dead pages</span>
-        <span class="tw" style="left:52%;top:4%;transform:rotate(2deg)">Poor Core Web Vitals</span>
-        <span class="tw" style="left:11%;top:23%;transform:rotate(1.5deg)">Redirect chains</span>
-        <span class="tw" style="left:56%;top:20%;transform:rotate(-2deg)">Untracked conversions</span>
-        <span class="tw" style="left:6%;top:39%;transform:rotate(-1deg)">Missing schema</span>
-        <span class="tw" style="left:48%;top:36%;transform:rotate(2.5deg)">Silent form failures</span>
-        <span class="tw" style="left:8%;top:55%;transform:rotate(2deg)">Render-blocking scripts</span>
-        <span class="tw" style="left:58%;top:52%;transform:rotate(-2.5deg)">Poor-quality leads</span>
-        <span class="tw" style="left:13%;top:71%;transform:rotate(-2deg)">Manual data entry</span>
-        <span class="tw" style="left:50%;top:68%;transform:rotate(1deg)">Invisible to AI search</span>
-        <span class="tw" style="left:6%;top:87%;transform:rotate(1.5deg)">Abandoned enquiries</span>
-        <span class="tw" style="left:52%;top:85%;transform:rotate(-1.5deg)">No follow-up sequence</span>
+        <span class="tw" style="left:7%;top:8%;transform:rotate(-14deg)">Dead pages</span>
+        <span class="tw" style="left:48%;top:4%;transform:rotate(21deg)">Poor Core Web Vitals</span>
+        <span class="tw" style="left:26%;top:19%;transform:rotate(-39deg)">Redirect chains</span>
+        <span class="tw" style="left:56%;top:25%;transform:rotate(9deg)">Untracked conversions</span>
+        <span class="tw" style="left:5%;top:32%;transform:rotate(46deg)">Missing schema</span>
+        <span class="tw" style="left:32%;top:43%;transform:rotate(-20deg)">Silent form failures</span>
+        <span class="tw" style="left:55%;top:49%;transform:rotate(34deg)">Render-blocking scripts</span>
+        <span class="tw" style="left:7%;top:57%;transform:rotate(-28deg)">Poor-quality leads</span>
+        <span class="tw" style="left:38%;top:67%;transform:rotate(15deg)">Manual data entry</span>
+        <span class="tw" style="left:57%;top:74%;transform:rotate(-42deg)">Invisible to AI search</span>
+        <span class="tw" style="left:9%;top:81%;transform:rotate(30deg)">Abandoned enquiries</span>
+        <span class="tw" style="left:33%;top:90%;transform:rotate(-9deg)">No follow-up sequence</span>
         <div class="beam" id="beam"></div>
       </div>
       <p class="torch-foot"><b>Hidden funnels and broken tech are quietly draining your sales.</b> We find the leaks, automate your workflows, and scale your growth.</p>
