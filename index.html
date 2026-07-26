@@ -82,9 +82,11 @@
   .nav-links{display:flex;align-items:center;gap:32px}
   .nav-links a{font-size:15px;font-weight:600;color:var(--ink-2);transition:color .2s ease}
   .nav-links a:hover{color:var(--accent)}
-  .nav-cta{font-size:14.5px;font-weight:700;color:#fff;background:var(--ink);
-    padding:11px 22px;border-radius:100px;transition:background .25s ease,transform .25s var(--ease)}
-  .nav-cta:hover{background:var(--accent);transform:translateY(-1px);color:#fff}
+  .nav-cta{font-size:15px;font-weight:700;color:var(--ink);position:relative;padding-bottom:3px}
+  .nav-cta:after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--accent);
+    transform:scaleX(0);transform-origin:right;transition:transform .35s var(--ease)}
+  .nav-cta:hover{color:var(--accent)}
+  .nav-cta:hover:after{transform:scaleX(1);transform-origin:left}
   .burger{display:none;width:44px;height:44px;border:1px solid var(--line-2);border-radius:50%;background:transparent;
     cursor:pointer;flex-direction:column;align-items:center;justify-content:center;gap:5px;padding:0}
   .burger span{display:block;width:17px;height:2px;background:var(--ink);border-radius:2px;transition:transform .35s var(--ease)}
@@ -105,13 +107,21 @@
   body.nav-open #mobilemenu a:nth-child(5){transition-delay:.32s}
 
   /* ---------- AMBIENT MESH ---------- */
-  .mesh{position:absolute;inset:0;overflow:hidden;z-index:0;pointer-events:none}
-  .blob{position:absolute;border-radius:50%;filter:blur(90px);opacity:.55;will-change:transform}
-  .b1{width:52vw;height:52vw;background:radial-gradient(circle,rgba(255,90,31,0.34),transparent 68%);top:-14%;right:-8%}
-  .b2{width:44vw;height:44vw;background:radial-gradient(circle,rgba(255,168,80,0.30),transparent 68%);bottom:-20%;right:12%}
-  .b3{width:40vw;height:40vw;background:radial-gradient(circle,rgba(120,150,255,0.16),transparent 68%);top:24%;left:-14%}
-  .b4{width:30vw;height:30vw;background:radial-gradient(circle,rgba(255,120,60,0.20),transparent 70%);top:52%;left:26%}
-  @media(max-width:760px){ .blob{filter:blur(64px);opacity:.5} }
+  .mesh{position:absolute;inset:-8%;overflow:hidden;z-index:0;pointer-events:none;will-change:transform}
+  .blob{position:absolute;border-radius:50%;filter:blur(80px);opacity:.9;will-change:transform}
+  .b1{width:50vw;height:50vw;background:radial-gradient(circle,rgba(255,90,31,0.52),transparent 66%);top:-12%;right:-6%;
+    animation:drift1 22s ease-in-out infinite}
+  .b2{width:42vw;height:42vw;background:radial-gradient(circle,rgba(255,160,60,0.46),transparent 66%);bottom:-16%;right:14%;
+    animation:drift2 26s ease-in-out infinite}
+  .b3{width:38vw;height:38vw;background:radial-gradient(circle,rgba(110,140,255,0.26),transparent 66%);top:20%;left:-12%;
+    animation:drift3 30s ease-in-out infinite}
+  .b4{width:30vw;height:30vw;background:radial-gradient(circle,rgba(255,110,50,0.32),transparent 68%);top:54%;left:22%;
+    animation:drift4 24s ease-in-out infinite}
+  @keyframes drift1{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-7%,6%) scale(1.14)}}
+  @keyframes drift2{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(8%,-7%) scale(1.10)}}
+  @keyframes drift3{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(9%,8%) scale(1.16)}}
+  @keyframes drift4{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-9%,-6%) scale(1.12)}}
+  @media(max-width:760px){ .blob{filter:blur(58px);opacity:.8} }
 
   /* ---------- HERO ---------- */
   .hero{position:relative;min-height:100svh;display:flex;align-items:center;padding:126px 0 80px;overflow:hidden}
@@ -252,12 +262,37 @@
   .wa:hover{transform:translateY(-3px) scale(1.05)}
   .wa svg{width:28px;height:28px}
 
-  @media(prefers-reduced-motion:reduce){
-    .rv,.hero-sub,.startform{opacity:1!important;transform:none!important;transition:none}
-    .ln .in{transform:none!important;opacity:1!important;filter:none!important}
-    .connector .rail:after{transform:scaleY(1)!important}
-    .connector .node{transform:translateX(-50%) scale(1)!important}
-  }
+  /* NOTE: motion is intentionally NOT gated behind prefers-reduced-motion —
+     the owner's OS reports "reduce" but wants the effects visible. */
+
+  /* ---------- SYSTEM DIAGRAM (fills the right-hand space) ---------- */
+  .hero-grid{display:grid;grid-template-columns:1.12fr 0.88fr;gap:clamp(30px,4vw,70px);align-items:center}
+  @media(max-width:1080px){ .hero-grid{grid-template-columns:1fr} .sysviz{display:none} }
+  .sysviz{position:relative;padding:10px 0}
+  .snode{position:relative;display:flex;align-items:center;gap:14px;background:var(--bg-2);
+    border:1.5px solid var(--line);border-radius:16px;padding:15px 20px;margin:0 0 30px auto;
+    box-shadow:0 6px 24px rgba(20,18,15,0.06);width:max-content;min-width:210px;
+    animation:floatN 6s ease-in-out infinite}
+  .snode:nth-child(1){margin-right:14%;animation-delay:0s}
+  .snode:nth-child(2){margin-right:0;animation-delay:.5s}
+  .snode:nth-child(3){margin-right:22%;animation-delay:1s}
+  .snode:nth-child(4){margin-right:4%;animation-delay:1.5s}
+  .snode:nth-child(5){margin-right:16%;animation-delay:2s}
+  .snode:last-child{margin-bottom:0}
+  @keyframes floatN{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+  .snode .sdot{width:11px;height:11px;border-radius:50%;background:var(--accent);flex-shrink:0;
+    box-shadow:0 0 0 0 rgba(255,90,31,0.5);animation:ping 2.6s ease-out infinite}
+  .snode:nth-child(2) .sdot{animation-delay:.5s}
+  .snode:nth-child(3) .sdot{animation-delay:1s}
+  .snode:nth-child(4) .sdot{animation-delay:1.5s}
+  .snode:nth-child(5) .sdot{animation-delay:2s}
+  @keyframes ping{0%{box-shadow:0 0 0 0 rgba(255,90,31,0.45)}70%{box-shadow:0 0 0 13px rgba(255,90,31,0)}100%{box-shadow:0 0 0 0 rgba(255,90,31,0)}}
+  .snode .slabel{font-size:15.5px;font-weight:800;letter-spacing:-0.02em;color:var(--ink)}
+  .snode .smeta{font-size:12.5px;font-weight:700;color:var(--ink-3);margin-left:auto;padding-left:14px}
+  .sysviz .wire{position:absolute;left:0;right:0;top:0;bottom:0;pointer-events:none;z-index:-1}
+  .sysviz .wire path{fill:none;stroke:var(--accent);stroke-width:1.6;opacity:.34;
+    stroke-dasharray:5 7;animation:dash 2.2s linear infinite}
+  @keyframes dash{to{stroke-dashoffset:-24}}
 </style>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-ETPMSBSL9H"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-ETPMSBSL9H');</script>
 </head>
@@ -292,7 +327,9 @@
     <div class="blob b4" data-depth="-30"></div>
   </div>
 
-  <div class="wrap hero-inner">
+  <div class="wrap hero-inner" style="max-width:1360px">
+   <div class="hero-grid">
+    <div>
     <span class="hero-tag eyebrow"><span class="dot"></span>Websites · Automation · Growth</span>
     <h1>
       <span class="ln"><span class="in">Build a Business That Works.</span></span>
@@ -333,6 +370,22 @@
       <button class="submit" type="submit" id="submitBtn">Build My Website</button>
     </form>
     <p class="f-note">We reply the same day. First working build within 24 hours.</p>
+    </div>
+
+    <div class="sysviz" aria-hidden="true">
+      <svg class="wire" viewBox="0 0 400 460" preserveAspectRatio="none">
+        <path d="M300 46 C 250 92, 330 92, 300 136"/>
+        <path d="M300 136 C 240 182, 300 182, 250 226"/>
+        <path d="M250 226 C 320 272, 260 272, 320 316"/>
+        <path d="M320 316 C 250 362, 320 362, 275 406"/>
+      </svg>
+      <div class="snode"><span class="sdot"></span><span class="slabel">Website</span><span class="smeta">captures</span></div>
+      <div class="snode"><span class="sdot"></span><span class="slabel">Leads</span><span class="smeta">arrive</span></div>
+      <div class="snode"><span class="sdot"></span><span class="slabel">CRM</span><span class="smeta">organised</span></div>
+      <div class="snode"><span class="sdot"></span><span class="slabel">Automation</span><span class="smeta">follows up</span></div>
+      <div class="snode"><span class="sdot"></span><span class="slabel">Growth</span><span class="smeta">compounds</span></div>
+    </div>
+   </div>
   </div>
 </header>
 
@@ -456,7 +509,6 @@
 
 <script>
 (function(){
-  var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   /* ---------- 1. HEADLINE MASK REVEAL ---------- */
   requestAnimationFrame(function(){
@@ -469,7 +521,6 @@
 
   /* ---------- 2. AMBIENT MESH (cursor parallax) ---------- */
   (function(){
-    if(reduce) return;
     var blobs=[].slice.call(document.querySelectorAll('.blob'));
     if(!blobs.length) return;
     var tx=0,ty=0,cx=0,cy=0,t=0,raf=null,active=true;
@@ -478,12 +529,10 @@
     },{passive:true});
     function loop(){
       cx+=(tx-cx)*0.045; cy+=(ty-cy)*0.045; t+=0.0026;
-      blobs.forEach(function(b,i){
-        var d=parseFloat(b.dataset.depth)||16;
-        var fx=Math.cos(t*(1+i*0.34)+i)*22;
-        var fy=Math.sin(t*(0.8+i*0.29)+i*1.7)*20;
-        b.style.transform='translate3d('+(cx*d+fx).toFixed(2)+'px,'+(cy*d+fy).toFixed(2)+'px,0)';
-      });
+      /* parallax moves the whole field; each blob keeps its own CSS drift,
+         so motion is guaranteed even without JS */
+      var m=document.querySelector('.mesh');
+      if(m) m.style.transform='translate3d('+(cx*34).toFixed(2)+'px,'+(cy*30).toFixed(2)+'px,0)';
       raf=requestAnimationFrame(loop);
     }
     var hero=document.querySelector('.hero');
