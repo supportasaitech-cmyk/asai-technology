@@ -115,8 +115,9 @@
   /* ---------- HERO ---------- */
   .hero{position:relative;min-height:100svh;display:flex;align-items:center;padding:126px 0 80px;overflow:hidden}
   .hero-inner{position:relative;z-index:2;width:100%}
-  .hero-tag{display:inline-flex;align-items:center;gap:10px;margin-bottom:26px}
-  .hero-tag .dot{width:7px;height:7px;border-radius:50%;background:var(--accent)}
+  .hero-tag{display:inline-flex;align-items:center;gap:9px;margin-bottom:24px;flex-wrap:wrap}
+  .hero-tag i{width:7px;height:7px;min-width:7px;min-height:7px;border-radius:50%;
+    background:var(--accent);display:inline-block;flex:0 0 auto}
 
   /* mask reveal */
   h1{font-weight:800;letter-spacing:-0.048em;line-height:1.04;margin-bottom:24px}
@@ -129,8 +130,8 @@
   @media(min-width:560px){ h1{font-size:clamp(26px,3.15vw,47px)} .ln .in{white-space:nowrap} }
   @media(max-width:559px){ h1{font-size:31px} }
 
-  .hero-sub{font-size:clamp(17px,1.55vw,20.5px);color:var(--ink-2);max-width:50ch;line-height:1.55;
-    margin-bottom:38px;text-wrap:balance;opacity:0;transform:translateY(18px);
+  .hero-sub{font-size:clamp(16px,1.4vw,18.5px);color:var(--ink-2);max-width:52ch;line-height:1.55;
+    margin-bottom:22px;text-wrap:balance;opacity:0;transform:translateY(18px);
     transition:opacity .9s ease .38s,transform .9s var(--ease) .38s}
   .hero-sub.go{opacity:1;transform:none}
   .hero-sub b{color:var(--ink);font-weight:700}
@@ -164,6 +165,12 @@
   .fb textarea:focus,.fb input:focus{outline:none}
   .fb ::placeholder{color:var(--ink-3);font-weight:400;font-style:italic}
   .frow{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
+  .phrow{display:flex;gap:7px}
+  .phrow .fb{flex:1;min-width:0}
+  select.ccode{border:1.5px solid var(--line-2);border-radius:var(--r-md);background:var(--tint);
+    color:var(--ink);font-family:'Manrope',sans-serif;font-size:14px;font-weight:700;
+    padding:12px 6px;cursor:pointer;max-width:96px}
+  select.ccode:focus{outline:none;border-color:var(--accent);background:#fff;box-shadow:0 0 0 4px var(--accent-soft)}
   .submit{width:100%;margin-top:16px;padding:15px;border:none;border-radius:13px;cursor:pointer;
     background:var(--ink);color:#fff;font-family:'Manrope',sans-serif;font-size:15px;font-weight:800;
     letter-spacing:-0.01em;transition:background .25s ease,transform .25s var(--ease)}
@@ -258,11 +265,11 @@
   /* minmax(0,…) is essential: plain 1fr has min-width:auto, so the nowrap
      headline would force the left column wider and crush the panel. */
   .hero-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);
-    gap:clamp(28px,3.4vw,54px);align-items:center}
+    gap:clamp(28px,3.4vw,54px);align-items:start}
   @media(max-width:1080px){ .hero-grid{grid-template-columns:minmax(0,1fr)} .torch{margin-top:52px} }
   .torch{position:relative}
-  .torch-head{font-size:13px;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;
-    color:var(--ink-3);margin-bottom:14px}
+  .torch-head{font-size:clamp(19px,2.1vw,26px);font-weight:800;letter-spacing:-0.03em;
+    color:var(--ink);margin-bottom:14px}
   .torch-panel{position:relative;background:#131110;border-radius:22px;overflow:hidden;
     height:clamp(400px,58vh,560px);cursor:crosshair;
     box-shadow:0 18px 50px rgba(20,18,15,0.20),inset 0 0 0 1px rgba(255,255,255,0.06)}
@@ -315,13 +322,11 @@
   <div class="wrap hero-inner" style="max-width:1360px">
    <div class="hero-grid">
     <div>
-    <span class="hero-tag eyebrow"><span class="dot"></span>Websites · Automation · Growth</span>
+    <span class="hero-tag eyebrow"><i></i>Websites<i></i>Automation<i></i>Growth</span>
     <h1>
       <span class="ln"><span class="in">Build a Business That Works.</span></span>
       <span class="ln"><span class="in dim">Even When You Don't.</span></span>
     </h1>
-    <p class="hero-sub">We build the <b>websites</b>, <b>automation</b> and <b>growth systems</b> that keep earning while you sleep — designed, engineered and handed over in full.</p>
-
     <form class="startform" action="https://formsubmit.co/support.asaitech@gmail.com" method="POST">
       <input type="hidden" name="_subject" value="New project brief from asai-technology.pages.dev">
       <input type="hidden" name="_captcha" value="false">
@@ -348,7 +353,10 @@
         </div>
         <div>
           <label class="fl" for="phone">WhatsApp number</label>
-          <div class="fb"><input id="phone" name="whatsapp" type="tel" placeholder="+91 98765 43210" required></div>
+          <div class="phrow">
+            <select class="ccode" name="country_code" aria-label="Country code"></select>
+            <div class="fb"><input id="phone" name="whatsapp" type="tel" placeholder="98765 43210" required></div>
+          </div>
         </div>
       </div>
 
@@ -358,21 +366,25 @@
     </div>
 
     <div class="torch">
+      <p class="hero-sub">We build the <b>websites</b>, <b>automation</b> and <b>growth systems</b> that keep earning while you sleep — designed, engineered and handed over in full.</p>
       <div class="torch-head">The things you can't see</div>
       <div class="torch-panel" id="torchPanel">
         <div class="grain"></div>
-        <span class="tw" style="left:8%;top:7%">Dead pages</span>
-        <span class="tw" style="left:47%;top:13%">Poor Core Web Vitals</span>
-        <span class="tw" style="left:13%;top:21%">Redirect chains</span>
-        <span class="tw" style="left:52%;top:29%">Untracked conversions</span>
-        <span class="tw" style="left:6%;top:37%">Missing schema</span>
-        <span class="tw" style="left:45%;top:45%">Silent form failures</span>
-        <span class="tw" style="left:9%;top:53%">Render-blocking scripts</span>
-        <span class="tw" style="left:54%;top:61%">Poor-quality leads</span>
-        <span class="tw" style="left:14%;top:69%">Manual data entry</span>
-        <span class="tw" style="left:48%;top:77%">Invisible to AI search</span>
-        <span class="tw" style="left:7%;top:85%">Abandoned enquiries</span>
-        <span class="tw" style="left:43%;top:93%">No follow-up sequence</span>
+        <span class="tw" style="left:6%;top:5%">Dead pages</span>
+        <span class="tw" style="left:60%;top:5%">Index bloat</span>
+        <span class="tw" style="left:31%;top:14%">Redirect chains</span>
+        <span class="tw" style="left:5%;top:23%">Poor Core Web Vitals</span>
+        <span class="tw" style="left:63%;top:23%">Crawl waste</span>
+        <span class="tw" style="left:33%;top:32%">Missing schema</span>
+        <span class="tw" style="left:6%;top:41%">Silent form failures</span>
+        <span class="tw" style="left:62%;top:41%">Stale data</span>
+        <span class="tw" style="left:29%;top:50%">Render-blocking scripts</span>
+        <span class="tw" style="left:6%;top:59%">Untracked conversions</span>
+        <span class="tw" style="left:63%;top:59%">Thin content</span>
+        <span class="tw" style="left:31%;top:68%">Poor-quality leads</span>
+        <span class="tw" style="left:6%;top:77%">Invisible to AI search</span>
+        <span class="tw" style="left:61%;top:77%">Broken links</span>
+        <span class="tw" style="left:29%;top:86%">Manual data entry</span>
         <div class="beam" id="beam"></div>
       </div>
       <p class="torch-foot"><b>Hidden funnels and broken tech are quietly draining your sales.</b> We find the leaks, automate your workflows, and scale your growth.</p>
@@ -643,5 +655,6 @@
   });
 })();
 </script>
+<script src="country-codes.js" defer></script>
 </body>
 </html>
