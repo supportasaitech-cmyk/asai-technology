@@ -487,5 +487,49 @@
 })();
 </script>
 
+<script>
+/* International visitors never see the INR packages.
+   Razorpay bills in INR, and the rupee figures read as bargain-bin pricing
+   outside South Asia — so non-India traffic is routed to a scoped quote instead.
+   Runs last so it overrides the add-on price recalculation above. */
+(function(){
+  function isSouthAsia(){
+    try{
+      var tz=Intl.DateTimeFormat().resolvedOptions().timeZone||'';
+      if(/Asia\/(Kolkata|Calcutta|Colombo|Dhaka|Karachi|Kathmandu)/.test(tz)) return true;
+      if(/-(IN|LK|BD|PK|NP)$/.test((navigator.language||'').toUpperCase())) return true;
+    }catch(e){}
+    return false;
+  }
+  if(isSouthAsia()) return;
+
+  document.querySelectorAll('.plan').forEach(function(plan){
+    var price=plan.querySelector('.price');
+    if(price) price.innerHTML='<span class="amt" style="font-size:26px;letter-spacing:-0.02em">Custom quote</span>';
+
+    var note=plan.querySelector('.price-note');
+    if(note) note.textContent='Priced to scope · final draft in 24 hours';
+
+    /* month multipliers only make sense against a rupee figure */
+    var sel=plan.querySelector('.p-select');
+    if(sel && sel.parentElement) sel.parentElement.style.display='none';
+
+    var btn=plan.querySelector('.plan-btn');
+    if(btn){
+      btn.textContent='Get My Quote →';
+      btn.setAttribute('onclick',"location.href='get-started.html'");
+    }
+  });
+
+  var first=document.querySelector('.plans');
+  if(first){
+    var n=document.createElement('p');
+    n.style.cssText='max-width:640px;margin:0 auto 34px;text-align:center;font-size:15px;line-height:1.6;opacity:0.7';
+    n.textContent='Working outside India? We scope and quote each project individually so you pay for what you actually need. Tell us what you are building and you will have a figure back the same day.';
+    first.parentNode.insertBefore(n,first);
+  }
+})();
+</script>
+
 </body>
 </html>

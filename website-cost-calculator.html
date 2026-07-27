@@ -20,7 +20,7 @@
 </script>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
-{"@type":"Question","name":"How much should a business website cost?","acceptedAnswer":{"@type":"Answer","text":"A single-page professional site typically starts around ₹4,999 (about $300). A 2–5 page business site runs ₹9,999–₹14,999 ($800–$1,500), and a larger site with e-commerce or booking can reach ₹40,000+ ($4,000+). Price depends on page count, features, design depth and timeline."}},
+{"@type":"Question","name":"How much should a business website cost?","acceptedAnswer":{"@type":"Answer","text":"It depends on page count, features, design depth and timeline. A single professional page is the entry point, a 2–5 page business site is the most common build, and a larger site with e-commerce or booking sits well above that. Use the calculator on this page for a range matched to your scope."}},
 {"@type":"Question","name":"Why are website quotes so different?","acceptedAnswer":{"@type":"Answer","text":"Because the work behind them differs. A template assembled in a page builder costs little but loads slowly and looks generic. A hand-coded site takes longer to build but is faster, ranks better and is yours to keep with no lock-in."}},
 {"@type":"Question","name":"Does a higher price mean a better website?","acceptedAnswer":{"@type":"Answer","text":"Not automatically. What matters is whether the site is custom-built, fast, search-optimised and owned by you. Large agency fees often cover overhead rather than better engineering."}}
 ]}
@@ -73,10 +73,9 @@
 
   .out{position:sticky;top:86px;background:var(--ink);color:#fff;border-radius:22px;padding:clamp(24px,3vw,34px)}
   @media(max-width:940px){.out{position:static}}
-  .cur{display:flex;gap:6px;background:rgba(255,255,255,0.10);padding:4px;border-radius:100px;width:fit-content;margin-bottom:20px}
-  .cur button{border:none;background:transparent;color:rgba(255,255,255,0.65);font-family:'Manrope',sans-serif;
-    font-size:13px;font-weight:800;padding:7px 15px;border-radius:100px;cursor:pointer;transition:all .2s var(--ease)}
-  .cur button[aria-pressed="true"]{background:#fff;color:var(--ink)}
+  /* Both currency cells start hidden so the two scales can never appear
+     together, even for a frame. JS reveals only the visitor's own. */
+  .cINR,.cUSD{display:none}
   .out .ok{font-size:12px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.55)}
   .amt{font-size:clamp(30px,4.2vw,44px);font-weight:800;letter-spacing:-0.04em;line-height:1.05;margin:10px 0 6px}
   .amt .dash{color:var(--accent)}
@@ -193,10 +192,6 @@
 
     <!-- OUTPUT -->
     <div class="out">
-      <div class="cur" role="group" aria-label="Currency">
-        <button type="button" data-c="INR" aria-pressed="true">₹ INR</button>
-        <button type="button" data-c="USD" aria-pressed="false">$ USD</button>
-      </div>
       <div class="ok">Estimated range</div>
       <div class="amt" id="amt">—</div>
       <div class="deliv" id="deliv"></div>
@@ -234,11 +229,11 @@
 
     <h2>Typical ranges</h2>
     <table class="tbl">
-      <tr><th>Build</th><th>India</th><th>US / UK</th></tr>
-      <tr><td>Single professional page</td><td class="p">₹4,999–₹7,999</td><td class="p">$300–$600</td></tr>
-      <tr><td>Business site (2–5 pages)</td><td class="p">₹9,999–₹14,999</td><td class="p">$800–$1,500</td></tr>
-      <tr><td>Larger site (6–10 pages)</td><td class="p">₹24,999–₹34,999</td><td class="p">$2,000–$3,500</td></tr>
-      <tr><td>Store / platform (10+)</td><td class="p">₹39,999+</td><td class="p">$4,000+</td></tr>
+      <tr><th>Build</th><th>Typical range</th></tr>
+      <tr><td>Single professional page</td><td class="p cINR">₹4,999–₹7,999</td><td class="p cUSD">$300–$600</td></tr>
+      <tr><td>Business site (2–5 pages)</td><td class="p cINR">₹9,999–₹14,999</td><td class="p cUSD">$800–$1,500</td></tr>
+      <tr><td>Larger site (6–10 pages)</td><td class="p cINR">₹24,999–₹34,999</td><td class="p cUSD">$2,000–$3,500</td></tr>
+      <tr><td>Store / platform (10+)</td><td class="p cINR">₹39,999+</td><td class="p cUSD">$4,000+</td></tr>
     </table>
 
     <h2>Two questions worth asking any developer</h2>
@@ -274,7 +269,18 @@
   var FEAT_NAME={ecom:'Online store',pay:'Payments',book:'Bookings',blog:'Blog / CMS',lang:'Multi-language',ai:'AI assistant'};
   var DELIV={'1':'2 days','2-5':'3 days','6-10':'5–7 days','10+':'1–2 weeks'};
 
-  var st={pages:'2-5',feats:{},design:'std',time:'std',cur:'INR'};
+  /* Currency is decided by the visitor's region and never shown side by side.
+     South Asia sees INR; everyone else sees the USD scale. */
+  function regionCurrency(){
+    try{
+      var tz=Intl.DateTimeFormat().resolvedOptions().timeZone||'';
+      if(/Asia\/(Kolkata|Calcutta|Colombo|Dhaka|Karachi|Kathmandu)/.test(tz)) return 'INR';
+      var loc=(navigator.language||'').toUpperCase();
+      if(/-(IN|LK|BD|PK|NP)$/.test(loc)) return 'INR';
+    }catch(e){}
+    return 'USD';
+  }
+  var st={pages:'2-5',feats:{},design:'std',time:'std',cur:regionCurrency()};
 
   function money(n,c){ var p=P[c]; return p.sym+Math.round(n).toLocaleString(p.loc); }
 
@@ -323,13 +329,6 @@
   group('designOpts','design',false);
   group('timeOpts','time',false);
 
-  document.querySelectorAll('.cur button').forEach(function(b){
-    b.addEventListener('click',function(){
-      document.querySelectorAll('.cur button').forEach(function(x){ x.setAttribute('aria-pressed',x===b); });
-      st.cur=b.dataset.c; calc();
-    });
-  });
-
   document.getElementById('lockBtn').addEventListener('click',function(){
     var l=document.getElementById('leadBox');
     l.scrollIntoView({behavior:'smooth',block:'center'});
@@ -353,6 +352,10 @@
       +'<p style="color:var(--ink-2);max-width:38ch;margin:0 auto">We\'ll confirm your exact price and timeline today — usually within a couple of hours.</p></div>';
     lb.scrollIntoView({block:'center'});
   }
+
+  /* reveal only the visitor's currency in the reference table */
+  document.querySelectorAll(st.cur==='INR' ? '.cUSD' : '.cINR').forEach(function(el){ el.remove(); });
+  document.querySelectorAll(st.cur==='INR' ? '.cINR' : '.cUSD').forEach(function(el){ el.style.display='table-cell'; });
 
   calc();
 })();
