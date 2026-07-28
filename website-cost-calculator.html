@@ -90,6 +90,11 @@
     transition:background .25s ease,transform .25s var(--ease)}
   .lockbtn:hover{background:#fff;color:var(--ink);transform:translateY(-2px)}
   .fineprint{font-size:12px;color:rgba(255,255,255,0.45);margin-top:14px;line-height:1.5}
+  .softout{margin-top:18px;padding-top:16px;border-top:1px solid rgba(255,255,255,0.14);
+    display:flex;flex-direction:column;gap:9px}
+  .softlabel{font-size:11px;font-weight:800;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.4)}
+  .soft{font-size:14px;font-weight:700;color:rgba(255,255,255,0.9);transition:color .2s var(--ease)}
+  .soft:hover{color:var(--accent)}
 
   .lead{background:var(--bg-2);border:1px solid var(--line);border-radius:22px;
     padding:clamp(26px,3.4vw,44px);margin:20px 0 10px}
@@ -198,6 +203,13 @@
       <div class="brk" id="brk"></div>
       <button class="lockbtn" id="lockBtn">Lock this estimate →</button>
       <p class="fineprint">A real range, not a sales anchor. The exact price is confirmed in writing before any work starts — fixed scope, no hourly billing.</p>
+      <!-- Soft exits: most people who see a price are not ready to hand over
+           contact details yet. Without these they simply leave. -->
+      <div class="softout">
+        <span class="softlabel">Not ready to commit?</span>
+        <a class="soft" href="index.html" data-soft="work">See what we build →</a>
+        <a class="soft" href="free-website-audit.html" data-soft="scorecard">Get my free Website Scorecard →</a>
+      </div>
     </div>
   </div>
 
@@ -255,6 +267,11 @@
 <script>
 (function(){
   function ev(n,p){ if(typeof gtag==='function') gtag('event',n,p||{}); }
+
+  /* which soft exit people take when they will not hand over contact details */
+  document.querySelectorAll('.soft').forEach(function(a){
+    a.addEventListener('click',function(){ ev('tool_soft_exit',{tool:'website_cost',destination:a.dataset.soft}); });
+  });
 
   /* USD is its own scale, not an FX conversion of INR —
      Western market rates for the same scope. */
