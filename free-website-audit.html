@@ -126,15 +126,21 @@
   .req .pts li::before { content:'✓'; color:var(--cyan); font-weight:700; }
   form { display:flex; flex-direction:column; }
   .fld { margin-bottom:15px; }
-  label { display:block; font-family:'Space Mono',monospace; font-size:11.5px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:var(--cyan); margin-bottom:8px; text-shadow:0 0 10px rgba(63,224,216,0.35); }
-  input, textarea { width:100%; background:var(--paper); border:1.5px solid rgba(63,224,216,0.45); border-radius:12px;
-    padding:14px 16px; color:var(--ink); font-family:'Archivo',sans-serif; font-size:16px; font-weight:600; resize:vertical;
+  /* Labels are dark and plainly readable — the old cyan-on-beige with a glow
+     was decorative but people could not read what to type. */
+  /* This form sits on the dark request panel, so labels must be light.
+     Plain readable weight — the old cyan Space Mono with a glow was unreadable. */
+  label { display:block; font-family:'Archivo',sans-serif; font-size:14px; font-weight:800;
+    letter-spacing:-0.01em; text-transform:none; color:#fff; margin-bottom:8px; }
+  /* White fill + firm border so the box reads as "type here", not "already filled" */
+  input, textarea { width:100%; background:#fff; border:1.5px solid rgba(19,18,21,0.30); border-radius:12px;
+    padding:15px 16px; color:var(--ink); font-family:'Archivo',sans-serif; font-size:16.5px; font-weight:600; resize:vertical;
     transition:border-color 0.2s ease, box-shadow 0.2s ease; }
-  input::placeholder, textarea::placeholder { color:var(--ink-40); font-weight:400; }
-  input:focus, textarea:focus { outline:none; border-color:var(--cyan); box-shadow:0 0 0 3px rgba(63,224,216,0.3); background:#fff; }
+  input::placeholder, textarea::placeholder { color:rgba(19,18,21,0.38); font-weight:400; }
+  input:focus, textarea:focus { outline:none; border-color:var(--accent); box-shadow:0 0 0 3px rgba(255,77,0,0.18); }
   .phone-row { display:flex; gap:10px; }
   .phone-row input { flex:1; }
-  .ccode { background:var(--paper); border:1.5px solid rgba(63,224,216,0.45); border-radius:12px; padding:14px 10px; color:var(--ink); font-family:'Archivo',sans-serif; font-size:15px; font-weight:700; cursor:pointer; }
+  .ccode { background:#fff; border:1.5px solid rgba(19,18,21,0.30); border-radius:12px; padding:15px 10px; color:var(--ink); font-family:'Archivo',sans-serif; font-size:15px; font-weight:700; cursor:pointer; }
   .ccode:focus { outline:none; border-color:var(--cyan); box-shadow:0 0 0 3px rgba(63,224,216,0.3); }
   .ccode option { color:#111; }
   .submit { font-family:'Space Mono',monospace; font-size:12.5px; letter-spacing:0.05em; text-transform:uppercase; font-weight:700;

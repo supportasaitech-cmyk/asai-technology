@@ -157,13 +157,18 @@
 
   .fl{display:block;font-size:11.5px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;
     color:var(--ink);margin-bottom:7px}
-  .fb{position:relative;border:1.5px solid var(--line-2);border-radius:var(--r-md);background:var(--tint);
+  /* White fill on the tinted card so the box reads as an empty field to type in.
+     The old beige fill matched the card and looked like it was already filled. */
+  .fb{position:relative;border:1.5px solid rgba(20,18,15,0.30);border-radius:var(--r-md);background:#F4F4F2;
+    box-shadow:inset 0 2px 4px rgba(20,18,15,0.06);
     transition:border-color .28s ease,background .28s ease,box-shadow .28s ease}
-  .fb:focus-within{border-color:var(--accent);background:#fff;box-shadow:0 0 0 4px var(--accent-soft)}
+  .fb:focus-within{border-color:var(--accent);background:#fff;
+    box-shadow:0 0 0 4px var(--accent-soft)}
   .fb textarea,.fb input{width:100%;background:transparent;border:none;color:var(--ink);
-    font-family:'Manrope',sans-serif;font-size:15px;font-weight:600;padding:12px 14px;resize:none;line-height:1.45}
+    font-family:'Manrope',sans-serif;font-size:15.5px;font-weight:600;padding:13px 15px;resize:none;line-height:1.45}
   .fb textarea:focus,.fb input:focus{outline:none}
-  .fb ::placeholder{color:var(--ink-3);font-weight:400;font-style:italic}
+  /* not italic — italic placeholder text reads as real content */
+  .fb ::placeholder{color:rgba(20,18,15,0.38);font-weight:400;font-style:normal}
   .frow{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
   .phrow{display:flex;gap:7px}
   .phrow .fb{flex:1;min-width:0}
