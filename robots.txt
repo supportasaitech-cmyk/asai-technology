@@ -3,4 +3,4 @@ Allow: /
 Disallow: /pay.html
 Disallow: /invoice.html
 
-Sitemap: https://asai-technology.pages.dev/sitemap.xml
+Sitemap: https://asaitechnology.com/sitemap.xml
